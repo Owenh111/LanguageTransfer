@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="220.0" prefWidth="344.0" spacing="20.0" style="-fx-background-color: #ffa200;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Controller.HelloController">
+<VBox alignment="CENTER" prefHeight="220.0" prefWidth="344.0" spacing="20.0" style="-fx-background-color: #ffa200;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Controller.Homepage">
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
