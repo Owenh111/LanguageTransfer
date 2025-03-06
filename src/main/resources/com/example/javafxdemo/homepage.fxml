@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="220.0" prefWidth="344.0" spacing="20.0" style="-fx-background-color: #ffa200;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Controller.HelloController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <ImageView fitHeight="84.0" fitWidth="331.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../images/LangTrans.png" />
+    </ImageView>
+   <ParallelCamera />
+   <Label text="English to Italian" textFill="#711fe0">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+   <PointLight color="CHARTREUSE" lightOn="true" />
+    <Button defaultButton="true" onAction="#onStartButtonClick" prefHeight="44.0" prefWidth="154.0" text="Start">
+      <font>
+         <Font size="20.0" />
+      </font></Button>
+   <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="115.0" text="Pick a topic">
+      <font>
+         <Font size="15.0" />
+      </font></Button>
+   <Button mnemonicParsing="false" text="FAQ">
+      <font>
+         <Font size="15.0" />
+      </font></Button>
+
+    <Label fx:id="welcomeText" />
+</VBox>
