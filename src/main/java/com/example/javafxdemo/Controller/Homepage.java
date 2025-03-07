@@ -2,6 +2,7 @@ package com.example.javafxdemo.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -17,11 +18,11 @@ public class Homepage {
     @FXML
     protected void onStartButtonClick() {
 
-        welcomeText.setText("On button click works!");
+        welcomeText.setText("blahblah");
         try {
             // Load the new FXML file (ie window)
-            FXMLLoader loader = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("introduction.fxml")));
-            AnchorPane root = loader.load(); // Load the new scene
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("introduction.fxml")));
+
 
             // Get the current stage
             Stage stage = (Stage) welcomeText.getScene().getWindow();
@@ -30,7 +31,7 @@ public class Homepage {
             Scene newScene = new Scene(root);
             stage.setScene(newScene);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(getClass().getResource("introduction.fxml"));
         }
     }
 }
