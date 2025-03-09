@@ -3,27 +3,132 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Controller.Introduction">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
    <children>
-      <Accordion layoutX="76.0" layoutY="73.0" />
-      <TabPane layoutX="-3.0" layoutY="-2.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="styles.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab fx:id="tab1" closable="false" text="Introductory Tab 1">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="600.0">
                      <children>
-                         <ImageView fitHeight="110.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
-                             <Image url="@../../../images/LangTrans.png" />
-                         </ImageView>
+                        <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="163.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/IntroImage_1.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="1/5">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="86.0" layoutY="41.0" prefHeight="71.0" prefWidth="427.0" text="In this course you will learn using concepts you will be familiar with from English. You will also learn simple Italian-language concepts at a manageable pace. " textAlignment="CENTER" wrapText="true" />
+                        <Button id="toTab2" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="404.0" />
-            </content>
+          <Tab fx:id="tab2" closable="false" text="Introductory Tab 2">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="201.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../images/IntroImage_2.png" />
+                              </image>
+                          </ImageView>
+                          <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="2/5">
+                              <font>
+                                  <Font size="20.0" />
+                              </font>
+                          </Label>
+                          <Button id="toTab3" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
+                              <font>
+                                  <Font size="20.0" />
+                              </font>
+                          </Button>
+                        <Label layoutX="190.0" layoutY="61.0" prefHeight="19.0" prefWidth="290.0" text="There is no need to write anything down." textAlignment="CENTER" wrapText="true" />
+                        <Label layoutX="64.0" layoutY="78.0" prefHeight="47.0" prefWidth="494.0" text="The course is designed for you to learn intuitively, but we will ensure you never get stuck." textAlignment="CENTER" wrapText="true" />
+                      </children></AnchorPane>
+              </content>
           </Tab>
+            <Tab fx:id="tab3" closable="false" text="Introductory Tab 3">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../../images/IntroImage_3.png" />
+                                </image>
+                            </ImageView>
+                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="3/5">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
+                            <Button id="toTab4" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Button>
+                            <Label layoutX="26.0" layoutY="61.0" prefHeight="17.0" prefWidth="548.0" text="You should do however much you feel excited about doing, and then stop when you feel less enthused." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="53.0" layoutY="78.0" prefHeight="17.0" prefWidth="494.0" text="We won't set goals, as this can make learning into a chore and cause you to lose momentum." />
+                        </children></AnchorPane>
+                </content>
+            </Tab>
+            <Tab fx:id="tab4" text="Introductory Tab 4">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../../images/IntroImage_4.png" />
+                                </image>
+                            </ImageView>
+                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="4/5">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
+                            <Button id="toTab5" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Button>
+                            <Label layoutX="65.0" layoutY="61.0" prefHeight="17.0" prefWidth="470.0" text="There are a few types of exercises; these will be introduced one by one as you go along." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="42.0" layoutY="78.0" prefHeight="17.0" prefWidth="517.0" text="Every so often, there will be quick quizzes, but don't worry - if you don't pass, we'll help you out." />
+                        </children></AnchorPane>
+                </content>
+            </Tab>
+            <Tab fx:id="tab5" text="Introductory Tab 5">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="5/5">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
+                            <Button disable="true" layoutX="397.0" layoutY="301.0" mnemonicParsing="false" prefWidth="172.0" text="OK, let's begin!">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Button>
+                            <Label layoutX="93.0" layoutY="61.0" prefHeight="17.0" prefWidth="414.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="35.0" layoutY="78.0" prefHeight="17.0" prefWidth="531.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." />
+                        <RadioButton layoutX="93.0" layoutY="169.0" mnemonicParsing="false" text="I have a microphone and am happy to do speaking exercises">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="micToggleGroup" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton layoutX="93.0" layoutY="201.0" mnemonicParsing="false" text="I do not have a microphone/do not want to do speaking exercises" toggleGroup="$micToggleGroup" />
+                        <Label layoutX="64.0" layoutY="315.0" text="Once you've done that, let's start the course!" />
+                        </children></AnchorPane>
+                </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

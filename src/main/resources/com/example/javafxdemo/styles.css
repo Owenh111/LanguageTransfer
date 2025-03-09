@@ -1,0 +1,120 @@
+/* General App Background */
+.root {
+    -fx-background-color: #f5f5f5;  /* Light grey background */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Tab Pane Styles */
+.tab-pane {
+    -fx-background-color: #ffffff;  /* White background for the TabPane */
+}
+
+/* Active Tab Style */
+.tab:selected {
+    -fx-background-color: #ff6f00;  /* Darker shade of base color */
+    -fx-text-fill: white;  /* White text color for selected tab */
+    -fx-font-weight: bold;  /* Bold text for the selected tab */
+}
+
+/* Inactive Tab Style */
+.tab {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;  /* Light text color */
+}
+
+/* Tab Content */
+.tab-content {
+    -fx-background-color: #ffffff;  /* White background for tab content */
+    -fx-padding: 20px;  /* Add padding for content inside the tab */
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #ffa200;  /* Base color for buttons */
+    -fx-text-fill: white;  /* White text */
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-effect: innershadow(gaussian, #ff6f00, 10, 0, 0, 1); /* Inner shadow effect */
+}
+
+/* Button Hover Effect */
+.button:hover {
+    -fx-background-color: #ff6f00;  /* Darker shade for button hover */
+    -fx-background-insets: 0, 1;
+    -fx-effect: innershadow(gaussian, #ff6f00, 10, 0, 0, 1);  /* Keep hover effect */
+}
+
+/* Button Focused Effect */
+.button:focused {
+    -fx-background-color: #ff6f00;
+    -fx-text-fill: white;
+    -fx-border-color: #ff6f00;
+}
+
+/* Buttons in Tabs */
+.tab .button {
+    -fx-background-color: #ff6f00;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #333333;  /* Dark text for labels */
+    -fx-font-size: 16px;
+}
+
+/* Text Field and Text Area */
+.text-field, .text-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;  /* Light gray border for input fields */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;  /* Dark text for text fields */
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #ffa200;  /* Focus color matching the base color */
+    -fx-background-color: #f7f7f7;  /* Light background on focus */
+}
+
+/* Scroll Pane Styling */
+.scroll-pane {
+    -fx-background-color: #ffffff;
+}
+
+/* Tooltips */
+.tooltip {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-background-radius: 5px;
+}
+
+/* Custom ComboBox Styling */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #ffa200;  /* Button color */
+    -fx-text-fill: white;
+}
+
+/* AnchorPane or other layout containers */
+.anchor-pane {
+    -fx-background-color: transparent;
+}
+
+/* Hiding Tab Headers (Optional) */
+.tab-header-area {
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    visibility: hidden;
+}

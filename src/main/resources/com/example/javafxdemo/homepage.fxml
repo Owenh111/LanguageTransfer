@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="220.0" prefWidth="344.0" spacing="20.0" style="-fx-background-color: #ffa200;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Controller.Homepage">
+<VBox alignment="CENTER" prefHeight="220.0" prefWidth="344.0" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Homepage">
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
@@ -20,12 +20,11 @@
          <Font size="30.0" />
       </font>
    </Label>
-   <PointLight color="CHARTREUSE" lightOn="true" />
-    <Button defaultButton="true" onAction="#onStartButtonClick" prefHeight="44.0" prefWidth="154.0" text="Start">
+    <Button onAction="#onStartButtonClick" prefHeight="44.0" prefWidth="154.0" text="Start">
       <font>
          <Font size="20.0" />
       </font></Button>
-   <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="115.0" text="Pick a topic">
+   <Button disable="true" mnemonicParsing="false" prefHeight="44.0" prefWidth="154.0" text="Pick a topic">
       <font>
          <Font size="15.0" />
       </font></Button>
