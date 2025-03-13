@@ -22,7 +22,7 @@ public class Homepage {
         Stage stage = (Stage) welcomeText.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            /** NOTE: only works when Homepage.java is in this exact folder
+            /** NOTE: only works when Homepage.java is in this exact package
              * if moving folder may need to change code in module-info.java manually **/
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("introduction.fxml")));
 
