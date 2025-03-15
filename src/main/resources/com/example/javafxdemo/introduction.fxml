@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
+<AnchorPane maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
    <children>
-      <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="styles.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="styles.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tab1" closable="false" text="Introductory Tab 1">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="600.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0">
                      <children>
                         <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="163.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -36,7 +36,7 @@
               <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                          <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="201.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                          <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="201.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
                               <image>
                                   <Image url="@../../../images/IntroImage_2.png" />
                               </image>
@@ -51,7 +51,7 @@
                                   <Font size="20.0" />
                               </font>
                           </Button>
-                        <Label layoutX="190.0" layoutY="61.0" prefHeight="19.0" prefWidth="290.0" text="There is no need to write anything down." textAlignment="CENTER" wrapText="true" />
+                        <Label layoutX="166.0" layoutY="59.0" prefHeight="19.0" prefWidth="290.0" text="There is no need to write anything down." textAlignment="CENTER" wrapText="true" />
                         <Label layoutX="64.0" layoutY="78.0" prefHeight="47.0" prefWidth="494.0" text="The course is designed for you to learn intuitively, but we will ensure you never get stuck." textAlignment="CENTER" wrapText="true" />
                       </children></AnchorPane>
               </content>
@@ -60,7 +60,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../../images/IntroImage_3.png" />
                                 </image>
@@ -75,8 +75,8 @@
                                     <Font size="20.0" />
                                 </font>
                             </Button>
-                            <Label layoutX="26.0" layoutY="61.0" prefHeight="17.0" prefWidth="548.0" text="You should do however much you feel excited about doing, and then stop when you feel less enthused." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="53.0" layoutY="78.0" prefHeight="17.0" prefWidth="494.0" text="We won't set goals, as this can make learning into a chore and cause you to lose momentum." />
+                            <Label layoutX="26.0" layoutY="44.0" prefHeight="46.0" prefWidth="548.0" text="You should do however much you feel excited about doing, and then stop when you feel less enthused." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="53.0" layoutY="102.0" prefHeight="46.0" prefWidth="494.0" text="We won't set goals, as this can make learning into a chore and cause you to lose momentum." textAlignment="CENTER" wrapText="true" />
                         </children></AnchorPane>
                 </content>
             </Tab>
@@ -84,7 +84,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="186.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../../images/IntroImage_4.png" />
                                 </image>
@@ -99,12 +99,12 @@
                                     <Font size="20.0" />
                                 </font>
                             </Button>
-                            <Label layoutX="65.0" layoutY="61.0" prefHeight="17.0" prefWidth="470.0" text="There are a few types of exercises; these will be introduced one by one as you go along." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="42.0" layoutY="78.0" prefHeight="17.0" prefWidth="517.0" text="Every so often, there will be quick quizzes, but don't worry - if you don't pass, we'll help you out." />
+                            <Label layoutX="66.0" layoutY="44.0" prefHeight="44.0" prefWidth="470.0" text="There are a few types of exercises; these will be introduced one by one as you go along." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="42.0" layoutY="107.0" prefHeight="41.0" prefWidth="517.0" text="Every so often, there will be quick quizzes, but don't worry - if you don't pass, we'll help you out." textAlignment="CENTER" wrapText="true" />
                         </children></AnchorPane>
                 </content>
             </Tab>
-            <Tab fx:id="tab5" text="Introductory Tab 5">
+            <Tab id="radioButtonNo" fx:id="tab5" text="Introductory Tab 5">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
@@ -113,18 +113,18 @@
                                     <Font size="20.0" />
                                 </font>
                             </Label>
-                            <Button disable="true" layoutX="397.0" layoutY="301.0" mnemonicParsing="false" prefWidth="172.0" text="OK, let's begin!">
+                            <Button id="btnBegin" fx:id="beginButton" disable="true" layoutX="397.0" layoutY="301.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefWidth="172.0" text="OK, let's begin!">
                                 <font>
                                     <Font size="20.0" />
                                 </font>
                             </Button>
-                            <Label layoutX="93.0" layoutY="61.0" prefHeight="17.0" prefWidth="414.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="35.0" layoutY="78.0" prefHeight="17.0" prefWidth="531.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." />
-                        <RadioButton layoutX="93.0" layoutY="169.0" mnemonicParsing="false" text="I have a microphone and am happy to do speaking exercises">
+                            <Label layoutX="93.0" layoutY="44.0" prefHeight="46.0" prefWidth="414.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="35.0" layoutY="101.0" prefHeight="50.0" prefWidth="531.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." textAlignment="CENTER" wrapText="true" />
+                        <RadioButton id="radioButtonYes" fx:id="radioButtonYes" layoutX="93.0" layoutY="169.0" mnemonicParsing="false" onAction="#enableContinue" text="I have a microphone and am happy to do speaking exercises">
                            <toggleGroup>
                               <ToggleGroup fx:id="micToggleGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton layoutX="93.0" layoutY="201.0" mnemonicParsing="false" text="I do not have a microphone/do not want to do speaking exercises" toggleGroup="$micToggleGroup" />
+                        <RadioButton id="radioButtonNo" fx:id="radioButtonNo" layoutX="93.0" layoutY="201.0" mnemonicParsing="false" onAction="#enableContinue" text="I do not have a microphone/do not want to do speaking exercises" toggleGroup="$micToggleGroup" />
                         <Label layoutX="64.0" layoutY="315.0" text="Once you've done that, let's start the course!" />
                         </children></AnchorPane>
                 </content>

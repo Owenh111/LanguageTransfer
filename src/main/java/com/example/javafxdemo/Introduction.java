@@ -2,10 +2,13 @@ package com.example.javafxdemo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class Introduction {
@@ -14,6 +17,14 @@ public class Introduction {
 
     @FXML
     private Tab tab2, tab3, tab4, tab5;
+
+    @FXML
+    private Button beginButton;
+
+    @FXML
+    private ToggleGroup micToggleGroup;
+
+    public String micPreference;
 
     @FXML
     public void goToNextTab(ActionEvent event) {
@@ -30,5 +41,54 @@ public class Introduction {
             } else if (Objects.equals(buttonName, "toTab5")) {
                 tabPane.getSelectionModel().select(tab5);
             }
+    }
+
+    public void enableContinue(){
+        beginButton.setDisable(false);
+    }
+
+    public void saveMicPreference() {
+        RadioButton selectedRadioButton = (RadioButton) micToggleGroup.getSelectedToggle();
+
+        micPreference = selectedRadioButton.getId();
+    }
+
+    public String getMicPreference() {
+        return micPreference;
+    }
+
+    @FXML
+    protected void onStartButtonClick() {
+        saveMicPreference();
+        // Get the current stage
+        Stage stage = (Stage) beginButton.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+
+            stage.setScene(newScene);
+
+            stage.setMaximized(true);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+
+        }
+    }
+
+    public Scene getTestScene() {
+        TabPane tabPane = new TabPane();
+
+        Tab tab1 = new Tab("Tab 1");
+        Tab tab2 = new Tab("Tab 2");
+        tabPane.getTabs().addAll(tab1, tab2);
+
+        // Initially select tab1
+        tabPane.getSelectionModel().select(tab1);
+
+        // Return a scene containing the TabPane
+        return new Scene(tabPane);
     }
 }
