@@ -9,7 +9,7 @@ public class Learner {
         this.progress = progress;
     }
     void resetCourse(){
-        //course = new Course(newCourse);
+        setProgress(0);
     }
 
     public Course getCourse() {

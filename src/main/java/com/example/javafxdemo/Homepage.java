@@ -34,8 +34,8 @@ public class Homepage {
             //stage can only be this specific size (as tabpane does not dynamically resize)
             stage.setMinWidth(600);
             stage.setMinHeight(400);
-            stage.setMaxWidth(600);
-            stage.setMaxHeight(400);
+            stage.setWidth(600);
+            stage.setHeight(400);
             stage.setResizable(false);
 
             stage.setScene(newScene);

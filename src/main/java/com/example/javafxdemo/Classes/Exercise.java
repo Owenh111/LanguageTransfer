@@ -3,19 +3,20 @@ package com.example.javafxdemo.Classes;
 import com.example.javafxdemo.Introduction;
 
 public class Exercise {
-    private String exerciseType; //to load the correct fxml template and exclude microphone tasks
-    private Integer exerciseContent; //to dynamically populate the exercise with content most recently learned
+    private Character exerciseType; //to load the correct fxml template and exclude microphone tasks
+    // 'l' - listening; 'm' - matching; 's' - speaking; 'w' - writing;
+    private Integer exerciseContent; //to dynamically create the exercise with content most recently learned
 
-    public Exercise(String exerciseType, Integer exerciseContent) {
+    public Exercise(Character exerciseType, Integer exerciseContent) {
         this.exerciseType = exerciseType;
         this.exerciseContent = exerciseContent;
     }
 
-    public String getType() {
+    public Character getType() {
         return exerciseType;
     }
 
-    public void setType(String type) {
+    public void setType(Character type) {
         this.exerciseType = type;
     }
 

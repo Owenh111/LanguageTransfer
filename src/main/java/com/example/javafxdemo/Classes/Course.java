@@ -12,10 +12,14 @@ public class Course {
         this.courseName = courseName;
         exercises = new ArrayList<Exercise>();
     }
+
+    void addExercisesToCourse() {
+
+    }
+
     void addExerciseTypes(){
-        /** a couple methods to only include speaking exercises in the rotation if the user has a mic:
-         * 1) add all exercise types initially in one function then remove speaking ones if RButton checked,
-         * or 2) only add exercises to course after RButton part and exclude speaking ones if necessary
+        /** All exercise types initially added in above function
+         * Here the list is iterated through and speaking exercises removed
          */
         Introduction introduction = new Introduction();
         String micPreference = introduction.getMicPreference();
@@ -23,20 +27,28 @@ public class Course {
         if (micPreference.equals("radioButtonNo")){
             for (int i = 0; i <= exercises.size(); i++){
                 Exercise exercise = exercises.get(i);
-                String exerciseType = exercise.getType();
+                Character exerciseType = exercise.getType();
 
-                if (exerciseType != "speaking"){
-
+                if (exerciseType != 's'){
+                    exercises.remove(exercise);
                 }
             }
         }
     }
 
-    void addExercisesToCourse() {
+    void startCourse(){
 
     }
 
-    void startCourse(){
+    void addAssessment(){
 
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }

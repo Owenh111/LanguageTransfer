@@ -72,6 +72,8 @@ public class Introduction {
             stage.setScene(newScene);
 
             stage.setMaximized(true);
+            stage.setResizable(true);
+            stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
 
