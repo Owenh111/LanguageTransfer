@@ -3,53 +3,30 @@
 <!--
 
 INEXPLICABLY THE FOLLOWING CODE APPLIES THE CSS STYLESHEET WHEN THE CURRENT CODE DOESNT. FIND OUT WHY
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="643.0" prefWidth="1349.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Content">
-   <children>
-      <Label id="title" layoutX="147.0" layoutY="23.0" prefHeight="67.0" prefWidth="546.0" text="Title" />
-      <Label id="wordType" layoutX="859.0" layoutY="60.0" prefHeight="32.0" prefWidth="213.0" text="Word type" />
-      <Label id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" text="English concept" />
-      <Label id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" text="English example phrase" />
-      <Label id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" text="English example phrase 2" />
-      <Label id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" text="English example phrase 3" />
-      <Label id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" text="Italian concept" />
-      <Label id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" text="Italian example phrase" />
-      <Label id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" text="Italian example phrase 2" />
-      <Label id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" text="Italian example phrase 3" />
-
-      <TextArea id="explanation" editable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
-      <TextArea id="exceptions" editable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
-      <Button id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="262.0" text="Continue to exercises" />
-   </children>
-</AnchorPane>
 
 -->
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="643.0" prefWidth="1349.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Content">
+<AnchorPane prefHeight="643.0" prefWidth="1349.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Learning">
    <children>
-      <Label id="title" layoutX="147.0" layoutY="23.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 76px; -fx-alignment: center;" text="Title" />
-      <Label id="wordType" layoutX="859.0" layoutY="60.0" prefHeight="32.0" prefWidth="213.0" style="-fx-font-size: 26px; -fx-alignment: center;" text="Word type" />
+      <Label id="title" layoutX="147.0" layoutY="23.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="Title" />
+      <Label id="wordType" layoutX="859.0" layoutY="60.0" prefHeight="32.0" prefWidth="213.0" style="-fx-font-size: 25px; -fx-alignment: center;" text="Word type" />
 
-      <Label id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 38px; -fx-alignment: center;" text="English concept" />
-      <Label id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="English example phrase" />
-      <Label id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="English example phrase 2" />
-      <Label id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="English example phrase 3" />
+      <Label id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English concept" />
+      <Label id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase" />
+      <Label id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase 2" />
+      <Label id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase 3" />
 
-      <Label id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 38px; -fx-alignment: center;" text="Italian concept" />
-      <Label id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Italian example phrase" />
-      <Label id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Italian example phrase 2" />
-      <Label id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Italian example phrase 3" />
+      <Label id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian concept" />
+      <Label id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase" />
+      <Label id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase 2" />
+      <Label id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase 3" />
 
 
-      <TextArea id="explanation" editable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" style="-fx-font-size: 20px;" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
-      <TextArea id="exceptions" editable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0" style="-fx-font-size: 20px;" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
-      <Button id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="262.0" style="-fx-font-size: 20px;" text="Continue to exercises" />
+      <TextArea id="explanation" editable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
+      <TextArea id="exceptions" editable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0"  text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
+      <Button id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="262.0" text="Continue to exercises" />
 
    </children>
 </AnchorPane>

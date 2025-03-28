@@ -1,6 +1,6 @@
 package com.example.javafxdemo;
 
-public class Content {
+public class Learning {
     /**
      * The related FXML currently acts as a placeholder and by extension so does this.
      * I'm thinking there should be a general layout for content which is dynamically updated at each stage.
