@@ -1,5 +1,10 @@
 package com.example.javafxdemo.Classes;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Content {
     /**
      * this class Content exists to connect assessmentContent, exerciseContent and progress
@@ -20,6 +25,7 @@ public class Content {
     private String italianExamplePhrase3;
     private String explanation;
     private String exceptions;
+
     public Content(Integer contentNumber, String wordType, String englishConcept, String italianConcept, String englishExamplePhrase,
                    String englishExamplePhrase2, String englishExamplePhrase3, String italianExamplePhrase,
                    String italianExamplePhrase2, String italianExamplePhrase3, String explanation, String exceptions){
