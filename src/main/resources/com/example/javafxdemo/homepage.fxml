@@ -20,11 +20,11 @@
          <Font size="30.0" />
       </font>
    </Label>
-    <Button onAction="#onStartButtonClick" prefHeight="44.0" prefWidth="154.0" text="Start">
+    <Button disable="true" prefHeight="44.0" prefWidth="154.0" text="Resume">
       <font>
          <Font size="20.0" />
       </font></Button>
-   <Button disable="true" mnemonicParsing="false" prefHeight="44.0" prefWidth="154.0" text="Pick a topic">
+   <Button onAction="#onStartButtonClick" mnemonicParsing="false" prefHeight="44.0" prefWidth="154.0" text="Start">
       <font>
          <Font size="15.0" />
       </font></Button>

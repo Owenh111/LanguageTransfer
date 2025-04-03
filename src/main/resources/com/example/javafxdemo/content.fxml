@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-
-INEXPLICABLY THE FOLLOWING CODE APPLIES THE CSS STYLESHEET WHEN THE CURRENT CODE DOESNT. FIND OUT WHY
-
--->
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="643.0" prefWidth="1349.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Learning">
+<AnchorPane fx:id="anchorPane" prefHeight="643.0" prefWidth="1349.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Learning">
    <children>
-      <Label id="title" layoutX="147.0" layoutY="23.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="Title" />
-      <Label id="wordType" layoutX="859.0" layoutY="60.0" prefHeight="32.0" prefWidth="213.0" style="-fx-font-size: 25px; -fx-alignment: center;" text="Word type" />
+      <Label id="title" fx:id="title" layoutX="147.0" layoutY="43.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 80px; -fx-alignment: center;" text="Title" />
+      <Label id="wordType" fx:id="wordType" layoutX="756.0" layoutY="61.0" prefHeight="61.0" prefWidth="423.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Word type" />
 
-      <Label id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English concept" />
-      <Label id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase" />
-      <Label id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase 2" />
-      <Label id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="English example phrase 3" />
+      <Label id="englishConcept" fx:id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="English concept" />
+      <Label id="englishExamplePhrase1" fx:id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase" />
+      <Label id="englishExamplePhrase2" fx:id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 2" />
+      <Label id="englishExamplePhrase3" fx:id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 3" />
 
-      <Label id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian concept" />
-      <Label id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase" />
-      <Label id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase 2" />
-      <Label id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-alignment: center;" text="Italian example phrase 3" />
+      <Label id="italianConcept" fx:id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="Italian concept" />
+      <Label id="italianExamplePhrase1" fx:id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase" />
+      <Label id="italianExamplePhrase2" fx:id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 2" />
+      <Label id="italianExamplePhrase3" fx:id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 3" />
 
 
-      <TextArea id="explanation" editable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
-      <TextArea id="exceptions" editable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0"  text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
-      <Button id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="262.0" text="Continue to exercises" />
+      <TextArea id="explanation" fx:id="explanation" editable="false" focusTraversable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
+      <TextArea id="exceptions" fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
+      <Button id="continueToExercises" fx:id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="262.0" text="Continue to exercise" />
 
    </children>
 </AnchorPane>

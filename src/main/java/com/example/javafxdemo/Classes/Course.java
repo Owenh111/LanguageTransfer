@@ -6,6 +6,7 @@ import com.example.javafxdemo.Learning;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Course {
@@ -18,28 +19,9 @@ public class Course {
         exercises = new ArrayList<Exercise>();
     }
 
-    public List<Content> getContentOnCourse(){
+    public List<Content> getContentList(){
         return contentList;
     }
-
-    public void parseContentAtIndex(Integer index) {
-//        for (Content content : contentList) {
-//            System.out.println("Content Number: " + content.getContentNumber());
-//            System.out.println("Word Type: " + content.getWordType());
-//            System.out.println("English Concept: " + content.getEnglishConcept());
-//            System.out.println("Italian Concept: " + content.getItalianConcept());
-//            // Currently only printing these fields to test reading is working correctly
-//        }
-        Learning learning = new Learning();
-        learning.populateContent(1);
-
-        Integer contentNumber = 0;
-        Content content = contentList.stream()
-                .filter(c -> c.getContentNumber() == contentNumber)
-                .findFirst()
-                .orElse(null);
-    }
-
     // Method to read content from the file and create Content objects
     public void loadContentFromFile(String filename) {
         InputStream inputStream = getClass().getResourceAsStream("/com/example/javafxdemo/content.txt");
@@ -55,9 +37,9 @@ public class Course {
                 // Create a new Content object from the fields
                 Content content = new Content(
                         Integer.parseInt(fields[0]),       // contentNumber
-                        fields[1],                         // wordType
-                        fields[2],                         // englishConcept
-                        fields[3],                         // italianConcept
+                        fields[1],                         // englishConcept
+                        fields[2],                         // italianConcept
+                        fields[3],                         // wordType
                         fields[4],                         // englishExamplePhrase
                         fields[5],                         // englishExamplePhrase2
                         fields[6],                         // englishExamplePhrase3

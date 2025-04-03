@@ -61,15 +61,13 @@ public class Introduction {
     @FXML
     protected void onStartButtonClick() {
         saveMicPreference();
-        Course course = new Course("Italian");
-        course.loadContentFromFile("content.txt");
-        course.parseContentAtIndex(1);
         // Get the current stage
         Stage stage = (Stage) beginButton.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
 
+            Learning learning = new Learning();
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 

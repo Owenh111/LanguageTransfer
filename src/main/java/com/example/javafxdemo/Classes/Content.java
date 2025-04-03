@@ -26,13 +26,13 @@ public class Content {
     private String explanation;
     private String exceptions;
 
-    public Content(Integer contentNumber, String wordType, String englishConcept, String italianConcept, String englishExamplePhrase,
+    public Content(Integer contentNumber, String englishConcept, String italianConcept, String wordType, String englishExamplePhrase,
                    String englishExamplePhrase2, String englishExamplePhrase3, String italianExamplePhrase,
                    String italianExamplePhrase2, String italianExamplePhrase3, String explanation, String exceptions){
         this.contentNumber = contentNumber;
-        this.wordType = wordType;
         this.englishConcept = englishConcept;
         this.italianConcept = italianConcept;
+        this.wordType = wordType;
         this.englishExamplePhrase = englishExamplePhrase;
         this.englishExamplePhrase2 = englishExamplePhrase2;
         this.englishExamplePhrase3 = englishExamplePhrase3;
