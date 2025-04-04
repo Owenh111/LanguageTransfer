@@ -67,18 +67,19 @@ public class Introduction {
             // Load the new FXML file (ie window)
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
 
-            Learning learning = new Learning();
+            //Learning learning = new Learning();
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 
             stage.setScene(newScene);
 
-            stage.setMaximized(true);
-            stage.setResizable(true);
+            stage.setMaximized(true); // change to setFullScreen at the very end
+            // it looks better but right now gets in the way of debugging
+            stage.setResizable(false);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 

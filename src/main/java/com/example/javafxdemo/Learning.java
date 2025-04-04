@@ -7,13 +7,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,6 +61,34 @@ public class Learning {
         parseContentAtIndex(1, contentList);
     }
 
+    public void parseContentAtIndex(Integer index, List<Content> contentList) {
+
+        Content content = contentList.stream()
+                .filter(c -> Objects.equals(c.getContentNumber(), index))
+                .findFirst()
+                .orElse(null);
+
+        assert content != null;
+        populateContent(content);
+    }
+    public void populateContent(Content content){
+        title.setText(content.getEnglishConcept() + " --> " + content.getItalianConcept());
+        wordType.setText("for " + content.getWordType());
+
+        englishConcept.setText(content.getEnglishConcept());
+        englishExamplePhrase1.setText(content.getEnglishExamplePhrase());
+        englishExamplePhrase2.setText(content.getEnglishExamplePhrase2());
+        englishExamplePhrase3.setText(content.getEnglishExamplePhrase3());
+        italianConcept.setText(content.getItalianConcept());
+        italianExamplePhrase1.setText(content.getItalianExamplePhrase());
+        italianExamplePhrase2.setText(content.getItalianExamplePhrase2());
+        italianExamplePhrase3.setText(content.getItalianExamplePhrase3());
+
+        explanation.setText(content.getExplanation());
+        exceptions.setText(content.getExceptions());
+        continueToExercises.setText("Continue to exercise " + (content.getContentNumber() + 1));
+    }
+
     @FXML
     public void cycleColors() {
         fadeToNextColor();
@@ -91,7 +124,7 @@ public class Learning {
         double red = start.getRed() + (end.getRed() - start.getRed()) * fraction;
         double green = start.getGreen() + (end.getGreen() - start.getGreen()) * fraction;
         double blue = start.getBlue() + (end.getBlue() - start.getBlue()) * fraction;
-        return new Color(red, green, blue, 1.0); // Keep opacity at 1.0
+        return new Color(red, green, blue, 1.0);
     }
 
     public String toRgbString(Color color) {
@@ -101,31 +134,24 @@ public class Learning {
                 (int) (color.getBlue() * 255));
     }
 
-    public void parseContentAtIndex(Integer index, List<Content> contentList) {
+    public void onNextButtonClick(){
+        // Get the current stage
+        Stage stage = (Stage) continueToExercises.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/javafxdemo/listening.fxml")));
 
-        Content content = contentList.stream()
-                .filter(c -> Objects.equals(c.getContentNumber(), index))
-                .findFirst()
-                .orElse(null);
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
 
-        assert content != null;
-        populateContent(content);
-    }
-    public void populateContent(Content content){
-        title.setText(content.getEnglishConcept() + " --> " + content.getItalianConcept());
-        wordType.setText("for " + content.getWordType());
+            stage.setScene(newScene);
 
-        englishConcept.setText(content.getEnglishConcept());
-        englishExamplePhrase1.setText(content.getEnglishExamplePhrase());
-        englishExamplePhrase2.setText(content.getEnglishExamplePhrase2());
-        englishExamplePhrase3.setText(content.getEnglishExamplePhrase3());
-        italianConcept.setText(content.getItalianConcept());
-        italianExamplePhrase1.setText(content.getItalianExamplePhrase());
-        italianExamplePhrase2.setText(content.getItalianExamplePhrase2());
-        italianExamplePhrase3.setText(content.getItalianExamplePhrase3());
+            stage.setMaximized(true);
+            stage.setResizable(true);
+            stage.setTitle("Langtrans Italiano");
+            stage.centerOnScreen();
+        } catch (IOException e) {
 
-        explanation.setText(content.getExplanation());
-        exceptions.setText(content.getExceptions());
-        continueToExercises.setText("Continue to exercise " + (content.getContentNumber() + 1));
+        }
     }
 }

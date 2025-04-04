@@ -1,4 +1,4 @@
-package com.example.javafxdemo.Exercises;
+package com.example.javafxdemo;
 
 import javafx.fxml.FXML;
 import javafx.scene.media.Media;
@@ -12,6 +12,9 @@ public class Listening {
     @FXML
     private MediaView mediaView;
 
+    public void initialize(){
+        OnPlayAudio();
+    }
     @FXML
     protected void OnPlayAudio() {
         if (mediaView.getMediaPlayer() == null) {

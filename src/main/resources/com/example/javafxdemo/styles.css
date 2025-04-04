@@ -67,7 +67,7 @@
 
 /* Text Field and Text Area */
 .text-field, .text-area {
-    -fx-background-color: #transparent;
+    -fx-background-color: transparent;
     -fx-border-color: #cccccc;  /* Light gray border for input fields */
     -fx-border-radius: 5px;
     -fx-padding: 10px;
