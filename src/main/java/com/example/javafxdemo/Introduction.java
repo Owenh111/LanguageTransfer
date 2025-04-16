@@ -75,7 +75,6 @@ public class Introduction {
 
             stage.setMaximized(true); // change to setFullScreen at the very end
             // it looks better but right now gets in the way of debugging
-            stage.setResizable(false);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {

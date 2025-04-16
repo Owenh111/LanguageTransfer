@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
 
-<?import javafx.scene.media.MediaView?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.javafxdemo.Listening"
-            prefHeight="400.0" prefWidth="600.0">
-    <MediaView fx:id="mediaView" />
-</AnchorPane>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javafxdemo.Listening"
+      spacing="10" alignment="CENTER" prefWidth="600" stylesheets="@styles.css">
+
+   <Label fx:id="instructionLabel" wrapText="true" />
+   <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" />
+   <TextField fx:id="userInput" promptText="Enter what you hear..." />
+
+   <HBox spacing="10">
+      <Button fx:id="checkButton" text="Check" onAction="#onCheck"/>
+      <Button fx:id="replayButton" text="Replay" onAction="#onReplay"/>
+      <Button fx:id="giveUpButton" text="Give Up" onAction="#onGiveUp" visible="false"/>
+   </HBox>
+
+   <Label fx:id="feedbackLabel" textFill="red" wrapText="true"/>
+</VBox>

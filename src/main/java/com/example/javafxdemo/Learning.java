@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -139,7 +140,7 @@ public class Learning {
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/javafxdemo/listening.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("listening.fxml")));
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
@@ -147,11 +148,11 @@ public class Learning {
             stage.setScene(newScene);
 
             stage.setMaximized(true);
-            stage.setResizable(true);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
-
+            URL url = getClass().getResource("/com/example/javafxdemo/listening.fxml");
+            System.out.println("URL: " + url);
         }
     }
 }
