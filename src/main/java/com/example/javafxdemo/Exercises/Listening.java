@@ -1,9 +1,9 @@
-package com.example.javafxdemo;
+package com.example.javafxdemo.Exercises;
 
+import com.example.javafxdemo.Classes.Learner;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.media.*;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -11,13 +11,13 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Listening {
 
     /**
      * old version of this class IN LITERATURE REVIEW FOLDER
      * old version ALSO CONTAINS EXTRA PSEUDOCODE @ BOTTOM
+     * (probably not needed anymore)
      */
     @FXML private MediaView mediaView;
     @FXML private TextField userInput;
@@ -30,10 +30,11 @@ public class Listening {
     private MediaPlayer currentPlayer;
 
     public void initialize() {
-        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers("context.txt");
+        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers("/com/example/javafxdemo/content.txt");
         audioItems = getAudioItemsForSection(1, knownAnswers);
-        audioItems.sort(Comparator.comparing(a -> a.isUnseen)); // make sure unseen is last
-
+        // TODO: 17/04/2025  above is hardcoded, needs to be dynamic by fixing and then calling getProgress
+        audioItems.sort(Comparator.comparing(a -> a.isUnseen)); // moves unseen to last
+        
         setupUI();
         playCurrentAudio();
     }
@@ -48,6 +49,7 @@ public class Listening {
         return audioItems.get(currentIndex).isUnseen
                 ? "Type what you hear as closely as possible:"
                 : "Type the phrase you heard:";
+        // TODO: 17/04/2025 understand how this works 
     }
 
     private void playCurrentAudio() {
@@ -71,6 +73,11 @@ public class Listening {
         String userAnswer = userInput.getText().trim().toLowerCase();
         String correctAnswer = audioItems.get(currentIndex).expectedAnswer.toLowerCase();
 
+        if (audioItems.get(currentIndex).isUnseen){
+            String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
+            showDefinition(filename);
+        }
+        
         if (userAnswer.equals(correctAnswer)) {
             feedbackLabel.setText("✅ Correct!");
             giveUpButton.setVisible(false);
@@ -83,21 +90,37 @@ public class Listening {
 
     @FXML
     public void onGiveUp() {
-        feedbackLabel.setText("Answer: " + audioItems.get(currentIndex).expectedAnswer);
+        feedbackLabel.setText("The previous answer was: " + audioItems.get(currentIndex).expectedAnswer);
+        if (audioItems.get(currentIndex).isUnseen){
+            String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
+            showDefinition(filename);
+        }
         giveUpButton.setVisible(false);
         nextAudio();
+    }
+
+    private void showDefinition(String filename){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                Objects.requireNonNull(getClass().getResourceAsStream("/audio/" + 1 + "/" + filename))))) {
+            // TODO: 17/04/2025 un-hardcode the above, needs progress Int to be taken dynamically 
+            String line;
+            if ((line = reader.readLine()) != null) {
+                instructionLabel.setText("definition: " + line);
+                // TODO: 17/04/2025 doesnt matter much but if definition spans multiple lines only 1st will be read 
+            }
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
     }
 
     private void nextAudio() {
         currentIndex++;
         if (currentIndex < audioItems.size()) {
             userInput.clear();
-            feedbackLabel.setText("");
             giveUpButton.setVisible(false);
             instructionLabel.setText(getInstructionForCurrentItem());
             playCurrentAudio();
         } else {
-            feedbackLabel.setText("🎉 All done!");
             userInput.setDisable(true);
             checkButton.setDisable(true);
             replayButton.setDisable(true);
@@ -105,6 +128,8 @@ public class Listening {
     }
 
     private Map<Integer, Set<String>> loadKnownAnswers(String filename) {
+        // TODO: 17/04/2025 reads all in at once, whereas when progress is passed dynamically 
+        // TODO: 17/04/2025 this needs to be rewritten to only load the section with the same Int value 
         Map<Integer, Set<String>> known = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 Objects.requireNonNull(getClass().getResourceAsStream(filename))))) {
@@ -112,12 +137,12 @@ public class Listening {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("`");
-                if (parts.length >= 12) {
+                if (parts.length >= 11) {
                     int section = Integer.parseInt(parts[0].trim());
                     Set<String> answers = new HashSet<>();
+                    answers.add(parts[7].trim());
+                    answers.add(parts[8].trim());
                     answers.add(parts[9].trim());
-                    answers.add(parts[10].trim());
-                    answers.add(parts[11].trim());
                     known.put(section, answers);
                 }
             }
@@ -130,6 +155,7 @@ public class Listening {
 
 
     private List<AudioItem> getAudioItemsForSection(int section, Map<Integer, Set<String>> knownAnswers) {
+        // TODO: 17/04/2025 understand/comment this properly for the VIVA
         List<AudioItem> items = new ArrayList<>();
         try {
             URL folderURL = getClass().getResource("/audio/" + section);
@@ -161,6 +187,12 @@ public class Listening {
             e.printStackTrace();
         }
         return items;
+    }
+    
+    private int getProgress(){
+        // TODO: 17/04/2025 getProgress function; currently returns placeholder 
+        // TODO: 17/04/2025 will need to mess around with Learner class to get Int w/o passing it
+        return 1;
     }
 
     private static class AudioItem {

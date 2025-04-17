@@ -2,9 +2,7 @@ package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Content;
 import com.example.javafxdemo.Classes.Course;
-import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -140,7 +138,7 @@ public class Learning {
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("listening.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/listening.fxml")));
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
@@ -151,7 +149,7 @@ public class Learning {
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/listening.fxml");
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/listening.fxml");
             System.out.println("URL: " + url);
         }
     }

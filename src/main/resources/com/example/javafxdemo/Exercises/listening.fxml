@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+
+<VBox alignment="CENTER" prefWidth="600" spacing="10" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Listening">
+
+   <Label fx:id="feedbackLabel" style="-fx-font-size: 60px;" wrapText="true" />
+   <Label fx:id="instructionLabel" style="-fx-font-size: 60px;" wrapText="true" />
+
+   <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" />
+   <TextField fx:id="userInput" prefHeight="76.0" prefWidth="320.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;">
+      </TextField>
+
+
+      <Button fx:id="checkButton" onAction="#onCheck" style="-fx-font-size: 35px;" text="Check" />
+      <Button fx:id="replayButton" onAction="#onReplay" style="-fx-font-size: 25px;" text="Replay" />
+      <Button fx:id="giveUpButton" onAction="#onGiveUp" style="-fx-font-size: 15px;" text="Give Up" visible="false" />
+</VBox>
