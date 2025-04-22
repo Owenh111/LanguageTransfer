@@ -1,6 +1,7 @@
 package com.example.javafxdemo.Exercises;
 
 import com.example.javafxdemo.Classes.Learner;
+import com.example.javafxdemo.Classes.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.media.*;
@@ -23,17 +24,18 @@ public class Listening {
     @FXML private TextField userInput;
     @FXML private Label instructionLabel;
     @FXML private Label feedbackLabel;
-    @FXML private Button checkButton, replayButton, giveUpButton;
+    @FXML private Button checkButton, replayButton, giveUpButton, continueButton;
 
     private List<AudioItem> audioItems;
     private int currentIndex = 0;
     private MediaPlayer currentPlayer;
 
+    Learner learner = Session.getLearner();
+
     public void initialize() {
-        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers("/com/example/javafxdemo/content.txt");
-        audioItems = getAudioItemsForSection(1, knownAnswers);
-        // TODO: 17/04/2025  above is hardcoded, needs to be dynamic by fixing and then calling getProgress
-        audioItems.sort(Comparator.comparing(a -> a.isUnseen)); // moves unseen to last
+        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
+        audioItems = getAudioItemsForSection(learner.getProgress(), knownAnswers);
+        audioItems.sort(Comparator.comparing(a -> a.isUnseen)); // moves unseen item to last
         
         setupUI();
         playCurrentAudio();
@@ -75,7 +77,11 @@ public class Listening {
 
         if (audioItems.get(currentIndex).isUnseen){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
-            showDefinition(filename);
+
+            if (userAnswer.equals(correctAnswer)) {
+                showDefinition(filename);
+                continueButton.setVisible(true);
+            }
         }
         
         if (userAnswer.equals(correctAnswer)) {
@@ -94,6 +100,7 @@ public class Listening {
         if (audioItems.get(currentIndex).isUnseen){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             showDefinition(filename);
+            continueButton.setVisible(true);
         }
         giveUpButton.setVisible(false);
         nextAudio();
@@ -101,12 +108,11 @@ public class Listening {
 
     private void showDefinition(String filename){
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream("/audio/" + 1 + "/" + filename))))) {
-            // TODO: 17/04/2025 un-hardcode the above, needs progress Int to be taken dynamically 
+                Objects.requireNonNull(getClass().getResourceAsStream("/audio/" + learner.getProgress() + "/" + filename))))) {
             String line;
             if ((line = reader.readLine()) != null) {
                 instructionLabel.setText("definition: " + line);
-                // TODO: 17/04/2025 doesnt matter much but if definition spans multiple lines only 1st will be read 
+                // TODO: 17/04/2025 doesn't matter much but if definition spans multiple lines only 1st will be read
             }
         } catch (Exception e) {
                 e.printStackTrace();
@@ -127,7 +133,7 @@ public class Listening {
         }
     }
 
-    private Map<Integer, Set<String>> loadKnownAnswers(String filename) {
+    private Map<Integer, Set<String>> loadKnownAnswers(Integer sectionToLoad, String filename) {
         // TODO: 17/04/2025 reads all in at once, whereas when progress is passed dynamically 
         // TODO: 17/04/2025 this needs to be rewritten to only load the section with the same Int value 
         Map<Integer, Set<String>> known = new HashMap<>();
@@ -139,11 +145,13 @@ public class Listening {
                 String[] parts = line.split("`");
                 if (parts.length >= 11) {
                     int section = Integer.parseInt(parts[0].trim());
-                    Set<String> answers = new HashSet<>();
-                    answers.add(parts[7].trim());
-                    answers.add(parts[8].trim());
-                    answers.add(parts[9].trim());
-                    known.put(section, answers);
+                    if (section == sectionToLoad) {
+                        Set<String> answers = new HashSet<>();
+                        answers.add(parts[7].trim());
+                        answers.add(parts[8].trim());
+                        answers.add(parts[9].trim());
+                        known.put(section, answers);
+                    }
                 }
             }
 
@@ -187,12 +195,6 @@ public class Listening {
             e.printStackTrace();
         }
         return items;
-    }
-    
-    private int getProgress(){
-        // TODO: 17/04/2025 getProgress function; currently returns placeholder 
-        // TODO: 17/04/2025 will need to mess around with Learner class to get Int w/o passing it
-        return 1;
     }
 
     private static class AudioItem {

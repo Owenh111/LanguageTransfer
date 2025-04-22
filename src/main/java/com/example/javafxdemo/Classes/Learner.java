@@ -8,13 +8,17 @@ public class Learner {
         this.course = course;
         this.progress = progress;
     }
-    void resetCourse(){
-        setProgress(0);
+    public void resetCourse(){
+        setProgress(1); // the first index with exercises is 1 as this acts like a section
+        // so my design choice was to set the first as if it were Section 1 rather than Section 0
+        // this does mean de-iterating the integer when displaying progress to the user (not yet done)
     }
 
     public Course getCourse() {
         return course;
     }
+
+    public void setCourse(Course course) { this.course = course; }
 
     public int getProgress() {
         return progress;

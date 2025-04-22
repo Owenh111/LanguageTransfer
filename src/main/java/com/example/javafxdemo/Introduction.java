@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import com.example.javafxdemo.Classes.Learner;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -26,6 +28,8 @@ public class Introduction {
     private ToggleGroup micToggleGroup;
 
     public String micPreference;
+
+    private Learner learner;
 
     @FXML
     public void goToNextTab(ActionEvent event) {
@@ -70,12 +74,11 @@ public class Introduction {
             //Learning learning = new Learning();
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
-
             stage.setScene(newScene);
-
             stage.setMaximized(true); // change to setFullScreen at the very end
             // it looks better but right now gets in the way of debugging
             stage.setTitle("Langtrans Italiano");
+            stage.initOwner(new Stage());                // makes it owned → not shown in taskbar
             stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();

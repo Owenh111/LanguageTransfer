@@ -10,6 +10,7 @@
    <Label fx:id="instructionLabel" style="-fx-font-size: 60px;" wrapText="true" />
 
    <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" />
+   <Button fx:id="continueButton" style="-fx-font-size: 35px;" prefHeight="70.0" prefWidth="246.0" text="Continue" visible="false"/>
    <TextField fx:id="userInput" prefHeight="76.0" prefWidth="320.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;">
       </TextField>
 

@@ -20,11 +20,6 @@ public class Main extends Application {
 
         stage.centerOnScreen(); //does not actually centre on screen
 
-        /** manual solution below - even this doesn't work properly though **/
-        //Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        //stage.setX((screenBounds.getWidth() - stage.getHeight()) / 2);
-        //stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
-
         stage.setTitle("Welcome to LangTrans");
         stage.setMinHeight(500);
         stage.setMinWidth(800);
