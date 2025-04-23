@@ -21,7 +21,7 @@ public class Homepage {
 
     public void setUpNewCourse(){
         Course italian = new Course("Italian"); //create course
-        Learner learner = new Learner(italian, 2); //create learner
+        Learner learner = new Learner(italian, 1); //create learner
         // n.b. progress set to 1 as this is the first index and is equal to resetting the course
 
         learner.setCourse(italian); //set course

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
@@ -10,7 +11,19 @@
    <Label fx:id="instructionLabel" style="-fx-font-size: 60px;" wrapText="true" />
 
    <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" />
-   <Button fx:id="continueButton" style="-fx-font-size: 35px;" prefHeight="70.0" prefWidth="246.0" text="Continue" visible="false"/>
+   <Button fx:id="continueButton" prefHeight="70.0" prefWidth="246.0" style="-fx-font-size: 35px;" text="Continue" visible="false" />
+   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="600.0">
+      <children>
+         <Button fx:id="accentedAButton" disable="true" mnemonicParsing="false" text="à" textAlignment="CENTER">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin></Button>
+         <Button fx:id="accentedEButton" disable="true" mnemonicParsing="false" text="è" textAlignment="CENTER" />
+         <Button fx:id="accentedIButton" disable="true" mnemonicParsing="false" text="ì" textAlignment="CENTER" />
+         <Button fx:id="accentedOButton" disable="true" mnemonicParsing="false" text="ò" textAlignment="CENTER" />
+         <Button fx:id="accentedUButton" disable="true" mnemonicParsing="false" text="ù" textAlignment="CENTER" />
+      </children>
+   </HBox>
    <TextField fx:id="userInput" prefHeight="76.0" prefWidth="320.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;">
       </TextField>
 
@@ -18,4 +31,10 @@
       <Button fx:id="checkButton" onAction="#onCheck" style="-fx-font-size: 35px;" text="Check" />
       <Button fx:id="replayButton" onAction="#onReplay" style="-fx-font-size: 25px;" text="Replay" />
       <Button fx:id="giveUpButton" onAction="#onGiveUp" style="-fx-font-size: 15px;" text="Give Up" visible="false" />
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
 </VBox>
