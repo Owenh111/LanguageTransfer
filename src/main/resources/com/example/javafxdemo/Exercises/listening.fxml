@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<VBox alignment="CENTER" prefWidth="600" spacing="10" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Listening">
+<AnchorPane prefHeight="662.0" prefWidth="1360.0" style="-fx-padding: 40;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Listening">
 
-   <Label fx:id="feedbackLabel" style="-fx-font-size: 60px;" wrapText="true" />
-   <Label fx:id="instructionLabel" style="-fx-font-size: 60px;" wrapText="true" />
+   <children>
 
-   <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" />
-   <Button fx:id="continueButton" prefHeight="70.0" prefWidth="246.0" style="-fx-font-size: 35px;" text="Continue" visible="false" />
-   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="600.0">
-      <children>
-         <Button fx:id="accentedAButton" disable="true" mnemonicParsing="false" text="à" textAlignment="CENTER">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin></Button>
-         <Button fx:id="accentedEButton" disable="true" mnemonicParsing="false" text="è" textAlignment="CENTER" />
-         <Button fx:id="accentedIButton" disable="true" mnemonicParsing="false" text="ì" textAlignment="CENTER" />
-         <Button fx:id="accentedOButton" disable="true" mnemonicParsing="false" text="ò" textAlignment="CENTER" />
-         <Button fx:id="accentedUButton" disable="true" mnemonicParsing="false" text="ù" textAlignment="CENTER" />
-      </children>
-   </HBox>
-   <TextField fx:id="userInput" prefHeight="76.0" prefWidth="320.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;">
-      </TextField>
+      <Label fx:id="feedbackLabel" layoutX="40" layoutY="40" style="-fx-font-size: 60px;" wrapText="true" />
 
+      <Label fx:id="instructionLabel" layoutX="40" layoutY="140" style="-fx-font-size: 60px;" wrapText="true" />
 
-      <Button fx:id="checkButton" onAction="#onCheck" style="-fx-font-size: 35px;" text="Check" />
-      <Button fx:id="replayButton" onAction="#onReplay" style="-fx-font-size: 25px;" text="Replay" />
-      <Button fx:id="giveUpButton" onAction="#onGiveUp" style="-fx-font-size: 15px;" text="Give Up" visible="false" />
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-   </padding>
-</VBox>
+      <MediaView fx:id="mediaView" fitHeight="200" fitWidth="200" layoutX="40" layoutY="240" />
+
+      <Button fx:id="continueButton" layoutX="867.0" layoutY="428.0" prefHeight="135.0" prefWidth="246" style="-fx-font-size: 35px;" text="Continue" visible="false" />
+
+      <!-- Accented character buttons -->
+      <Button fx:id="accentedAButton" disable="true" layoutX="40.0" layoutY="427.0" text="à" />
+      <Button fx:id="accentedEButton" disable="true" layoutX="101.0" layoutY="427.0" text="è" />
+      <Button fx:id="accentedIButton" disable="true" layoutX="163.0" layoutY="427.0" text="ì" />
+      <Button fx:id="accentedOButton" disable="true" layoutX="221.0" layoutY="427.0" text="ò" />
+      <Button fx:id="accentedUButton" disable="true" layoutX="281.0" layoutY="427.0" text="ù" />
+
+      <TextField fx:id="userInput" layoutX="40.0" layoutY="495.0" prefHeight="83.0" prefWidth="614.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;" />
+
+      <Button fx:id="checkButton" layoutX="40.0" layoutY="602.0" onAction="#onCheck" style="-fx-font-size: 35px;" text="Check" />
+
+      <Button fx:id="replayButton" layoutX="246.0" layoutY="608.0" onAction="#onReplay" style="-fx-font-size: 25px;" text="Replay" />
+
+      <Button fx:id="giveUpButton" layoutX="503.0" layoutY="615.0" onAction="#onGiveUp" style="-fx-font-size: 15px;" text="I give up" visible="false" />
+
+   </children>
+
+</AnchorPane>

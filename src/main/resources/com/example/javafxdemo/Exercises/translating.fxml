@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="662.0" prefWidth="1360.0" style="-fx-padding: 40;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Translating">
+
+    <children>
+
+        <!-- Label + TextField 1 -->
+        <Label fx:id="question1" layoutX="40.0" layoutY="30.0" style="-fx-font-size: 24px;" text="Question 1" />
+        <TextField fx:id="answerField1" layoutX="40.0" layoutY="70.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
+        <Button fx:id="checkButton1" layoutX="660.0" layoutY="70.0" onAction="#onCheck1" style="-fx-font-size: 16px;" text="Check" />
+        <Button fx:id="giveUpButton1" layoutX="745.0" layoutY="70.0" onAction="#onGiveUp1" style="-fx-font-size: 16px;" text="I give up" />
+
+        <!-- Label + TextField 2 -->
+        <Label fx:id="question2" layoutX="40.0" layoutY="150.0" style="-fx-font-size: 24px;" text="Question 2" />
+        <TextField fx:id="answerField2" layoutX="40.0" layoutY="190.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
+        <Button fx:id="checkButton2" layoutX="660.0" layoutY="190.0" onAction="#onCheck2" style="-fx-font-size: 16px;" text="Check" />
+        <Button fx:id="giveUpButton2" layoutX="745.0" layoutY="190.0" onAction="#onGiveUp2" style="-fx-font-size: 16px;" text="I give up" />
+
+        <!-- Label + TextField 3 -->
+        <Label fx:id="question3" layoutX="40.0" layoutY="270.0" style="-fx-font-size: 24px;" text="Question 3" />
+        <TextField fx:id="answerField3" layoutX="40.0" layoutY="310.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
+        <Button fx:id="checkButton3" layoutX="660.0" layoutY="310.0" onAction="#onCheck3" style="-fx-font-size: 16px;" text="Check" />
+        <Button fx:id="giveUpButton3" layoutX="745.0" layoutY="310.0" onAction="#onGiveUp3" style="-fx-font-size: 16px;" text="I give up" />
+
+        <!-- Feedback Label -->
+        <Label fx:id="feedbackLabel" layoutX="40.0" layoutY="400.0" style="-fx-font-size: 32px; -fx-text-fill: green;" text="" />
+        <Button fx:id="continueButton" layoutX="225.0" layoutY="444.0" prefHeight="89.0" prefWidth="327.0" text="Continue" />
+
+    </children>
+</AnchorPane>

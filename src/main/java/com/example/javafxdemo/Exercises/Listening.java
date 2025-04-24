@@ -171,8 +171,6 @@ public class Listening {
 
 
     private Map<Integer, Set<String>> loadKnownAnswers(Integer sectionToLoad, String filename) {
-        // TODO: 17/04/2025 reads all in at once, whereas when progress is passed dynamically 
-        // TODO: 17/04/2025 this needs to be rewritten to only load the section with the same Int value 
         Map<Integer, Set<String>> known = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 Objects.requireNonNull(getClass().getResourceAsStream(filename))))) {

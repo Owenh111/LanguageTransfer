@@ -138,7 +138,7 @@ public class Learning {
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/listening.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/translating.fxml")));
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
@@ -149,7 +149,7 @@ public class Learning {
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/listening.fxml");
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/translating.fxml");
             System.out.println("URL: " + url);
         }
     }
