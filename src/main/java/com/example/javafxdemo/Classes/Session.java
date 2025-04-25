@@ -13,4 +13,8 @@ public class Session {
     public static Learner getLearner() {
         return currentLearner;
     }
+
+    public Integer returnNumberOfTimesGiveUpPressed() {
+        return 0; // TODO: 25/04/2025 so that user ability can be calculated
+    }
 }

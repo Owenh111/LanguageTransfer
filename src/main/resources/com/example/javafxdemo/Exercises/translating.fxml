@@ -12,22 +12,29 @@
         <TextField fx:id="answerField1" layoutX="40.0" layoutY="70.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
         <Button fx:id="checkButton1" layoutX="660.0" layoutY="70.0" onAction="#onCheck1" style="-fx-font-size: 16px;" text="Check" />
         <Button fx:id="giveUpButton1" layoutX="745.0" layoutY="70.0" onAction="#onGiveUp1" style="-fx-font-size: 16px;" text="I give up" />
+        <Label fx:id="feedbackLabel1" layoutX="930.0" layoutY="70.0" style="-fx-font-size: 40px; -fx-text-fill: green;" text="" />
 
         <!-- Label + TextField 2 -->
         <Label fx:id="question2" layoutX="40.0" layoutY="150.0" style="-fx-font-size: 24px;" text="Question 2" />
         <TextField fx:id="answerField2" layoutX="40.0" layoutY="190.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
         <Button fx:id="checkButton2" layoutX="660.0" layoutY="190.0" onAction="#onCheck2" style="-fx-font-size: 16px;" text="Check" />
         <Button fx:id="giveUpButton2" layoutX="745.0" layoutY="190.0" onAction="#onGiveUp2" style="-fx-font-size: 16px;" text="I give up" />
-
+        <Label fx:id="feedbackLabel2" layoutX="930.0" layoutY="190.0" style="-fx-font-size: 40px; -fx-text-fill: green;" text="" />
         <!-- Label + TextField 3 -->
         <Label fx:id="question3" layoutX="40.0" layoutY="270.0" style="-fx-font-size: 24px;" text="Question 3" />
         <TextField fx:id="answerField3" layoutX="40.0" layoutY="310.0" prefHeight="50.0" prefWidth="600.0" promptText="Enter answer..." style="-fx-font-size: 20px;" />
         <Button fx:id="checkButton3" layoutX="660.0" layoutY="310.0" onAction="#onCheck3" style="-fx-font-size: 16px;" text="Check" />
         <Button fx:id="giveUpButton3" layoutX="745.0" layoutY="310.0" onAction="#onGiveUp3" style="-fx-font-size: 16px;" text="I give up" />
+        <Label fx:id="feedbackLabel3" layoutX="930.0" layoutY="310.0" style="-fx-font-size: 40px; -fx-text-fill: green;" text="" />
+
+        <Button fx:id="accentedAButton" disable="true" layoutX="40.0" layoutY="427.0" text="à" />
+        <Button fx:id="accentedEButton" disable="true" layoutX="101.0" layoutY="427.0" text="è" />
+        <Button fx:id="accentedIButton" disable="true" layoutX="163.0" layoutY="427.0" text="ì" />
+        <Button fx:id="accentedOButton" disable="true" layoutX="221.0" layoutY="427.0" text="ò" />
+        <Button fx:id="accentedUButton" disable="true" layoutX="281.0" layoutY="427.0" text="ù" />
 
         <!-- Feedback Label -->
-        <Label fx:id="feedbackLabel" layoutX="40.0" layoutY="400.0" style="-fx-font-size: 32px; -fx-text-fill: green;" text="" />
-        <Button fx:id="continueButton" layoutX="225.0" layoutY="444.0" prefHeight="89.0" prefWidth="327.0" text="Continue" />
+        <Button fx:id="continueButton" layoutX="225.0" layoutY="544.0" prefHeight="89.0" prefWidth="327.0" text="Continue" disable="true"/>
 
     </children>
 </AnchorPane>

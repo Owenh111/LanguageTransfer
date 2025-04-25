@@ -16,7 +16,6 @@
 
       <Button fx:id="continueButton" layoutX="867.0" layoutY="428.0" prefHeight="135.0" prefWidth="246" style="-fx-font-size: 35px;" text="Continue" visible="false" />
 
-      <!-- Accented character buttons -->
       <Button fx:id="accentedAButton" disable="true" layoutX="40.0" layoutY="427.0" text="à" />
       <Button fx:id="accentedEButton" disable="true" layoutX="101.0" layoutY="427.0" text="è" />
       <Button fx:id="accentedIButton" disable="true" layoutX="163.0" layoutY="427.0" text="ì" />

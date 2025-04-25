@@ -178,7 +178,6 @@ public class Listening {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("`");
-                if (parts.length >= 11) {
                     int section = Integer.parseInt(parts[0].trim());
                     if (section == sectionToLoad) {
                         Set<String> answers = new HashSet<>();
@@ -186,7 +185,6 @@ public class Listening {
                         answers.add(parts[8].trim());
                         answers.add(parts[9].trim());
                         known.put(section, answers);
-                    }
                 }
             }
 
@@ -198,7 +196,7 @@ public class Listening {
 
 
     private List<AudioItem> getAudioItemsForSection(int section, Map<Integer, Set<String>> knownAnswers) {
-        // TODO: 17/04/2025 understand/comment this properly for the VIVA
+        // TODO: 17/04/2025 comment this properly for the VIVA
         List<AudioItem> items = new ArrayList<>();
         try {
             URL folderURL = getClass().getResource("/audio/" + section);
