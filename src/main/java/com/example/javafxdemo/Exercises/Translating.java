@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ import java.util.*;
 
 public class Translating {
 
+    @FXML private AnchorPane anchorPane;
     // Text fields for answers
     @FXML private TextField answerField1;
     @FXML private TextField answerField2;
@@ -47,10 +49,15 @@ public class Translating {
 
     Learner learner = Session.getLearner();
 
-    Integer sectionToLoad = learner.getProgress()+1;
+    Integer sectionToLoad = learner.getProgress();
     ArrayList<String> answers = new ArrayList<>();
 
+    Boolean answer1Correct = false;
+    Boolean answer2Correct = false;
+    Boolean answer3Correct = false;
+
     public void initialize() {
+        Session.startColorCycle(anchorPane);
         readInData();
         setUpLabels();
         enableAccentMarkButtonsIfNecessary(answers);
@@ -94,11 +101,11 @@ public class Translating {
             if (item.contains("ù")) hasGraveU = true;
         }
 
-        accentedAButton.setDisable(!hasGraveA);
-        accentedEButton.setDisable(!hasGraveE);
-        accentedIButton.setDisable(!hasGraveI);
-        accentedOButton.setDisable(!hasGraveO);
-        accentedUButton.setDisable(!hasGraveU);
+        accentedAButton.setVisible(hasGraveA);
+        accentedEButton.setVisible(hasGraveE);
+        accentedIButton.setVisible(hasGraveI);
+        accentedOButton.setVisible(hasGraveO);
+        accentedUButton.setVisible(hasGraveU);
     }
     public Pair<Character, String> checkAnswer(String userAnswer, Integer answerIndex) throws IOException {
         String trueAnswer = "";
@@ -120,6 +127,12 @@ public class Translating {
         }
     }
 
+    public void checkIfContinueShouldEnable(){
+        if (answer1Correct && answer2Correct && answer3Correct){ // answerCorrect == true can be simplified to answerCorrect
+            continueButton.setDisable(false);
+        }
+    }
+
     public void onCheck1(ActionEvent event) {
         String answerFieldContent = answerField1.getText();
         Pair<Character, String> result = new Pair<>('?', "");
@@ -134,16 +147,18 @@ public class Translating {
 
         if (result.getKey() == 'y') {
             feedbackLabel1.setText("✔ Correct");
-            feedbackLabel1.setStyle("-fx-text-fill: green;");
-            answerField1.setDisable(true);
+            feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: green;");
+            answerField1.setEditable(false);
             checkButton1.setDisable(true);
             giveUpButton1.setDisable(true);
+            answer1Correct = true;
+            checkIfContinueShouldEnable();
         } else if (result.getKey() == 'n'){
             feedbackLabel1.setText("❌ Incorrect");
-            feedbackLabel1.setStyle("-fx-text-fill: red;");
+            feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: red;");
         } else {
             feedbackLabel1.setText("❗ Nothing to check!");
-            feedbackLabel1.setStyle("-fx-text-fill: orange;");
+            feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
         }
     }
 
@@ -153,15 +168,17 @@ public class Translating {
 
         try {
             result = checkAnswer(answerFieldContent, 7);
+            answerField1.setText("The answer was \"" + result.getValue() + "\"");
+            answerField1.setEditable(false);
+            checkButton1.setDisable(true);
+            giveUpButton1.setDisable(true);
+            feedbackLabel1.setText("\uD83D\uDEAB Question skipped");
+            feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
+            answer1Correct = true;
+            checkIfContinueShouldEnable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        answerField1.setText("The answer was " + result.getValue());
-        answerField1.setDisable(true);
-        checkButton1.setDisable(true);
-        giveUpButton1.setDisable(true);
-        feedbackLabel1.setText("\uD83D\uDEAB Question skipped");
     }
 
     public void onCheck2(ActionEvent event) {
@@ -177,16 +194,18 @@ public class Translating {
 
         if (result.getKey() == 'y') {
             feedbackLabel2.setText("✔ Correct");
-            feedbackLabel2.setStyle("-fx-text-fill: green;");
-            answerField2.setDisable(true);
+            feedbackLabel2.setStyle("-fx-font-size: 40px; -fx-text-fill: green;");
+            answerField2.setEditable(false);
             checkButton2.setDisable(true);
             giveUpButton2.setDisable(true);
+            answer2Correct = true;
+            checkIfContinueShouldEnable();
         } else if (result.getKey() == 'n'){
             feedbackLabel2.setText("❌ Incorrect");
-            feedbackLabel2.setStyle("-fx-text-fill: red;");
+            feedbackLabel2.setStyle("-fx-font-size: 40px; -fx-text-fill: red;");
         } else {
             feedbackLabel2.setText("❗ Nothing to check!");
-            feedbackLabel2.setStyle("-fx-text-fill: orange;");
+            feedbackLabel2.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
         }
     }
 
@@ -196,15 +215,17 @@ public class Translating {
 
         try {
             result = checkAnswer(answerFieldContent, 8);
+            answerField2.setText(("The answer was \"" + result.getValue() + "\""));
+            answerField2.setEditable(false);
+            checkButton2.setDisable(true);
+            giveUpButton2.setDisable(true);
+            feedbackLabel2.setText("\uD83D\uDEAB Question skipped");
+            feedbackLabel2.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
+            answer2Correct = true;
+            checkIfContinueShouldEnable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        answerField2.setText("The answer was " + result.getValue());
-        answerField2.setDisable(true);
-        checkButton2.setDisable(true);
-        giveUpButton2.setDisable(true);
-        feedbackLabel2.setText("\uD83D\uDEAB Question skipped");
     }
 
     public void onCheck3(ActionEvent event) {
@@ -220,16 +241,18 @@ public class Translating {
 
         if (result.getKey() == 'y') {
             feedbackLabel3.setText("✔ Correct");
-            feedbackLabel3.setStyle("-fx-text-fill: green;");
-            answerField3.setDisable(true);
+            feedbackLabel3.setStyle("-fx-font-size: 40px; -fx-text-fill: green;");
+            answerField3.setEditable(false);
             checkButton3.setDisable(true);
             giveUpButton3.setDisable(true);
+            answer3Correct = true;
+            checkIfContinueShouldEnable();
         } else if (result.getKey() == 'n'){
             feedbackLabel3.setText("❌ Incorrect");
-            feedbackLabel3.setStyle("-fx-text-fill: red;");
+            feedbackLabel3.setStyle("-fx-font-size: 40px; -fx-text-fill: red;");
         } else {
             feedbackLabel3.setText("❗ Nothing to check!");
-            feedbackLabel3.setStyle("-fx-text-fill: orange;");
+            feedbackLabel3.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
         }
     }
 
@@ -239,14 +262,16 @@ public class Translating {
 
         try {
             result = checkAnswer(answerFieldContent, 9);
+            answerField3.setText("The answer was \"" + result.getValue() + "\"");
+            answerField3.setEditable(false);
+            checkButton3.setDisable(true);
+            giveUpButton3.setDisable(true);
+            feedbackLabel3.setText("\uD83D\uDEAB Question skipped");
+            feedbackLabel3.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
+            answer3Correct = true;
+            checkIfContinueShouldEnable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        answerField3.setText("The answer was " + result.getValue());
-        answerField3.setDisable(true);
-        checkButton3.setDisable(true);
-        giveUpButton3.setDisable(true);
-        feedbackLabel3.setText("\uD83D\uDEAB Question skipped");
     }
 }

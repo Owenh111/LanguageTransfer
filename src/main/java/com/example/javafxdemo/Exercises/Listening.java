@@ -4,6 +4,7 @@ import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.*;
 import javafx.util.Duration;
 
@@ -15,11 +16,7 @@ import java.util.*;
 
 public class Listening {
 
-    /**
-     * old version of this class IN LITERATURE REVIEW FOLDER
-     * old version ALSO CONTAINS EXTRA PSEUDOCODE @ BOTTOM
-     * (probably not needed anymore)
-     */
+    @FXML private AnchorPane anchorPane;
     @FXML private MediaView mediaView;
     @FXML private TextField userInput;
     @FXML private Label instructionLabel;
@@ -46,6 +43,8 @@ public class Listening {
         accentedIButton.setOnAction(e -> insertAtCaret("ì"));
         accentedOButton.setOnAction(e -> insertAtCaret("ò"));
         accentedUButton.setOnAction(e -> insertAtCaret("ù"));
+
+        Session.startColorCycle(anchorPane);
     }
 
     private void setupUI() {
@@ -64,8 +63,8 @@ public class Listening {
 
     private String getInstructionForCurrentItem() {
         return audioItems.get(currentIndex).isUnseen
-                ? "Type what you hear as closely as possible:"
-                : "Type the phrase you heard:";
+                ? "Type what you hear as closely as possible: \n\n Go for it - no worries if you get it wrong!"
+                : "Type the phrase you heard: \n\n There is a replay button if you need it! \n\n You can pass the question after one failed attempt.";
         // TODO: 17/04/2025 understand how this works 
     }
 
@@ -104,10 +103,12 @@ public class Listening {
         
         if (userAnswer.equals(correctAnswer)) {
             feedbackLabel.setText("✅ Correct!");
+            feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: green;");
             giveUpButton.setVisible(false);
             nextAudio();
         } else {
             feedbackLabel.setText("❌ Try again!");
+            feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: red;");
             giveUpButton.setVisible(true);
         }
     }
@@ -115,6 +116,7 @@ public class Listening {
     @FXML
     public void onGiveUp() {
         feedbackLabel.setText("The previous answer was: " + audioItems.get(currentIndex).expectedAnswer);
+        feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: orange;");
         if (audioItems.get(currentIndex).isUnseen){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             showDefinition(filename);
@@ -130,7 +132,6 @@ public class Listening {
             String line;
             if ((line = reader.readLine()) != null) {
                 instructionLabel.setText("definition: " + line);
-                // TODO: 17/04/2025 doesn't matter much but if definition spans multiple lines only 1st will be read
             }
         } catch (Exception e) {
                 e.printStackTrace();
@@ -162,11 +163,11 @@ public class Listening {
             if (expectedAnswer.contains("ù")) hasGraveU = true;
 
 
-        accentedAButton.setDisable(!hasGraveA);
-        accentedEButton.setDisable(!hasGraveE);
-        accentedIButton.setDisable(!hasGraveI);
-        accentedOButton.setDisable(!hasGraveO);
-        accentedUButton.setDisable(!hasGraveU);
+        accentedAButton.setVisible(hasGraveA);
+        accentedEButton.setVisible(hasGraveE);
+        accentedIButton.setVisible(hasGraveI);
+        accentedOButton.setVisible(hasGraveO);
+        accentedUButton.setVisible(hasGraveU);
     }
 
 

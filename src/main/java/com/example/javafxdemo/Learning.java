@@ -2,6 +2,8 @@ package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Content;
 import com.example.javafxdemo.Classes.Course;
+import com.example.javafxdemo.Classes.Exercise;
+import com.example.javafxdemo.Classes.Session;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Learning {
     /**
@@ -46,15 +49,11 @@ public class Learning {
     @FXML
     private Button continueToExercises;
 
-    private Color[] colors = {Color.valueOf("97ECF1"), Color.valueOf("DFFDFF"), Color.valueOf("BDB2FF"),
-            Color.valueOf("FAD1FA"), Color.valueOf("FEC868"), Color.valueOf("F1F7B5")};
-    private int colorIndex = 0;
-
     public void initialize(){
         Course course = new Course("Italian");
         course.loadContentFromFile("content.txt");
 
-        cycleColors();
+        Session.startColorCycle(anchorPane);
 
         List<Content> contentList = course.getContentList();
         parseContentAtIndex(1, contentList);
@@ -88,57 +87,17 @@ public class Learning {
         continueToExercises.setText("Continue to exercise " + (content.getContentNumber() + 1));
     }
 
-    @FXML
-    public void cycleColors() {
-        fadeToNextColor();
-    }
-
-    private void fadeToNextColor() {
-        Color startColor = colors[colorIndex];
-        Color endColor = colors[(colorIndex + 1) % colors.length];
-
-        final int steps = 100; // Number of steps for smooth fading
-        final Duration duration = Duration.seconds(10); // Total duration of the fade
-
-        Timeline timeline = new Timeline();
-
-        for (int i = 0; i <= steps; i++) {
-            double fraction = (double) i / steps;
-            Color interpolatedColor = interpolateColor(startColor, endColor, fraction);
-            timeline.getKeyFrames().add(new KeyFrame(
-                    duration.divide(steps).multiply(i),
-                    event -> anchorPane.setStyle("-fx-background-color: " + toRgbString(interpolatedColor))
-            ));
-        }
-
-        timeline.setOnFinished(event -> {
-            colorIndex = (colorIndex + 1) % colors.length;
-            fadeToNextColor(); // Proceed to the next color after fading
-        });
-
-        timeline.play();
-    }
-
-    private Color interpolateColor(Color start, Color end, double fraction) {
-        double red = start.getRed() + (end.getRed() - start.getRed()) * fraction;
-        double green = start.getGreen() + (end.getGreen() - start.getGreen()) * fraction;
-        double blue = start.getBlue() + (end.getBlue() - start.getBlue()) * fraction;
-        return new Color(red, green, blue, 1.0);
-    }
-
-    public String toRgbString(Color color) {
-        return String.format("rgb(%d, %d, %d)",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
-    }
-
     public void onNextButtonClick(){
+        Random random = new Random();
+        List<String> exercises = Session.getAllExercises();
+        int index = random.nextInt(exercises.size());
+        String exercise = exercises.get(index);
+        Session.trackExercisesUsedInSection(exercise);
         // Get the current stage
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/translating.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/"+exercise+".fxml")));
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
@@ -149,7 +108,7 @@ public class Learning {
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
         } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/translating.fxml");
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+exercise+".fxml");
             System.out.println("URL: " + url);
         }
     }

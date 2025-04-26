@@ -1,6 +1,7 @@
 package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Course;
+import com.example.javafxdemo.Classes.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,12 +54,12 @@ public class Introduction {
     }
 
     public void saveMicPreference() {
-        RadioButton selectedRadioButton = (RadioButton) micToggleGroup.getSelectedToggle();
-
-        micPreference = selectedRadioButton.getId();
+        Session.includeOrExcludeSpeakingExercises(getMicPreference());
     }
 
     public String getMicPreference() {
+        RadioButton selectedRadioButton = (RadioButton) micToggleGroup.getSelectedToggle();
+        micPreference = selectedRadioButton.getId();
         return micPreference;
     }
 

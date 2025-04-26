@@ -25,10 +25,11 @@ public class Content {
     private String italianExamplePhrase3;
     private String explanation;
     private String exceptions;
+    private String hint;
 
     public Content(Integer contentNumber, String englishConcept, String italianConcept, String wordType, String englishExamplePhrase,
                    String englishExamplePhrase2, String englishExamplePhrase3, String italianExamplePhrase,
-                   String italianExamplePhrase2, String italianExamplePhrase3, String explanation, String exceptions){
+                   String italianExamplePhrase2, String italianExamplePhrase3, String explanation, String exceptions, String hint){
         this.contentNumber = contentNumber;
         this.englishConcept = englishConcept;
         this.italianConcept = italianConcept;
@@ -41,6 +42,7 @@ public class Content {
         this.italianExamplePhrase3 = italianExamplePhrase3;
         this.explanation = explanation;
         this.exceptions = exceptions;
+        this.hint = hint;
     }
 
     public Integer getContentNumber() { return contentNumber; }
@@ -78,4 +80,7 @@ public class Content {
 
     public String getExceptions() { return exceptions; }
     public void setExceptions(String exceptions) { this.exceptions = exceptions; }
+
+    public String getHint() { return hint; }
+    public void setHint(String hint) { this.hint = hint; }
 }

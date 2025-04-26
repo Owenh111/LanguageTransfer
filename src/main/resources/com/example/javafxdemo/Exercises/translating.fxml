@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="662.0" prefWidth="1360.0" style="-fx-padding: 40;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Translating">
+<AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" style="-fx-padding: 40;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Translating">
 
     <children>
 
@@ -27,11 +27,11 @@
         <Button fx:id="giveUpButton3" layoutX="745.0" layoutY="310.0" onAction="#onGiveUp3" style="-fx-font-size: 16px;" text="I give up" />
         <Label fx:id="feedbackLabel3" layoutX="930.0" layoutY="310.0" style="-fx-font-size: 40px; -fx-text-fill: green;" text="" />
 
-        <Button fx:id="accentedAButton" disable="true" layoutX="40.0" layoutY="427.0" text="à" />
-        <Button fx:id="accentedEButton" disable="true" layoutX="101.0" layoutY="427.0" text="è" />
-        <Button fx:id="accentedIButton" disable="true" layoutX="163.0" layoutY="427.0" text="ì" />
-        <Button fx:id="accentedOButton" disable="true" layoutX="221.0" layoutY="427.0" text="ò" />
-        <Button fx:id="accentedUButton" disable="true" layoutX="281.0" layoutY="427.0" text="ù" />
+        <Button fx:id="accentedAButton" visible="false" layoutX="40.0" layoutY="427.0" text="à" />
+        <Button fx:id="accentedEButton" visible="false" layoutX="101.0" layoutY="427.0" text="è" />
+        <Button fx:id="accentedIButton" visible="false" layoutX="163.0" layoutY="427.0" text="ì" />
+        <Button fx:id="accentedOButton" visible="false" layoutX="221.0" layoutY="427.0" text="ò" />
+        <Button fx:id="accentedUButton" visible="false" layoutX="281.0" layoutY="427.0" text="ù" />
 
         <!-- Feedback Label -->
         <Button fx:id="continueButton" layoutX="225.0" layoutY="544.0" prefHeight="89.0" prefWidth="327.0" text="Continue" disable="true"/>
