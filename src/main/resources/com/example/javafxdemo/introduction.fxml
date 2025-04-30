@@ -84,11 +84,6 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="186.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../../../images/IntroImage_4.png" />
-                                </image>
-                            </ImageView>
                             <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="4/5">
                                 <font>
                                     <Font size="20.0" />
@@ -99,8 +94,12 @@
                                     <Font size="20.0" />
                                 </font>
                             </Button>
-                            <Label layoutX="66.0" layoutY="44.0" prefHeight="44.0" prefWidth="470.0" text="There are a few types of exercises; these will be introduced one by one as you go along." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="42.0" layoutY="107.0" prefHeight="41.0" prefWidth="517.0" text="Every so often, there will be quick quizzes, but don't worry - if you don't pass, we'll help you out." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="66.0" layoutY="44.0" prefHeight="44.0" prefWidth="470.0" text="You can adjust the difficulty of the questions using this slider. Or you can just leave it as it is." textAlignment="CENTER" wrapText="true" />
+                            <Label layoutX="43.0" layoutY="113.0" prefHeight="41.0" prefWidth="517.0" text="If you're not sure, you can press &quot;help me choose&quot;. Anyway, you can always change this later by pressing ESCAPE." textAlignment="CENTER" wrapText="true" />
+                        <Slider blockIncrement="1.0" layoutX="81.0" layoutY="202.0" max="5.0" min="1.0" prefHeight="31.0" prefWidth="469.0" value="4.0" />
+                        <Label layoutX="242.0" layoutY="292.0" text="difficulty of exercises" textAlignment="CENTER" />
+                        <Label layoutX="67.0" layoutY="242.0" prefHeight="19.0" prefWidth="495.0" text="easiest               easier         recommended          harder            hardest" />
+                        <Button layoutX="43.0" layoutY="301.0" mnemonicParsing="false" text="Help me choose" />
                         </children></AnchorPane>
                 </content>
             </Tab>

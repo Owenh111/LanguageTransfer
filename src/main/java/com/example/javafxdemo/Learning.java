@@ -2,10 +2,7 @@ package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Content;
 import com.example.javafxdemo.Classes.Course;
-import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Session;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,13 +45,19 @@ public class Learning {
     private Button continueToExercises;
 
     public void initialize(){
-        Course course = new Course("Italian");
-        course.loadContentFromFile("content.txt");
+        Session.resetUnusedExercises();
 
+        // Only start color cycle (visual)
         Session.startColorCycle(anchorPane);
 
+        // Advance learner's progress each time Learning is shown
+        Session.advanceProgress();
+
+        Course course = Session.getCurrentCourse();
         List<Content> contentList = course.getContentList();
-        parseContentAtIndex(1, contentList);
+
+        int progressIndex = Session.getLearner().getProgress();
+        parseContentAtIndex(progressIndex, contentList);
     }
 
     public void parseContentAtIndex(Integer index, List<Content> contentList) {
@@ -84,20 +85,20 @@ public class Learning {
 
         explanation.setText(content.getExplanation());
         exceptions.setText(content.getExceptions());
-        continueToExercises.setText("Continue to exercise " + (content.getContentNumber() + 1));
+        continueToExercises.setText("Continue to exercises");
     }
 
+    @FXML
     public void onNextButtonClick(){
         Random random = new Random();
         List<String> exercises = Session.getAllExercises();
         int index = random.nextInt(exercises.size());
-        String exercise = exercises.get(index);
-        Session.trackExercisesUsedInSection(exercise);
+        String nextExercise = exercises.get(index);
         // Get the current stage
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/"+exercise+".fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/"+nextExercise+".fxml")));
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
@@ -107,8 +108,10 @@ public class Learning {
             stage.setMaximized(true);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
+
+            Session.removeUsedExerciseFromRandomSelection(nextExercise);
         } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+exercise+".fxml");
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+nextExercise+".fxml");
             System.out.println("URL: " + url);
         }
     }

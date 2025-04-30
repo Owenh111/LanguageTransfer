@@ -1,7 +1,5 @@
 package com.example.javafxdemo.Classes;
 
-import com.example.javafxdemo.Classes.Learner;
-import com.example.javafxdemo.Introduction;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +13,31 @@ import java.util.Objects;
 
 public class Session {
     private static Learner currentLearner;
+    private static Course currentCourse;
+    private static List<Exercise> improvableExercises = new ArrayList<>();;
+
+    public static void initializeCourse(String language) {
+        currentCourse = new Course(language);
+        currentCourse.loadContentFromFile("content.txt");
+        currentLearner.resetCourse();
+    }
+
+    public static Course getCurrentCourse() {
+        return currentCourse;
+    }
+
+    public static void advanceProgress() { //i.e. change the section
+        int progress = currentLearner.getProgress();
+        currentLearner.setProgress(progress + 1);
+    }
+
+    public static void addGiveUp(Exercise exercise) {
+        improvableExercises.add(exercise);
+    }
+
+    public static List<Exercise> getGiveUps(){
+        return improvableExercises;
+    }
 
     private static final Color[] colors = {
             Color.valueOf("97ECF1"),
@@ -27,9 +50,13 @@ public class Session {
     private static int colorIndex = 0;
     private static Timeline timeline;
     private static AnchorPane currentAnchorPane;
-    private static List<String> exercises = new ArrayList<>(Arrays.asList(
-            "Listening", "Matching", "Speaking", "Translating"));
-    private static List<String> exercisesUsedInThisSection;
+
+    //todo: re-add "Matching" when the exercise has been made
+    private static List<String> allExercises = new ArrayList<>(Arrays.asList(
+            "Anagram"
+            , "Listening", "Speaking", "Translating"
+            ));
+    private static List<String> exercisesUnusedInThisSection;
 
     /** call this when user starts or resumes a course */
     public static void setLearner(Learner learner) {
@@ -39,19 +66,26 @@ public class Session {
         return currentLearner;
     }
 
+    /** get all improvableExercises; used in Learning.java as none have been used yet **/
     public static List<String> getAllExercises(){
-        return exercises;
+        return allExercises;
     }
 
-    public static List<String> trackExercisesUsedInSection(String exercise){
-        exercisesUsedInThisSection.add(exercise);
-        return exercisesUsedInThisSection;
+    /** get unused improvableExercises; called from any exercise as at least one exercise has already been shown **/
+    public static List<String> getExercisesUnusedInSection(){
+        return exercisesUnusedInThisSection;
     }
-    public static List<String> includeOrExcludeSpeakingExercises(String micPreference){
+
+    /** when the next Learning.java is shown, all improvableExercises need to be showable again so this is called **/
+    public static void resetUnusedExercises(){
+        exercisesUnusedInThisSection = new ArrayList<>(allExercises);
+    }
+
+    /** called once at the start **/
+    public static void includeOrExcludeSpeakingExercises(String micPreference){
         if (Objects.equals(micPreference, "radioButtonNo")){
-            exercises.remove("Speaking");
+            allExercises.remove("Speaking");
         }
-        return exercises;
     }
 
     /** Initialize background color cycling for a given AnchorPane */
@@ -105,5 +139,10 @@ public class Session {
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
                 (int) (color.getBlue() * 255));
+    }
+
+    /** this exercise will not be called again until the unused improvableExercises are reset **/
+    public static void removeUsedExerciseFromRandomSelection(String exercise) {
+        exercisesUnusedInThisSection.remove(exercise);
     }
 }

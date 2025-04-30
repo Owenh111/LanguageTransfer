@@ -1,18 +1,25 @@
 package com.example.javafxdemo.Exercises;
 
+import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.*;
 
 
@@ -37,15 +44,13 @@ public class Translating {
     @FXML private Button checkButton3;
     @FXML private Button giveUpButton3;
 
-    // Feedback label
-    @FXML
-    private Label feedbackLabel1, feedbackLabel2, feedbackLabel3;
+    @FXML private Label feedbackLabel1, feedbackLabel2, feedbackLabel3;
 
-    @FXML
-    private Button accentedAButton, accentedEButton, accentedIButton, accentedOButton, accentedUButton;
+    @FXML private Button accentedAButton, accentedEButton, accentedIButton, accentedOButton, accentedUButton;
 
-    @FXML
-    private Button continueButton;
+    @FXML private Button continueButton, hintButton;
+
+    @FXML private TextArea hint;
 
     Learner learner = Session.getLearner();
 
@@ -55,12 +60,63 @@ public class Translating {
     Boolean answer1Correct = false;
     Boolean answer2Correct = false;
     Boolean answer3Correct = false;
+    private TextField lastFocusedField;
+    private int lastCaretPosition = 0;
+    private String hintText;
+    private Boolean giveUpAlreadyAdded = false;
 
-    public void initialize() {
+    public void initialize() throws IOException {
         Session.startColorCycle(anchorPane);
         readInData();
         setUpLabels();
-        enableAccentMarkButtonsIfNecessary(answers);
+        enableAccentMarkButtonsIfNecessary();
+
+        setListeners();
+    }
+
+    public void setListeners(){
+        answerField1.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                lastFocusedField = answerField1;
+                lastCaretPosition = answerField1.getCaretPosition();
+            }
+        });
+
+        answerField2.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                lastFocusedField = answerField2;
+                lastCaretPosition = answerField2.getCaretPosition();
+            }
+        });
+
+        answerField3.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                lastFocusedField = answerField3;
+                lastCaretPosition = answerField3.getCaretPosition();
+            }
+        });
+
+        answerField1.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+            if (answerField1.isFocused()) {
+                lastCaretPosition = newVal.intValue();
+            }
+        });
+        answerField2.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+            if (answerField2.isFocused()) {
+                lastCaretPosition = newVal.intValue();
+            }
+        });
+        answerField3.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+            if (answerField3.isFocused()) {
+                lastCaretPosition = newVal.intValue();
+            }
+        });
+
+        accentedAButton.setOnAction(e -> insertAtCaret("à"));
+        accentedEButton.setOnAction(e -> insertAtCaret("è"));
+        accentedIButton.setOnAction(e -> insertAtCaret("ì"));
+        accentedOButton.setOnAction(e -> insertAtCaret("ò"));
+        accentedUButton.setOnAction(e -> insertAtCaret("ù"));
     }
 
     public void readInData(){
@@ -70,12 +126,13 @@ public class Translating {
             String[] parts;
             while ((line = reader.readLine()) != null) {
                 parts = line.split("`");
-                if (parts.length >= 11) {
+                if (parts.length == 13) {
                     int section = Integer.parseInt(parts[0].trim());
                     if (section == sectionToLoad) {
                         answers.add(parts[4].trim());
                         answers.add(parts[5].trim());
                         answers.add(parts[6].trim());
+                        hintText = parts[12];
                     }
                 }
             }
@@ -90,15 +147,20 @@ public class Translating {
         question3.setText(answers.get(2));
     }
 
-    public void enableAccentMarkButtonsIfNecessary(ArrayList<String> answers){
+    public void enableAccentMarkButtonsIfNecessary() throws IOException {
         boolean hasGraveA = false, hasGraveE = false, hasGraveI = false, hasGraveO = false, hasGraveU = false;
 
-        for (String item : answers) {
-            if (item.contains("à")) hasGraveA = true;
-            if (item.contains("è")) hasGraveE = true;
-            if (item.contains("ì")) hasGraveI = true;
-            if (item.contains("ò")) hasGraveO = true;
-            if (item.contains("ù")) hasGraveU = true;
+        Integer answerIndex = 7;
+        while (answerIndex < 10) {
+            Pair<Character, String> result = checkAnswer("",answerIndex);
+
+            if (result.getValue().contains("à")) hasGraveA = true;
+            if (result.getValue().contains("è")) hasGraveE = true;
+            if (result.getValue().contains("ì")) hasGraveI = true;
+            if (result.getValue().contains("ò")) hasGraveO = true;
+            if (result.getValue().contains("ù")) hasGraveU = true;
+
+            answerIndex+=1;
         }
 
         accentedAButton.setVisible(hasGraveA);
@@ -107,6 +169,38 @@ public class Translating {
         accentedOButton.setVisible(hasGraveO);
         accentedUButton.setVisible(hasGraveU);
     }
+
+    private void insertAtCaret(String character) {
+        if (lastFocusedField != null) {
+            String currentText = lastFocusedField.getText();
+
+            int caretPositionToReturnTo = lastCaretPosition;
+            // Insert the character at the saved caret position
+            String newText = currentText.substring(0, lastCaretPosition) + character + currentText.substring(lastCaretPosition);
+
+            lastFocusedField.setText(newText);
+
+            // Move caret to after inserted character
+            lastFocusedField.requestFocus();
+            lastFocusedField.positionCaret(caretPositionToReturnTo + character.length());
+
+            // Update lastCaretPosition (since we inserted a character)
+            lastCaretPosition = caretPositionToReturnTo + character.length();
+        } else {
+            System.out.println("No field selected!");
+        }
+    }
+
+    public void showHint(){
+        hint.setVisible(true);
+        hint.setEditable(false);
+        hint.setFocusTraversable(false);
+        hint.setText(hintText);
+        hintButton.setVisible(false);
+        hint.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;" +
+                "-fx-control-inner-background: transparent; -fx-font-size: 25px;");
+    }
+
     public Pair<Character, String> checkAnswer(String userAnswer, Integer answerIndex) throws IOException {
         String trueAnswer = "";
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -130,6 +224,8 @@ public class Translating {
     public void checkIfContinueShouldEnable(){
         if (answer1Correct && answer2Correct && answer3Correct){ // answerCorrect == true can be simplified to answerCorrect
             continueButton.setDisable(false);
+            hint.setVisible(false);
+            hintButton.setVisible(false);
         }
     }
 
@@ -176,6 +272,11 @@ public class Translating {
             feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
             answer1Correct = true;
             checkIfContinueShouldEnable();
+
+            if (!giveUpAlreadyAdded){
+                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
+                giveUpAlreadyAdded = true;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -223,6 +324,11 @@ public class Translating {
             feedbackLabel2.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
             answer2Correct = true;
             checkIfContinueShouldEnable();
+
+            if (!giveUpAlreadyAdded){
+                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
+                giveUpAlreadyAdded = true;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -270,8 +376,49 @@ public class Translating {
             feedbackLabel3.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
             answer3Correct = true;
             checkIfContinueShouldEnable();
+
+            if (!giveUpAlreadyAdded){
+                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
+                giveUpAlreadyAdded = true;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void onContinueButtonClick(){
+        hint.setVisible(false);
+        // since we have already used at least one exercise, we have to exclude any that have already been shown
+        List<String> exercises = Session.getExercisesUnusedInSection();
+        String next = "";
+        if (exercises.isEmpty()){
+            // if no more exercises to show then show next piece of content
+            next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(exercises.size());
+            next = exercises.get(index);
+        }
+
+        Stage stage = (Stage) continueButton.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(next+".fxml")));
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+
+            stage.setScene(newScene);
+
+            stage.setMaximized(true);
+            stage.setTitle("Langtrans Italiano");
+            stage.centerOnScreen();
+
+            Session.removeUsedExerciseFromRandomSelection(next);
+        } catch (IOException e) {
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml");
+            System.out.println("URL: " + url);
         }
     }
 }

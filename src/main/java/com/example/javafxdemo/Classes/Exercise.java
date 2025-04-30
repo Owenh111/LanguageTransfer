@@ -1,27 +1,20 @@
 package com.example.javafxdemo.Classes;
 
-import com.example.javafxdemo.Introduction;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
 public class Exercise {
-    private Character exerciseType; //to load the correct fxml template and exclude microphone tasks
+    private String exerciseType; //to load the correct fxml template and exclude microphone tasks
 
     private Integer exerciseContent; //to dynamically create the exercise with content most recently learned
 
-    public Exercise(Character exerciseType, Integer exerciseContent) {
+    public Exercise(String exerciseType, Integer exerciseContent) {
         this.exerciseType = exerciseType;
         this.exerciseContent = exerciseContent;
     }
 
-    public Character getType() {
+    public String getType() {
         return exerciseType;
     }
 
-    public void setType(Character type) {
+    public void setType(String type) {
         this.exerciseType = type;
     }
 

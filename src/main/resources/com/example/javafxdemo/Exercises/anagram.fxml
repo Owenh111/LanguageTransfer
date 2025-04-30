@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" style="-fx-padding: 40;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Exercises.Anagram">
+
+
+    <children>
+
+        <Label fx:id="instructionLabel" layoutX="40.0" layoutY="30.0" style="-fx-font-size: 40px;" text="Unscramble the word below:" wrapText="true" />
+
+        <Label fx:id="anagramLabel" layoutX="40.0" layoutY="100.0" style="-fx-font-size: 50px;" text="ragpormminog" wrapText="true" />
+
+        <TextField fx:id="userInput" layoutX="40.0" layoutY="180.0" prefHeight="70.0" prefWidth="614.0" promptText="Enter your answer..." style="-fx-font-size: 40px; -fx-alignment: center;" />
+
+        <Button fx:id="continueButton" layoutX="199.0" layoutY="552.0" onAction="#onContinueButtonClick" prefHeight="111.0" prefWidth="350.0" style="-fx-font-size: 30px;" text="Continue" visible="false"/>
+
+        <Label fx:id="feedbackLabel" layoutX="675.0" layoutY="191.0" style="-fx-font-size: 40px;" text="" wrapText="true" />
+
+        <Button fx:id="hintButton" layoutX="549.0" layoutY="282.0" mnemonicParsing="false" onAction="#showHint" text="Show hint" />
+        <TextArea fx:id="hint" layoutX="745.0" layoutY="350.0" maxHeight="200.0" maxWidth="600.0" visible="false" wrapText="true" />
+
+        <Button fx:id="accentedAButton" layoutX="40.0" layoutY="282.0" text="à" visible="true" />
+        <Button fx:id="accentedEButton" layoutX="101.0" layoutY="282.0" text="è" visible="true" />
+        <Button fx:id="accentedIButton" layoutX="163.0" layoutY="282.0" text="ì" visible="true" />
+        <Button fx:id="accentedOButton" layoutX="221.0" layoutY="282.0" text="ò" visible="true" />
+        <Button fx:id="accentedUButton" layoutX="281.0" layoutY="282.0" text="ù" visible="true" />
+
+        <Label fx:id="correctAndNextLabel" layoutX="40.0" layoutY="480.0" style="-fx-font-size: 30px;" text="" wrapText="true" />
+
+      <Button fx:id="checkButton" layoutX="149.0" layoutY="379.0" mnemonicParsing="false" onAction="#onCheck" prefHeight="82.0" prefWidth="171.0" text="Check" />
+      <Button fx:id="giveUpButton" layoutX="378.0" layoutY="379.0" mnemonicParsing="false" onAction="#onGiveUp" prefHeight="82.0" prefWidth="171.0" text="Give up" />
+
+    </children>
+</AnchorPane>

@@ -27,14 +27,17 @@
         <Button fx:id="giveUpButton3" layoutX="745.0" layoutY="310.0" onAction="#onGiveUp3" style="-fx-font-size: 16px;" text="I give up" />
         <Label fx:id="feedbackLabel3" layoutX="930.0" layoutY="310.0" style="-fx-font-size: 40px; -fx-text-fill: green;" text="" />
 
-        <Button fx:id="accentedAButton" visible="false" layoutX="40.0" layoutY="427.0" text="à" />
-        <Button fx:id="accentedEButton" visible="false" layoutX="101.0" layoutY="427.0" text="è" />
-        <Button fx:id="accentedIButton" visible="false" layoutX="163.0" layoutY="427.0" text="ì" />
-        <Button fx:id="accentedOButton" visible="false" layoutX="221.0" layoutY="427.0" text="ò" />
-        <Button fx:id="accentedUButton" visible="false" layoutX="281.0" layoutY="427.0" text="ù" />
+        <Button fx:id="accentedAButton" layoutX="40.0" layoutY="477.0" text="à" visible="false" />
+        <Button fx:id="accentedEButton" layoutX="101.0" layoutY="477.0" text="è" visible="false" />
+        <Button fx:id="accentedIButton" layoutX="163.0" layoutY="477.0" text="ì" visible="false" />
+        <Button fx:id="accentedOButton" layoutX="221.0" layoutY="477.0" text="ò" visible="false" />
+        <Button fx:id="accentedUButton" layoutX="281.0" layoutY="477.0" text="ù" visible="false" />
 
         <!-- Feedback Label -->
-        <Button fx:id="continueButton" layoutX="225.0" layoutY="544.0" prefHeight="89.0" prefWidth="327.0" text="Continue" disable="true"/>
+        <Button fx:id="continueButton" disable="true" layoutX="225.0" layoutY="544.0" onAction="#onContinueButtonClick" prefHeight="89.0" prefWidth="327.0" text="Continue" />
+      <Label layoutX="84.0" layoutY="388.0" style="-fx-font-size: 40px;" text="Type the Italian equivalent of the phrases above." />
 
+      <Button fx:id="hintButton" layoutX="660.0" layoutY="477.0" mnemonicParsing="false" onAction="#showHint" text="Show hint" />
+        <TextArea fx:id="hint" layoutX="745.0" layoutY="470.0" maxHeight="200" maxWidth="600" visible="false" wrapText="true" />
     </children>
 </AnchorPane>

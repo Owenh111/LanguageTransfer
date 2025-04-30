@@ -9,9 +9,8 @@ public class Learner {
         this.progress = progress;
     }
     public void resetCourse(){
-        setProgress(1); // the first index with exercises is 1 as this acts like a section
-        // so my design choice was to set the first as if it were Section 1 rather than Section 0
-        // this does mean de-iterating the integer when displaying progress to the user (not yet done)
+        setProgress(0); // as initialize in Learning increments every time it is called anyway
+        // this may mean progress needs to be de-incremented when implementing resume/save+load
     }
 
     public Course getCourse() {

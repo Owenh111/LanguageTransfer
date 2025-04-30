@@ -51,45 +51,11 @@ public class Course {
                         fields[12]                         // hint
                 );
                 contentList.add(content); // Add the created content to the list
+            } else {
+                System.out.println("Error adding content - does it have the correct number of fields?");
             }
         }
 
         scanner.close();
-    }
-
-    void avoidSpeakingExercises(){
-        /** All exercise types initially added in above function
-         * Here the list is iterated through and speaking exercises removed
-         */
-        Introduction introduction = new Introduction();
-        String micPreference = introduction.getMicPreference();
-
-        //Exercise matching = new Exercise('m',1);
-        if (micPreference.equals("radioButtonNo")){
-            for (int i = 0; i <= exercises.size(); i++){
-                Exercise exercise = exercises.get(i);
-                Character exerciseType = exercise.getType();
-
-                if (exerciseType != 's'){
-                    exercises.remove(exercise);
-                }
-            }
-        }
-    }
-
-    void startCourse(){
-
-    }
-
-    void addAssessment(){
-
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourse(String courseName) {
-        this.courseName = courseName;
     }
 }

@@ -1,11 +1,16 @@
 package com.example.javafxdemo.Exercises;
 
+import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
@@ -19,16 +24,21 @@ public class Listening {
     @FXML private AnchorPane anchorPane;
     @FXML private MediaView mediaView;
     @FXML private TextField userInput;
-    @FXML private Label instructionLabel;
-    @FXML private Label feedbackLabel;
+    @FXML private Label instructionLabel, feedbackLabel;
     @FXML private Button checkButton, replayButton, giveUpButton, continueButton;
     @FXML private Button accentedAButton, accentedEButton, accentedIButton, accentedOButton, accentedUButton;
+    @FXML private TextArea hint;
+    @FXML private Button hintButton;
 
     private List<AudioItem> audioItems;
     private int currentIndex = 0;
     private MediaPlayer currentPlayer;
 
     Learner learner = Session.getLearner();
+    private int lastCaretPosition = 0;
+    private String hintText;
+
+    private Boolean giveUpAlreadyAdded = false;
 
     public void initialize() {
         Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
@@ -37,14 +47,29 @@ public class Listening {
         
         setupUI();
         playCurrentAudio();
+        setListeners();
+
+        Session.startColorCycle(anchorPane);
+    }
+
+    public void setListeners() {
+        userInput.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                lastCaretPosition = userInput.getCaretPosition();
+            }
+        });
+
+        userInput.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+            if (userInput.isFocused()) {
+                lastCaretPosition = newVal.intValue();
+            }
+        });
 
         accentedAButton.setOnAction(e -> insertAtCaret("à"));
         accentedEButton.setOnAction(e -> insertAtCaret("è"));
         accentedIButton.setOnAction(e -> insertAtCaret("ì"));
         accentedOButton.setOnAction(e -> insertAtCaret("ò"));
         accentedUButton.setOnAction(e -> insertAtCaret("ù"));
-
-        Session.startColorCycle(anchorPane);
     }
 
     private void setupUI() {
@@ -53,19 +78,40 @@ public class Listening {
         instructionLabel.setText(getInstructionForCurrentItem());
     }
 
+    private static class AudioItem {
+        String expectedAnswer;
+        URL mediaURL;
+        boolean isUnseen;
+
+        AudioItem(String answer, URL mediaURL, boolean isUnseen) {
+            this.expectedAnswer = answer;
+            this.mediaURL = mediaURL;
+            this.isUnseen = isUnseen;
+        }
+    }
+
     private void insertAtCaret(String character) {
         String currentText = userInput.getText();
-        userInput.setText(currentText + character);
-        userInput.positionCaret(userInput.getText().length()); // Move caret to the end
-        userInput.requestFocus(); //highlight text box (but highlights everything on its own)
-        userInput.end(); //move cursor to end (and stops highlighting all the text)
+
+        int caretPositionToReturnTo = lastCaretPosition;
+        // Insert the character at the saved caret position
+        String newText = currentText.substring(0, lastCaretPosition) + character + currentText.substring(lastCaretPosition);
+
+        userInput.setText(newText);
+
+        // Move caret to after inserted character
+        userInput.requestFocus();
+        userInput.positionCaret(caretPositionToReturnTo + character.length());
+
+        // Update lastCaretPosition (since we inserted a character)
+        lastCaretPosition = caretPositionToReturnTo + character.length();
     }
 
     private String getInstructionForCurrentItem() {
         return audioItems.get(currentIndex).isUnseen
                 ? "Type what you hear as closely as possible: \n\n Go for it - no worries if you get it wrong!"
                 : "Type the phrase you heard: \n\n There is a replay button if you need it! \n\n You can pass the question after one failed attempt.";
-        // TODO: 17/04/2025 understand how this works 
+        // TODO: 17/04/2025 understand how this works more fully
     }
 
     private void playCurrentAudio() {
@@ -77,6 +123,16 @@ public class Listening {
         enableAccentMarkButtonsWhereNecessary(audioItems.get(currentIndex).expectedAnswer);
 
         currentPlayer.play();
+    }
+
+    public void showHint(){
+        hint.setVisible(true);
+        hint.setEditable(false);
+        hint.setFocusTraversable(false);
+        hint.setText(hintText);
+        hintButton.setVisible(false);
+        hint.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;" +
+                "-fx-control-inner-background: transparent; -fx-font-size: 25px;");
     }
 
     @FXML
@@ -98,6 +154,8 @@ public class Listening {
             if (userAnswer.equals(correctAnswer)) {
                 showDefinition(filename);
                 continueButton.setVisible(true);
+                hint.setVisible(false);
+                hintButton.setVisible(false);
             }
         }
         
@@ -121,9 +179,16 @@ public class Listening {
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             showDefinition(filename);
             continueButton.setVisible(true);
+            hint.setVisible(false);
+            hintButton.setVisible(false);
         }
         giveUpButton.setVisible(false);
         nextAudio();
+
+        if (!giveUpAlreadyAdded){
+            Session.addGiveUp(new Exercise("Listening",learner.getProgress()));
+            giveUpAlreadyAdded = true;
+        }
     }
 
     private void showDefinition(String filename){
@@ -185,6 +250,8 @@ public class Listening {
                         answers.add(parts[7].trim());
                         answers.add(parts[8].trim());
                         answers.add(parts[9].trim());
+
+                        hintText = parts[12];
                         known.put(section, answers);
                 }
             }
@@ -231,15 +298,38 @@ public class Listening {
         return items;
     }
 
-    private static class AudioItem {
-        String expectedAnswer;
-        URL mediaURL;
-        boolean isUnseen;
+    @FXML
+    private void onContinueButtonClick(){
+        //since we have already used at least one exercise, we have to exclude any that have already been shown
+        List<String> exercises = Session.getExercisesUnusedInSection();
+        String next = "";
+        if (exercises.isEmpty()){
+            // if no more exercises to show then show next piece of content
+            next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(exercises.size());
+            next = exercises.get(index);
+        }
 
-        AudioItem(String answer, URL mediaURL, boolean isUnseen) {
-            this.expectedAnswer = answer;
-            this.mediaURL = mediaURL;
-            this.isUnseen = isUnseen;
+        Stage stage = (Stage) continueButton.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(next+".fxml")));
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+
+            stage.setScene(newScene);
+
+            stage.setMaximized(true);
+            stage.setTitle("Langtrans Italiano");
+            stage.centerOnScreen();
+
+            Session.removeUsedExerciseFromRandomSelection(next);
+        } catch (IOException e) {
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml");
+            System.out.println("URL: " + url);
         }
     }
 }

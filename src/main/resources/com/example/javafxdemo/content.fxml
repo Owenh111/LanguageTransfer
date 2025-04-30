@@ -5,8 +5,8 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Learning">
    <children>
-      <Label id="title" fx:id="title" layoutX="147.0" layoutY="43.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 80px; -fx-alignment: center;" text="Title" />
-      <Label id="wordType" fx:id="wordType" layoutX="756.0" layoutY="61.0" prefHeight="61.0" prefWidth="423.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Word type" />
+      <Label id="title" fx:id="title" layoutX="48.0" layoutY="44.0" prefHeight="67.0" prefWidth="746.0" style="-fx-font-size: 80px; -fx-alignment: center;" text="Title" />
+      <Label id="wordType" fx:id="wordType" layoutX="794.0" layoutY="62.0" prefHeight="61.0" prefWidth="344.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Word type" />
 
       <Label id="englishConcept" fx:id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="English concept" />
       <Label id="englishExamplePhrase1" fx:id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase" />
@@ -19,8 +19,8 @@
       <Label id="italianExamplePhrase3" fx:id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 3" />
 
 
-      <TextArea id="explanation" fx:id="explanation" editable="false" focusTraversable="false" layoutX="151.0" layoutY="387.0" prefHeight="119.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
-      <TextArea id="exceptions" fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="516.0" prefHeight="79.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
+      <TextArea id="explanation" fx:id="explanation" editable="false" focusTraversable="false" layoutX="151.0" layoutY="387.0" prefHeight="112.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
+      <TextArea id="exceptions" fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="507.0" prefHeight="88.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
       <Button id="continueToExercises" fx:id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="19.0" prefWidth="262.0" text="Continue to exercise" />
 
    </children>

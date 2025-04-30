@@ -66,17 +66,18 @@ public class Introduction {
     @FXML
     protected void onStartButtonClick() {
         saveMicPreference();
+        Session.initializeCourse("Italian");
+
         // Get the current stage
         Stage stage = (Stage) beginButton.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
 
-            // Set the new scene to the stage
-            //stage.initOwner(new Stage());                // makes it owned → not shown in taskbar
             Scene newScene = new Scene(root);
             stage.setScene(newScene);
             stage.setMaximized(true); // change to setFullScreen at the very end
+            stage.setResizable(true);
             // it looks better but right now gets in the way of debugging
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
