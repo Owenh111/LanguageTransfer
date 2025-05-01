@@ -50,12 +50,10 @@ public class Homepage {
 
             stage.centerOnScreen();
 
-            //stage can only be this specific size (as tabpane does not dynamically resize)
-            stage.setMinWidth(600);
-            stage.setMinHeight(400);
-            stage.setWidth(600);
-            stage.setHeight(400);
-            stage.setResizable(false);
+            stage.setMinHeight(500);
+            stage.setMinWidth(800);
+            //stage.setMaximized(true); // change to setFullScreen at the very end
+            stage.setResizable(true);
 
             stage.setScene(newScene);
         } catch (IOException e) {

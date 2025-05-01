@@ -14,14 +14,14 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("homepage.fxml")));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-
-        stage.centerOnScreen(); //does not actually centre on screen
 
         stage.setTitle("Welcome to LangTrans");
         stage.setMinHeight(500);
         stage.setMinWidth(800);
+        stage.setScene(scene);
         stage.show();
+
+        stage.centerOnScreen(); //does not actually centre on screen
     }
 
     public static void main(String[] args) {

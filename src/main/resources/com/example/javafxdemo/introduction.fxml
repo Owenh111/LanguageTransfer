@@ -5,130 +5,142 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="500.0" maxWidth="700.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
-   <children>
-      <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="styles.css" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="tab1" closable="false" text="Introductory Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0">
-                     <children>
-                        <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="163.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../images/IntroImage_1.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="1/5">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="86.0" layoutY="41.0" prefHeight="71.0" prefWidth="427.0" text="In this course you will learn using concepts you will be familiar with from English. You will also learn simple Italian-language concepts at a manageable pace. " textAlignment="CENTER" wrapText="true" />
-                        <Button id="toTab2" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab fx:id="tab2" closable="false" text="Introductory Tab 2">
-              <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                          <ImageView fitHeight="153.0" fitWidth="288.0" layoutX="201.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../../../images/IntroImage_2.png" />
-                              </image>
-                          </ImageView>
-                          <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="2/5">
-                              <font>
-                                  <Font size="20.0" />
-                              </font>
-                          </Label>
-                          <Button id="toTab3" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
-                              <font>
-                                  <Font size="20.0" />
-                              </font>
-                          </Button>
-                        <Label layoutX="166.0" layoutY="59.0" prefHeight="19.0" prefWidth="290.0" text="There is no need to write anything down." textAlignment="CENTER" wrapText="true" />
-                        <Label layoutX="64.0" layoutY="78.0" prefHeight="47.0" prefWidth="494.0" text="The course is designed for you to learn intuitively, but we will ensure you never get stuck." textAlignment="CENTER" wrapText="true" />
-                      </children></AnchorPane>
-              </content>
-          </Tab>
-            <Tab fx:id="tab3" closable="false" text="Introductory Tab 3">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <ImageView fitHeight="153.0" fitWidth="246.0" layoutX="185.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
+    <children>
+        <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+
+                <!-- Tab 1 -->
+                <Tab fx:id="tab1" closable="false" text="Introductory Tab 1">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0">
+                            <Label alignment="CENTER" text="1/5">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <Label maxWidth="600.0" text="In this course you will learn using concepts you will be familiar with from English. You will also learn simple Italian-language concepts at a manageable pace." textAlignment="CENTER" wrapText="true" />
+                            <ImageView fitHeight="120.0" fitWidth="225.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../../images/IntroImage_1.png" />
+                                </image>
+                            </ImageView>
+                            <Button fx:id="toTab2" onAction="#goToNextTab" text="Next">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Button>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Tab 2 -->
+                <Tab fx:id="tab2" closable="false" text="Introductory Tab 2">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label alignment="CENTER" text="2/5">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <Label maxWidth="600.0" text="There is no need to write anything down. The course is designed for you to learn intuitively, but we will ensure you never get stuck." textAlignment="CENTER" wrapText="true" />
+                            <ImageView fitHeight="120.0" fitWidth="225.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../../images/IntroImage_2.png" />
+                                </image>
+                            </ImageView>
+                            <Button fx:id="toTab3" onAction="#goToNextTab" text="Next">
+                                <font><Font size="18.0" /></font>
+                            </Button>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Tab 3 -->
+                <Tab fx:id="tab3" closable="false" text="Introductory Tab 3">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label alignment="CENTER" text="3/5">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <Label maxWidth="560.0" text="You should do however much you feel excited about doing, and then stop when you feel less enthused." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="560.0" text="We won't set goals, as this can make learning into a chore and cause you to lose momentum." textAlignment="CENTER" wrapText="true" />
+                            <ImageView fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
                                 <image>
                                     <Image url="@../../../images/IntroImage_3.png" />
                                 </image>
                             </ImageView>
-                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="3/5">
+                            <Button fx:id="toTab4" onAction="#goToNextTab" text="Next">
+                                <font><Font size="18.0" /></font>
+                            </Button>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Tab 4 -->
+                <Tab fx:id="tab4" text="Introductory Tab 4">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label alignment="CENTER" text="4/5">
                                 <font>
-                                    <Font size="20.0" />
+                                    <Font size="18.0" />
                                 </font>
                             </Label>
-                            <Button id="toTab4" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
+
+                            <Label maxWidth="600.0" text="You can adjust the difficulty of the questions using this slider. This changes the amount of familiar words you will see in text-based exercises." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="600.0" text="If you're not sure, stick with 'recommended'. You can always change this later by pressing ESCAPE." textAlignment="CENTER" wrapText="true" />
+
+                            <VBox fx:id="sliderContainer" alignment="CENTER" spacing="10.0">
+                                <Slider fx:id="difficultySlider" blockIncrement="1" majorTickUnit="1" max="5" min="1" minorTickCount="0" prefHeight="24.0" prefWidth="800.0" showTickMarks="true" snapToTicks="true" value="3.0" />
+
+                                <HBox fx:id="tickLabels" alignment="CENTER" prefWidth="800.0" spacing="100.0">
+                                    <Label alignment="CENTER" maxWidth="Infinity" text="easiest" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="Infinity" text="easier" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="Infinity" text="recommended" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="Infinity" text="harder" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxWidth="Infinity" text="hardest" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                                </HBox>
+                            </VBox>
+
+                            <HBox alignment="CENTER" spacing="20.0">
+                                <Button fx:id="toTab5" onAction="#goToNextTab" text="Next">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Tab 5 -->
+                <Tab fx:id="tab5" text="Introductory Tab 5">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label alignment="CENTER" text="5/5">
                                 <font>
-                                    <Font size="20.0" />
-                                </font>
-                            </Button>
-                            <Label layoutX="26.0" layoutY="44.0" prefHeight="46.0" prefWidth="548.0" text="You should do however much you feel excited about doing, and then stop when you feel less enthused." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="53.0" layoutY="102.0" prefHeight="46.0" prefWidth="494.0" text="We won't set goals, as this can make learning into a chore and cause you to lose momentum." textAlignment="CENTER" wrapText="true" />
-                        </children></AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="tab4" text="Introductory Tab 4">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="4/5">
-                                <font>
-                                    <Font size="20.0" />
-                                </font>
-                            </Label>
-                            <Button id="toTab5" layoutX="461.0" layoutY="301.0" mnemonicParsing="false" onAction="#goToNextTab" text="Next">
-                                <font>
-                                    <Font size="20.0" />
-                                </font>
-                            </Button>
-                            <Label layoutX="66.0" layoutY="44.0" prefHeight="44.0" prefWidth="470.0" text="You can adjust the difficulty of the questions using this slider. Or you can just leave it as it is." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="43.0" layoutY="113.0" prefHeight="41.0" prefWidth="517.0" text="If you're not sure, you can press &quot;help me choose&quot;. Anyway, you can always change this later by pressing ESCAPE." textAlignment="CENTER" wrapText="true" />
-                        <Slider blockIncrement="1.0" layoutX="81.0" layoutY="202.0" max="5.0" min="1.0" prefHeight="31.0" prefWidth="469.0" value="4.0" />
-                        <Label layoutX="242.0" layoutY="292.0" text="difficulty of exercises" textAlignment="CENTER" />
-                        <Label layoutX="67.0" layoutY="242.0" prefHeight="19.0" prefWidth="495.0" text="easiest               easier         recommended          harder            hardest" />
-                        <Button layoutX="43.0" layoutY="301.0" mnemonicParsing="false" text="Help me choose" />
-                        </children></AnchorPane>
-                </content>
-            </Tab>
-            <Tab id="radioButtonNo" fx:id="tab5" text="Introductory Tab 5">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <Label layoutX="530.0" layoutY="14.0" prefHeight="30.0" prefWidth="39.0" text="5/5">
-                                <font>
-                                    <Font size="20.0" />
+                                    <Font size="18.0" />
                                 </font>
                             </Label>
-                            <Button id="btnBegin" fx:id="beginButton" disable="true" layoutX="397.0" layoutY="301.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefWidth="172.0" text="OK, let's begin!">
-                                <font>
-                                    <Font size="20.0" />
-                                </font>
+                            <Label maxWidth="600.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="600.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." textAlignment="CENTER" wrapText="true" />
+                            <RadioButton fx:id="radioButtonYes" onAction="#enableContinue" text="I have a microphone and am happy to do speaking exercises">
+                                <toggleGroup>
+                                    <ToggleGroup fx:id="micToggleGroup" />
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton fx:id="radioButtonNo" onAction="#enableContinue" text="I do not have a microphone/do not want to do speaking exercises" toggleGroup="$micToggleGroup" />
+                            <Label alignment="CENTER" text="Once you've done that, let's start the course!" />
+                            <Button fx:id="beginButton" disable="true" onAction="#onStartButtonClick" prefWidth="170.0" text="OK, let's begin!">
+                                <font><Font size="18.0" /></font>
                             </Button>
-                            <Label layoutX="93.0" layoutY="44.0" prefHeight="46.0" prefWidth="414.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
-                            <Label layoutX="35.0" layoutY="101.0" prefHeight="50.0" prefWidth="531.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." textAlignment="CENTER" wrapText="true" />
-                        <RadioButton id="radioButtonYes" fx:id="radioButtonYes" layoutX="93.0" layoutY="169.0" mnemonicParsing="false" onAction="#enableContinue" text="I have a microphone and am happy to do speaking exercises">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="micToggleGroup" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton id="radioButtonNo" fx:id="radioButtonNo" layoutX="93.0" layoutY="201.0" mnemonicParsing="false" onAction="#enableContinue" text="I do not have a microphone/do not want to do speaking exercises" toggleGroup="$micToggleGroup" />
-                        <Label layoutX="64.0" layoutY="315.0" text="Once you've done that, let's start the course!" />
-                        </children></AnchorPane>
-                </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+                        </VBox>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

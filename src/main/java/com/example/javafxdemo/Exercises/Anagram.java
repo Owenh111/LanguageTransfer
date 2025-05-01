@@ -3,7 +3,6 @@ package com.example.javafxdemo.Exercises;
 import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.net.URL;
@@ -39,12 +39,10 @@ public class Anagram {
     private static class AnagramItem {
         String answer;
         String scrambled;
-        boolean isUnseen;
 
-        AnagramItem(String answer, boolean isUnseen) {
+        AnagramItem(String answer) {
             this.answer = answer;
             this.scrambled = scramblePhrase(answer);
-            this.isUnseen = isUnseen;
         }
 
         private static String scramblePhrase(String phrase) {
@@ -68,9 +66,7 @@ public class Anagram {
     }
 
     public void initialize() {
-        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
-        items = getItemsForSection(learner.getProgress(), knownAnswers);
-        items.sort(Comparator.comparing(a -> a.isUnseen)); // show unseen first
+        items = loadAndGenerateItemsForSection(learner.getProgress());
 
         setupUI();
         updateDisplay();
@@ -78,9 +74,32 @@ public class Anagram {
         Session.startColorCycle(anchorPane);
     }
 
+    private List<AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
+        List<AnagramItem> items = new ArrayList<>();
+
+        // Step 1: Load exercise data for the given section and save hint text
+        List<String> data = Session.loadInExerciseDataForSection(sectionToLoad);
+
+        hintText = Session.getHint(data);
+
+        // Step 2: Generate the English and Italian phrases for the section based on the difficulty preference
+        Pair<List<String>, List<String>> generatedContent = Session.generateContentForExercise(data);
+
+        // Step 3: Add the generated English phrases to known answers
+        Set<String> answers = new HashSet<>();
+        answers.addAll(generatedContent.getValue()); // Italian Phrases
+
+        // Step 4: Generate AnagramItems
+
+        for (String italianPhrase : answers) {
+            items.add(new AnagramItem(italianPhrase));
+        }
+
+        return items;
+    }
+
     private void setupUI() {
         feedbackLabel.setText("");
-        giveUpButton.setVisible(false);
         hint.setVisible(false);
         hintButton.setVisible(true);
         continueButton.setVisible(false);
@@ -117,15 +136,9 @@ public class Anagram {
     }
 
     private void updateDisplay() {
-        instructionLabel.setText(getInstruction());
+        instructionLabel.setText("Unscramble the phrase you see!");
         anagramLabel.setText(items.get(currentIndex).scrambled);
         enableAccentMarkButtonsWhereNecessary(items.get(currentIndex).answer);
-    }
-
-    private String getInstruction() {
-        return items.get(currentIndex).isUnseen
-                ? "Unscramble the phrase: \n\n It's okay to get it wrong!"
-                : "Unscramble the phrase you see:";
     }
 
     public void showHint() {
@@ -146,14 +159,12 @@ public class Anagram {
         if (userAnswer.equals(correctAnswer)) {
             feedbackLabel.setText("✅ Correct!");
             feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: green;");
-            giveUpButton.setVisible(false);
             phrasesCompleted += 1;
             showContinueIfDone();
             nextItem();
         } else {
             feedbackLabel.setText("❌ Try again!");
             feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: red;");
-            giveUpButton.setVisible(true);
         }
     }
 
@@ -161,7 +172,6 @@ public class Anagram {
     public void onGiveUp() {
         feedbackLabel.setText("The correct answer was: \n" + items.get(currentIndex).answer);
         feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: orange;");
-        giveUpButton.setVisible(false);
         phrasesCompleted += 1;
         showContinueIfDone();
         nextItem();
@@ -191,62 +201,12 @@ public class Anagram {
         accentedUButton.setVisible(expectedAnswer.contains("ù"));
     }
 
-    private Map<Integer, Set<String>> loadKnownAnswers(Integer sectionToLoad, String filename) {
-        Map<Integer, Set<String>> known = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream(filename))))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("`");
-                int section = Integer.parseInt(parts[0].trim());
-                if (section == sectionToLoad) {
-                    Set<String> answers = new HashSet<>();
-                    answers.add(parts[7].trim());
-                    answers.add(parts[8].trim());
-                    answers.add(parts[9].trim());
-                    hintText = parts[12];
-                    known.put(section, answers);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return known;
-    }
-
-    private List<AnagramItem> getItemsForSection(int section, Map<Integer, Set<String>> knownAnswers) {
-        List<AnagramItem> items = new ArrayList<>();
-        Set<String> known = knownAnswers.getOrDefault(section, new HashSet<>());
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream("/com/example/javafxdemo/content.txt"))))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("`");
-                int contentSection = Integer.parseInt(parts[0].trim());
-                if (contentSection == section) {
-                    for (int i = 7; i <= 9; i++) {
-                        String phrase = parts[i].trim();
-                        boolean isUnseen = !known.contains(phrase);
-                        items.add(new AnagramItem(phrase, isUnseen));
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return items;
-    }
-
     private void showContinueIfDone(){
         if (phrasesCompleted == 3){
             continueButton.setVisible(true);
             hint.setVisible(false);
             hintButton.setVisible(false);
+            giveUpButton.setDisable(true);
         }
     }
 

@@ -111,7 +111,6 @@ public class Listening {
         return audioItems.get(currentIndex).isUnseen
                 ? "Type what you hear as closely as possible: \n\n Go for it - no worries if you get it wrong!"
                 : "Type the phrase you heard: \n\n There is a replay button if you need it! \n\n You can pass the question after one failed attempt.";
-        // TODO: 17/04/2025 understand how this works more fully
     }
 
     private void playCurrentAudio() {
@@ -150,12 +149,8 @@ public class Listening {
 
         if (audioItems.get(currentIndex).isUnseen){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
-
             if (userAnswer.equals(correctAnswer)) {
                 showDefinition(filename);
-                continueButton.setVisible(true);
-                hint.setVisible(false);
-                hintButton.setVisible(false);
             }
         }
         
@@ -163,7 +158,7 @@ public class Listening {
             feedbackLabel.setText("✅ Correct!");
             feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: green;");
             giveUpButton.setVisible(false);
-            nextAudio();
+            nextAudioOrNextExercise();
         } else {
             feedbackLabel.setText("❌ Try again!");
             feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: red;");
@@ -178,12 +173,9 @@ public class Listening {
         if (audioItems.get(currentIndex).isUnseen){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             showDefinition(filename);
-            continueButton.setVisible(true);
-            hint.setVisible(false);
-            hintButton.setVisible(false);
         }
         giveUpButton.setVisible(false);
-        nextAudio();
+        nextAudioOrNextExercise();
 
         if (!giveUpAlreadyAdded){
             Session.addGiveUp(new Exercise("Listening",learner.getProgress()));
@@ -203,7 +195,7 @@ public class Listening {
         }
     }
 
-    private void nextAudio() {
+    private void nextAudioOrNextExercise() {
         currentIndex++;
         if (currentIndex < audioItems.size()) {
             userInput.clear();
@@ -214,6 +206,9 @@ public class Listening {
             userInput.setDisable(true);
             checkButton.setDisable(true);
             replayButton.setDisable(true);
+            continueButton.setVisible(true);
+            hint.setVisible(false);
+            hintButton.setVisible(false);
         }
     }
 
@@ -288,7 +283,15 @@ public class Listening {
 
                     boolean isUnseen = !known.contains(phrase);
                     URL fileUrl = getClass().getResource("/audio/" + section + "/" + name);
-                    items.add(new AudioItem(phrase, fileUrl, isUnseen));
+                    if (Session.getDifficultyPreference() < 3){ //if the user is playing on an easier mode...
+                        if (isUnseen == true){ //...and if this is an unseen (hard) phrase
+                            //...then do nothing as this will exclude the hard exercise
+                        } else {
+                            items.add(new AudioItem(phrase, fileUrl, isUnseen));
+                        }
+                    } else {
+                        items.add(new AudioItem(phrase, fileUrl, isUnseen));
+                    }
                 }
             }
 

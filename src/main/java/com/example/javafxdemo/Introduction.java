@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Introduction {
+    public Button toTab2, toTab3, toTab4, toTab5;
     @FXML
     private TabPane tabPane;
 
@@ -30,7 +31,8 @@ public class Introduction {
 
     public String micPreference;
 
-    private Learner learner;
+    @FXML
+    private Slider difficultySlider;
 
     @FXML
     public void goToNextTab(ActionEvent event) {
@@ -49,6 +51,10 @@ public class Introduction {
             }
     }
 
+    public void saveDifficultyPreference(){
+        Session.setDifficultyPreference((int) difficultySlider.getValue()); // Slider always saves val as Double
+    }
+
     public void enableContinue(){
         beginButton.setDisable(false);
     }
@@ -65,6 +71,7 @@ public class Introduction {
 
     @FXML
     protected void onStartButtonClick() {
+        saveDifficultyPreference();
         saveMicPreference();
         Session.initializeCourse("Italian");
 
@@ -76,7 +83,7 @@ public class Introduction {
 
             Scene newScene = new Scene(root);
             stage.setScene(newScene);
-            stage.setMaximized(true); // change to setFullScreen at the very end
+            stage.setMaximized(true);
             stage.setResizable(true);
             // it looks better but right now gets in the way of debugging
             stage.setTitle("Langtrans Italiano");

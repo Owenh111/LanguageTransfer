@@ -141,6 +141,79 @@ public class Translating {
         }
     }
 
+    //todo: change below to match what i've written in notebook: will need to make a method for translating to Italian OR from Italian
+    /**
+    private List<Anagram.AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
+        List<Anagram.AnagramItem> items = new ArrayList<>();
+
+        // Step 1: Load exercise data for the given section and save hint text
+        List<String> data = Session.loadInExerciseDataForSection(sectionToLoad);
+
+        hintText = Session.getHint(data);
+
+        // Step 2: Generate the English and Italian phrases for the section based on the difficulty preference
+        Pair<List<String>, List<String>> generatedContent = Session.generateContentForExercise(data);
+
+        // Step 3: Add the generated English phrases to known answers
+        Set<String> answers = new HashSet<>();
+        answers.addAll(generatedContent.getValue()); // Italian phrases
+
+        // Step 4: Generate AnagramItems
+
+        for (String italianPhrase : answers) {
+            items.add(new Anagram.AnagramItem(italianPhrase));
+        }
+
+        return items;
+    }
+*/
+    //todo: check & fix method below
+    private void assignLabelsAndAnswers(List<String> englishPhrases, List<String> italianPhrases) {
+        List<String> labels = new ArrayList<>();
+        List<String> answers = new ArrayList<>();
+
+        int difficulty = Session.getDifficultyPreference();
+
+        switch (difficulty) {
+            case 1:
+                // Labels: Italian, Answers: English
+                labels.addAll(italianPhrases);
+                answers.addAll(englishPhrases);
+                break;
+
+            case 2:
+                // 2 Italian -> English, 1 English -> Italian
+                labels.add(italianPhrases.get(0));
+                answers.add(englishPhrases.get(0));
+
+                labels.add(italianPhrases.get(1));
+                answers.add(englishPhrases.get(1));
+
+                labels.add(englishPhrases.get(2));
+                answers.add(italianPhrases.get(2));
+                break;
+
+            case 3:
+                // 2 English -> Italian, 1 Italian -> English
+                labels.add(englishPhrases.get(0));
+                answers.add(italianPhrases.get(0));
+
+                labels.add(englishPhrases.get(1));
+                answers.add(italianPhrases.get(1));
+
+                labels.add(italianPhrases.get(2));
+                answers.add(englishPhrases.get(2));
+                break;
+
+            case 4:
+            case 5:
+                // Labels: English, Answers: Italian (opposite of case 1)
+                labels.addAll(englishPhrases);
+                answers.addAll(italianPhrases);
+                break;
+        }
+    }
+
     public void setUpLabels(){
         question1.setText(answers.get(0));
         question2.setText(answers.get(1));
@@ -148,26 +221,19 @@ public class Translating {
     }
 
     public void enableAccentMarkButtonsIfNecessary() throws IOException {
-        boolean hasGraveA = false, hasGraveE = false, hasGraveI = false, hasGraveO = false, hasGraveU = false;
 
         Integer answerIndex = 7;
         while (answerIndex < 10) {
             Pair<Character, String> result = checkAnswer("",answerIndex);
 
-            if (result.getValue().contains("à")) hasGraveA = true;
-            if (result.getValue().contains("è")) hasGraveE = true;
-            if (result.getValue().contains("ì")) hasGraveI = true;
-            if (result.getValue().contains("ò")) hasGraveO = true;
-            if (result.getValue().contains("ù")) hasGraveU = true;
+            accentedAButton.setVisible(result.getValue().contains("à"));
+            accentedEButton.setVisible(result.getValue().contains("è"));
+            accentedIButton.setVisible(result.getValue().contains("ì"));
+            accentedOButton.setVisible(result.getValue().contains("ò"));
+            accentedUButton.setVisible(result.getValue().contains("ù"));
 
             answerIndex+=1;
         }
-
-        accentedAButton.setVisible(hasGraveA);
-        accentedEButton.setVisible(hasGraveE);
-        accentedIButton.setVisible(hasGraveI);
-        accentedOButton.setVisible(hasGraveO);
-        accentedUButton.setVisible(hasGraveU);
     }
 
     private void insertAtCaret(String character) {
