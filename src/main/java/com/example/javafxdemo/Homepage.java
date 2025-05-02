@@ -3,6 +3,7 @@ package com.example.javafxdemo;
 import com.example.javafxdemo.Classes.Course;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,15 +48,14 @@ public class Homepage {
 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
-
-            stage.centerOnScreen();
-
-            stage.setMinHeight(500);
-            stage.setMinWidth(800);
-            //stage.setMaximized(true); // change to setFullScreen at the very end
-            stage.setResizable(true);
-
+            stage.setTitle("Welcome to LangTrans");
+            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
         } catch (IOException e) {
             System.out.println(getClass().getResource("introduction.fxml"));
         }

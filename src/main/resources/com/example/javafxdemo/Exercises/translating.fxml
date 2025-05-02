@@ -35,7 +35,7 @@
 
         <!-- Feedback Label -->
         <Button fx:id="continueButton" disable="true" layoutX="225.0" layoutY="544.0" onAction="#onContinueButtonClick" prefHeight="89.0" prefWidth="327.0" text="Continue" />
-      <Label layoutX="84.0" layoutY="388.0" style="-fx-font-size: 40px;" text="Type the Italian equivalent of the phrases above." />
+      <Label layoutX="84.0" layoutY="388.0" style="-fx-font-size: 40px;" text="Type the correct translations of the phrases above." />
 
       <Button fx:id="hintButton" layoutX="660.0" layoutY="477.0" mnemonicParsing="false" onAction="#showHint" text="Show hint" />
         <TextArea fx:id="hint" layoutX="745.0" layoutY="470.0" maxHeight="200" maxWidth="600" visible="false" wrapText="true" />

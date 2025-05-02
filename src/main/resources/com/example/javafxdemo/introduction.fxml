@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
+<AnchorPane prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Introduction">
     <children>
-        <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
 
                 <!-- Tab 1 -->
                 <Tab fx:id="tab1" closable="false" text="Introductory Tab 1">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0">
+                        <VBox alignment="CENTER" spacing="20.0">
                             <Label alignment="CENTER" text="1/5">
                                 <font>
                                     <Font size="18.0" />
@@ -37,7 +37,7 @@
                 <!-- Tab 2 -->
                 <Tab fx:id="tab2" closable="false" text="Introductory Tab 2">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="2/5">
                                 <font>
                                     <Font size="18.0" />
@@ -59,7 +59,7 @@
                 <!-- Tab 3 -->
                 <Tab fx:id="tab3" closable="false" text="Introductory Tab 3">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="3/5">
                                 <font>
                                     <Font size="18.0" />
@@ -82,7 +82,7 @@
                 <!-- Tab 4 -->
                 <Tab fx:id="tab4" text="Introductory Tab 4">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="4/5">
                                 <font>
                                     <Font size="18.0" />
@@ -118,7 +118,7 @@
                 <!-- Tab 5 -->
                 <Tab fx:id="tab5" text="Introductory Tab 5">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="5/5">
                                 <font>
                                     <Font size="18.0" />

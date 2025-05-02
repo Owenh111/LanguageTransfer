@@ -1,6 +1,7 @@
 package com.example.javafxdemo;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,12 +17,14 @@ public class Main extends Application {
         Scene scene = new Scene(root);
 
         stage.setTitle("Welcome to LangTrans");
-        stage.setMinHeight(500);
-        stage.setMinWidth(800);
         stage.setScene(scene);
-        stage.show();
+        Platform.runLater(() -> {
+                    stage.setFullScreenExitHint("");
+                    stage.setFullScreen(true);       // forcing fullscreen
+                    stage.centerOnScreen();
+                });
 
-        stage.centerOnScreen(); //does not actually centre on screen
+        stage.show();
     }
 
     public static void main(String[] args) {

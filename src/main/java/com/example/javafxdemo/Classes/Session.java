@@ -51,10 +51,11 @@ public class Session {
     private static Timeline timeline;
     private static AnchorPane currentAnchorPane;
 
-    //todo: re-add "Matching" when the exercise has been made
     private static List<String> allExercises = new ArrayList<>(Arrays.asList(
-            //"Anagram",
-            "Listening"//, "Speaking", "Translating"
+            "Anagram",
+            "Listening",
+            //"Speaking",
+            "Translating"
             ));
     private static List<String> exercisesUnusedInThisSection;
 

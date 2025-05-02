@@ -3,6 +3,7 @@ package com.example.javafxdemo;
 import com.example.javafxdemo.Classes.Content;
 import com.example.javafxdemo.Classes.Course;
 import com.example.javafxdemo.Classes.Session;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -103,11 +104,13 @@ public class Learning {
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 
+            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
-
-            stage.setMaximized(true);
-            stage.setTitle("Langtrans Italiano");
-            stage.centerOnScreen();
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
 
             Session.removeUsedExerciseFromRandomSelection(nextExercise);
         } catch (IOException e) {

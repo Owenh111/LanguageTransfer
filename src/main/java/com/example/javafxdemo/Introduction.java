@@ -2,6 +2,7 @@ package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Course;
 import com.example.javafxdemo.Classes.Session;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,12 +83,13 @@ public class Introduction {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
 
             Scene newScene = new Scene(root);
+            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
-            stage.setMaximized(true);
-            stage.setResizable(true);
-            // it looks better but right now gets in the way of debugging
-            stage.setTitle("Langtrans Italiano");
-            stage.centerOnScreen();
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

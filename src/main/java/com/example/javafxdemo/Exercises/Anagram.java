@@ -3,6 +3,7 @@ package com.example.javafxdemo.Exercises;
 import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -226,10 +227,13 @@ public class Anagram {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(next + ".fxml")));
             Scene newScene = new Scene(root);
+            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
-            stage.setMaximized(true);
-            stage.setTitle("Langtrans Italiano");
-            stage.centerOnScreen();
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
             Session.removeUsedExerciseFromRandomSelection(next);
         } catch (IOException e) {
             URL url = getClass().getResource("/com/example/javafxdemo/Exercises/" + next + ".fxml");

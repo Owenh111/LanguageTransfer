@@ -259,7 +259,6 @@ public class Listening {
 
 
     private List<AudioItem> getAudioItemsForSection(int section, Map<Integer, Set<String>> knownAnswers) {
-        // TODO: 17/04/2025 comment this properly for the VIVA
         List<AudioItem> items = new ArrayList<>();
         try {
             URL folderURL = getClass().getResource("/audio/" + section);
@@ -326,6 +325,8 @@ public class Listening {
             stage.setScene(newScene);
 
             stage.setMaximized(true);
+            stage.setFullScreen(true);
+            stage.setResizable(true);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
 

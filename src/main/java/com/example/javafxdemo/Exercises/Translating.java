@@ -64,10 +64,11 @@ public class Translating {
     private int lastCaretPosition = 0;
     private String hintText;
     private Boolean giveUpAlreadyAdded = false;
+    List<String> labels = new ArrayList<>();
 
     public void initialize() throws IOException {
         Session.startColorCycle(anchorPane);
-        readInData();
+        loadAndGenerateItemsForSection(sectionToLoad);
         setUpLabels();
         enableAccentMarkButtonsIfNecessary();
 
@@ -141,10 +142,7 @@ public class Translating {
         }
     }
 
-    //todo: change below to match what i've written in notebook: will need to make a method for translating to Italian OR from Italian
-    /**
-    private List<Anagram.AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
-        List<Anagram.AnagramItem> items = new ArrayList<>();
+    private void loadAndGenerateItemsForSection(int sectionToLoad) {
 
         // Step 1: Load exercise data for the given section and save hint text
         List<String> data = Session.loadInExerciseDataForSection(sectionToLoad);
@@ -155,22 +153,16 @@ public class Translating {
         Pair<List<String>, List<String>> generatedContent = Session.generateContentForExercise(data);
 
         // Step 3: Add the generated English phrases to known answers
-        Set<String> answers = new HashSet<>();
-        answers.addAll(generatedContent.getValue()); // Italian phrases
+        List<String> english = new ArrayList<>();
+        english.addAll(generatedContent.getKey()); // Italian phrases
+        List<String> italian = new ArrayList<>();
+        italian.addAll(generatedContent.getValue()); // Italian phrases
 
-        // Step 4: Generate AnagramItems
-
-        for (String italianPhrase : answers) {
-            items.add(new Anagram.AnagramItem(italianPhrase));
-        }
-
-        return items;
+        // Step 4: Change language of translation etc. according to difficulty
+        assignLabelsAndAnswers(english, italian);
     }
-*/
-    //todo: check & fix method below
+
     private void assignLabelsAndAnswers(List<String> englishPhrases, List<String> italianPhrases) {
-        List<String> labels = new ArrayList<>();
-        List<String> answers = new ArrayList<>();
 
         int difficulty = Session.getDifficultyPreference();
 
@@ -215,24 +207,24 @@ public class Translating {
     }
 
     public void setUpLabels(){
-        question1.setText(answers.get(0));
-        question2.setText(answers.get(1));
-        question3.setText(answers.get(2));
+        question1.setText(labels.get(0));
+        question2.setText(labels.get(1));
+        question3.setText(labels.get(2));
     }
 
     public void enableAccentMarkButtonsIfNecessary() throws IOException {
-
-        Integer answerIndex = 7;
-        while (answerIndex < 10) {
-            Pair<Character, String> result = checkAnswer("",answerIndex);
-
-            accentedAButton.setVisible(result.getValue().contains("à"));
-            accentedEButton.setVisible(result.getValue().contains("è"));
-            accentedIButton.setVisible(result.getValue().contains("ì"));
-            accentedOButton.setVisible(result.getValue().contains("ò"));
-            accentedUButton.setVisible(result.getValue().contains("ù"));
-
-            answerIndex+=1;
+        for (String answer : answers){
+            if (answer.contains("à")){
+                accentedAButton.setVisible(answer.contains("à"));
+            } else if (answer.contains("è")) {
+                accentedEButton.setVisible(answer.contains("è"));
+            } else if (answer.contains("ì")) {
+                accentedEButton.setVisible(answer.contains("ì"));
+            } else if (answer.contains("ò")) {
+                accentedEButton.setVisible(answer.contains("ò"));
+            } else if (answer.contains("ù")) {
+                accentedEButton.setVisible(answer.contains("ù"));
+            }
         }
     }
 
@@ -268,19 +260,9 @@ public class Translating {
     }
 
     public Pair<Character, String> checkAnswer(String userAnswer, Integer answerIndex) throws IOException {
-        String trueAnswer = "";
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream("/com/example/javafxdemo/content.txt"))))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("`");
-                int section = Integer.parseInt(parts[0].trim());
-                if (section == sectionToLoad) {
-                    trueAnswer = parts[answerIndex];
-                }
-            }
-        }
-        if (Objects.equals(trueAnswer, userAnswer)) {
+        String trueAnswer = answers.get(answerIndex);
+        userAnswer = userAnswer.replace("it's", "it is");
+        if (Objects.equals(trueAnswer.trim().toLowerCase(), userAnswer.trim().toLowerCase())) {
             return new Pair<>('y', trueAnswer);
         } else {
             return new Pair<>('n', trueAnswer);
@@ -292,6 +274,8 @@ public class Translating {
             continueButton.setDisable(false);
             hint.setVisible(false);
             hintButton.setVisible(false);
+            accentedAButton.setVisible(false); accentedEButton.setVisible(false); accentedIButton.setVisible(false);
+            accentedOButton.setVisible(false); accentedUButton.setVisible(false);
         }
     }
 
@@ -301,7 +285,7 @@ public class Translating {
 
         if (!answerFieldContent.isEmpty()){
             try {
-                result = checkAnswer(answerFieldContent, 7);
+                result = checkAnswer(answerFieldContent, 0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -329,7 +313,7 @@ public class Translating {
         Pair<Character, String> result;
 
         try {
-            result = checkAnswer(answerFieldContent, 7);
+            result = checkAnswer(answerFieldContent, 0);
             answerField1.setText("The answer was \"" + result.getValue() + "\"");
             answerField1.setEditable(false);
             checkButton1.setDisable(true);
@@ -353,7 +337,7 @@ public class Translating {
         Pair<Character, String> result = new Pair<>('?', "");
         if (!answerFieldContent.isEmpty()){
             try {
-                result = checkAnswer(answerFieldContent, 8);
+                result = checkAnswer(answerFieldContent, 1);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -381,7 +365,7 @@ public class Translating {
         Pair<Character, String> result;
 
         try {
-            result = checkAnswer(answerFieldContent, 8);
+            result = checkAnswer(answerFieldContent, 1);
             answerField2.setText(("The answer was \"" + result.getValue() + "\""));
             answerField2.setEditable(false);
             checkButton2.setDisable(true);
@@ -405,7 +389,7 @@ public class Translating {
         Pair<Character, String> result = new Pair<>('?', "");
         if (!answerFieldContent.isEmpty()){
             try {
-                result = checkAnswer(answerFieldContent, 9);
+                result = checkAnswer(answerFieldContent, 2);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -433,7 +417,7 @@ public class Translating {
         Pair<Character, String> result;
 
         try {
-            result = checkAnswer(answerFieldContent, 9);
+            result = checkAnswer(answerFieldContent, 2);
             answerField3.setText("The answer was \"" + result.getValue() + "\"");
             answerField3.setEditable(false);
             checkButton3.setDisable(true);
@@ -478,6 +462,8 @@ public class Translating {
             stage.setScene(newScene);
 
             stage.setMaximized(true);
+            stage.setFullScreen(true);
+            stage.setResizable(true);
             stage.setTitle("Langtrans Italiano");
             stage.centerOnScreen();
 
