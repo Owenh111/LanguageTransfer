@@ -48,7 +48,6 @@ public class Learning {
     public void initialize(){
         Session.resetUnusedExercises();
 
-        // Only start color cycle (visual)
         Session.startColorCycle(anchorPane);
 
         // Advance learner's progress each time Learning is shown

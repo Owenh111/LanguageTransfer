@@ -14,7 +14,11 @@ import java.util.*;
 public class Session {
     private static Learner currentLearner;
     private static Course currentCourse;
-    private static List<Exercise> improvableExercises = new ArrayList<>();;
+    private static List<Exercise> improvableExercises = new ArrayList<>();
+
+    // to return
+    static List<String> englishPhrases = new ArrayList<>();
+    static List<String> italianPhrases = new ArrayList<>();
 
     public static void initializeCourse(String language) {
         currentCourse = new Course(language);
@@ -52,10 +56,10 @@ public class Session {
     private static AnchorPane currentAnchorPane;
 
     private static List<String> allExercises = new ArrayList<>(Arrays.asList(
-            "Anagram",
-            "Listening",
-            //"Speaking",
-            "Translating"
+            //"Anagram",
+            //"Listening",
+            "Speaking"
+            //,"Translating"
             ));
     private static List<String> exercisesUnusedInThisSection;
 
@@ -67,17 +71,17 @@ public class Session {
         return currentLearner;
     }
 
-    /** get all improvableExercises; used in Learning.java as none have been used yet **/
+    /** get all Exercises; used in Learning.java as none have been used yet **/
     public static List<String> getAllExercises(){
         return allExercises;
     }
 
-    /** get unused improvableExercises; called from any exercise as at least one exercise has already been shown **/
+    /** get unused Exercises; called from any exercise as at least one exercise has already been shown **/
     public static List<String> getExercisesUnusedInSection(){
         return exercisesUnusedInThisSection;
     }
 
-    /** when the next Learning.java is shown, all improvableExercises need to be showable again so this is called **/
+    /** when the next Learning.java is shown, all Exercises need to be showable again so this is called **/
     public static void resetUnusedExercises(){
         exercisesUnusedInThisSection = new ArrayList<>(allExercises);
     }
@@ -207,14 +211,14 @@ public class Session {
     private static Pair<List<String>,List<String>> getEasyPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 1; i <= 3; i++) {
-            int chosenInt = random.nextInt(1, 7); //1 to 6, as there are 6 easy and medium phrases combined (if confused see below)
-            if (chosenInt > 3){ //the easiest way to write this method is to do a nextInt with bounds, but that means...
-                chosenInt += 3; //we must add 3 to any numbers not 1-3, as we actually want to pick from indexes 1-3 and 7-9
-            }
-                english.add(data.get(chosenInt));
-                italian.add(data.get(chosenInt+3)); //as each english data piece corresponds to the italian one exactly 3 indexes after
+
+        List<Integer> validIndices = Arrays.asList(1,2,3,7,8,9);
+        Collections.shuffle(validIndices); // Shuffle to randomize
+
+        for (int i = 0; i < 3; i++) {
+            int chosenInt = validIndices.get(i);
+            english.add(data.get(chosenInt));
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase
         }
         return new Pair<>(english,italian);
     }
@@ -234,14 +238,15 @@ public class Session {
     private static Pair<List<String>,List<String>> getHardPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 1; i <= 3; i++) {
-            int chosenInt = random.nextInt(7, 13); //1 to 6, which includes all medium and hard phrases (if confused see below)
-            if (chosenInt > 9){ //the easiest way to write this method is to do a nextInt with bounds, but that means...
-                chosenInt += 3; //we must add 3 to any numbers not 7-9, as we actually want to pick from indexes 7-9 and 13-15
-            }
-                english.add(data.get(chosenInt));
-                italian.add(data.get(chosenInt+3)); //as each english data piece corresponds to the italian one exactly 3 indexes after
+
+        List<Integer> validIndices = Arrays.asList(7,8,9,13,14,15);
+        Collections.shuffle(validIndices); // Randomising using number picker can generate the same numbers twice
+        // A solution for that was unwieldy so this instead simply adds the numbers for this and shuffles it
+
+        for (int i = 0; i < 3; i++) {
+            int chosenInt = validIndices.get(i);
+            english.add(data.get(chosenInt));
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase is always 3 indices after the English one
         }
         return new Pair<>(english,italian);
     }
@@ -258,12 +263,16 @@ public class Session {
         return new Pair<>(english,italian);
     }
 
+    public static List<String> getEnglishPhrases(){
+        return englishPhrases;
+    }
+
+    public static List<String> getItalianPhrases(){
+        return italianPhrases;
+    }
+
     /** returns data to be loaded in according to difficulty setting **/
     public static Pair<List<String>, List<String>> generateContentForExercise(List<String> data){
-        // to return
-        List<String> englishPhrases = new ArrayList<>();
-        List<String> italianPhrases = new ArrayList<>();
-
         switch (difficultyPreference) {
             case 1: Pair<List<String>,List<String>> easiestPhrases = getEasiestPhrases(data);
                 englishPhrases.addAll(easiestPhrases.getKey());

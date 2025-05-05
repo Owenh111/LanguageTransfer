@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,9 +17,13 @@ import java.util.Objects;
 
 public class Homepage {
     @FXML
+    private AnchorPane anchorPane;
+    @FXML
     private Label welcomeText;
 
-    //private Learner learner;
+    public void initialize(){
+        Session.startColorCycle(anchorPane);
+    }
 
     public void setUpNewCourse(){
         Course italian = new Course("Italian"); //create course

@@ -28,10 +28,6 @@
       <font>
          <Font size="15.0" />
       </font></Button>
-   <Button mnemonicParsing="false" text="FAQ">
-      <font>
-         <Font size="15.0" />
-      </font></Button>
 
     <Label fx:id="welcomeText" />
 </VBox>

@@ -12,9 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
@@ -30,7 +30,7 @@ public class Listening {
     @FXML private TextArea hint;
     @FXML private Button hintButton;
 
-    private List<AudioItem> audioItems;
+    private List<AudioItem> audioItems = new ArrayList<>();
     private int currentIndex = 0;
     private MediaPlayer currentPlayer;
 
@@ -41,10 +41,10 @@ public class Listening {
     private Boolean giveUpAlreadyAdded = false;
 
     public void initialize() {
-        Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
-        audioItems = getAudioItemsForSection(learner.getProgress(), knownAnswers);
-        audioItems.sort(Comparator.comparing(a -> a.isUnseen)); // moves unseen item to last
-        
+        //Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
+        decideExerciseContent();
+        audioItems.sort(Comparator.comparing(a -> a.bonusPhrase)); // moves unseen item to last
+
         setupUI();
         playCurrentAudio();
         setListeners();
@@ -81,13 +81,25 @@ public class Listening {
     private static class AudioItem {
         String expectedAnswer;
         URL mediaURL;
-        boolean isUnseen;
+        boolean bonusPhrase;
 
-        AudioItem(String answer, URL mediaURL, boolean isUnseen) {
+        AudioItem(String answer, URL mediaURL, boolean bonusPhrase) {
             this.expectedAnswer = answer;
             this.mediaURL = mediaURL;
-            this.isUnseen = isUnseen;
+            this.bonusPhrase = bonusPhrase;
         }
+    }
+
+    private void decideExerciseContent(){
+        // Step 1: load in data as usual
+        List<String> data = Session.loadInExerciseDataForSection(learner.getProgress());
+        hintText = Session.getHint(data);
+
+        // Step 2: generate the English and Italian phrases for the section based on the difficulty preference
+        Session.generateContentForExercise(data);
+
+        // Step 3: loading in audio items for section
+        getAudioItemsForSection(learner.getProgress());
     }
 
     private void insertAtCaret(String character) {
@@ -108,7 +120,7 @@ public class Listening {
     }
 
     private String getInstructionForCurrentItem() {
-        return audioItems.get(currentIndex).isUnseen
+        return audioItems.get(currentIndex).bonusPhrase
                 ? "Type what you hear as closely as possible: \n\n Go for it - no worries if you get it wrong!"
                 : "Type the phrase you heard: \n\n There is a replay button if you need it! \n\n You can pass the question after one failed attempt.";
     }
@@ -147,13 +159,13 @@ public class Listening {
         String userAnswer = userInput.getText().trim().toLowerCase();
         String correctAnswer = audioItems.get(currentIndex).expectedAnswer.toLowerCase();
 
-        if (audioItems.get(currentIndex).isUnseen){
+        if (audioItems.get(currentIndex).bonusPhrase){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             if (userAnswer.equals(correctAnswer)) {
                 showDefinition(filename);
             }
         }
-        
+
         if (userAnswer.equals(correctAnswer)) {
             feedbackLabel.setText("✅ Correct!");
             feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: green;");
@@ -170,7 +182,7 @@ public class Listening {
     public void onGiveUp() {
         feedbackLabel.setText("The previous answer was: " + audioItems.get(currentIndex).expectedAnswer);
         feedbackLabel.setStyle("-fx-font-size: 55px; -fx-text-fill: orange;");
-        if (audioItems.get(currentIndex).isUnseen){
+        if (audioItems.get(currentIndex).bonusPhrase){
             String filename = audioItems.get(currentIndex).expectedAnswer + ".txt";
             showDefinition(filename);
         }
@@ -230,75 +242,53 @@ public class Listening {
         accentedUButton.setVisible(hasGraveU);
     }
 
+    private void getAudioItemsForSection(int section) {
+        List<String> italianPhrases = Session.getItalianPhrases();
+        int difficulty = Session.getDifficultyPreference();
 
-    private Map<Integer, Set<String>> loadKnownAnswers(Integer sectionToLoad, String filename) {
-        Map<Integer, Set<String>> known = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream(filename))))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("`");
-                    int section = Integer.parseInt(parts[0].trim());
-                    if (section == sectionToLoad) {
-                        Set<String> answers = new HashSet<>();
-                        answers.add(parts[7].trim());
-                        answers.add(parts[8].trim());
-                        answers.add(parts[9].trim());
-
-                        hintText = parts[12];
-                        known.put(section, answers);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return known;
-    }
-
-
-    private List<AudioItem> getAudioItemsForSection(int section, Map<Integer, Set<String>> knownAnswers) {
-        List<AudioItem> items = new ArrayList<>();
         try {
             URL folderURL = getClass().getResource("/audio/" + section);
             if (folderURL == null) {
                 System.err.println("Folder not found: /audio/" + section);
-                return items;
+                return;
             }
 
-            URI folderURI = folderURL.toURI();
-            Path folderPath = Paths.get(folderURI);
+            Path folderPath = Paths.get(folderURL.toURI());
 
-            Set<String> known = knownAnswers.getOrDefault(section, new HashSet<>());
-
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, "*.mp3")) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, "*.m4a")) {
                 for (Path file : stream) {
-                    String name = file.getFileName().toString(); // e.g. pronunciation_it_legale.mp3
-                    String phrase = name.replace("pronunciation_it_", "")
-                            .replace(".mp3", "")
-                            .replace("_", " ")
-                            .trim();
+                    String fileName = file.getFileName().toString(); // e.g., legale.m4a
+                    String phrase = fileName.replace(".m4a", "").trim();
 
-                    boolean isUnseen = !known.contains(phrase);
-                    URL fileUrl = getClass().getResource("/audio/" + section + "/" + name);
-                    if (Session.getDifficultyPreference() < 3){ //if the user is playing on an easier mode...
-                        if (isUnseen == true){ //...and if this is an unseen (hard) phrase
-                            //...then do nothing as this will exclude the hard exercise
-                        } else {
-                            items.add(new AudioItem(phrase, fileUrl, isUnseen));
-                        }
+                    if (italianPhrases.contains(phrase)) {
+                        // Case 1: Phrase is in generated content so always add, bonusPhrase = false
+                        URL fileUrl = getClass().getResource("/audio/" + section + "/" + fileName);
+                        audioItems.add(new AudioItem(phrase, fileUrl, false));
                     } else {
-                        items.add(new AudioItem(phrase, fileUrl, isUnseen));
+                        if (difficulty < 4) {
+                            // Case 2: Easy mode, skip bonus phrase
+                            continue;
+                        }
+
+                        // Case 3: Hard mode, check for corresponding .txt file to verify bonus phrase then add that
+                        String textFilePath = "/audio/" + section + "/" + phrase + ".txt";
+                        try (InputStream inputStream = getClass().getResourceAsStream(textFilePath);
+                             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+
+                            URL fileUrl = getClass().getResource("/audio/" + section + "/" + fileName);
+                            audioItems.add(new AudioItem(phrase, fileUrl, true));
+                        } catch (Exception e) {
+                            continue;
+                        }
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return items;
+
     }
+
 
     @FXML
     private void onContinueButtonClick(){
