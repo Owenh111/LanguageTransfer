@@ -163,47 +163,8 @@ public class Translating {
     }
 
     private void assignLabelsAndAnswers(List<String> englishPhrases, List<String> italianPhrases) {
-
-        int difficulty = Session.getDifficultyPreference();
-
-        switch (difficulty) {
-            case 1:
-                // Labels: Italian, Answers: English
-                labels.addAll(italianPhrases);
-                answers.addAll(englishPhrases);
-                break;
-
-            case 2:
-                // 2 Italian -> English, 1 English -> Italian
-                labels.add(italianPhrases.get(0));
-                answers.add(englishPhrases.get(0));
-
-                labels.add(italianPhrases.get(1));
-                answers.add(englishPhrases.get(1));
-
-                labels.add(englishPhrases.get(2));
-                answers.add(italianPhrases.get(2));
-                break;
-
-            case 3:
-                // 2 English -> Italian, 1 Italian -> English
-                labels.add(englishPhrases.get(0));
-                answers.add(italianPhrases.get(0));
-
-                labels.add(englishPhrases.get(1));
-                answers.add(italianPhrases.get(1));
-
-                labels.add(italianPhrases.get(2));
-                answers.add(englishPhrases.get(2));
-                break;
-
-            case 4:
-            case 5:
-                // Labels: English, Answers: Italian (opposite of case 1)
-                labels.addAll(englishPhrases);
-                answers.addAll(italianPhrases);
-                break;
-        }
+        labels.addAll(englishPhrases);
+        answers.addAll(italianPhrases);
     }
 
     public void setUpLabels(){

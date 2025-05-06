@@ -15,15 +15,19 @@ public class Session {
     private static Learner currentLearner;
     private static Course currentCourse;
     private static List<Exercise> improvableExercises = new ArrayList<>();
+    private static boolean courseInitialised = false;
 
     // to return
     static List<String> englishPhrases = new ArrayList<>();
     static List<String> italianPhrases = new ArrayList<>();
 
     public static void initializeCourse(String language) {
-        currentCourse = new Course(language);
-        currentCourse.loadContentFromFile("content.txt");
-        currentLearner.resetCourse();
+        if (!courseInitialised) { // otherwise progress resets when user changes their settings
+            currentCourse = new Course(language);
+            currentCourse.loadContentFromFile("content.txt");
+            currentLearner.resetCourse();
+            courseInitialised = true;
+        }
     }
 
     public static Course getCurrentCourse() {
@@ -33,6 +37,11 @@ public class Session {
     public static void advanceProgress() { //i.e. change the section
         int progress = currentLearner.getProgress();
         currentLearner.setProgress(progress + 1);
+    }
+
+    public static void decrementProgress() { // used when updating settings
+        int progress = currentLearner.getProgress();
+        currentLearner.setProgress(progress - 1);
     }
 
     public static void addGiveUp(Exercise exercise) {
@@ -56,10 +65,10 @@ public class Session {
     private static AnchorPane currentAnchorPane;
 
     private static List<String> allExercises = new ArrayList<>(Arrays.asList(
-            //"Anagram",
-            //"Listening",
+            "Anagram",
+            "Listening",
             "Speaking"
-            //,"Translating"
+            ,"Translating"
             ));
     private static List<String> exercisesUnusedInThisSection;
 
@@ -102,7 +111,7 @@ public class Session {
         }
     }
 
-    /** Initialize background color cycling for a given AnchorPane */
+    /** Initialise background color cycling for a given AnchorPane */
     public static void startColorCycle(AnchorPane anchorPane) {
         currentAnchorPane = anchorPane;
         if (timeline != null) {
@@ -115,8 +124,8 @@ public class Session {
         Color startColor = colors[colorIndex];
         Color endColor = colors[(colorIndex + 1) % colors.length];
 
-        final int steps = 100; // Number of steps for smooth fading
-        final Duration duration = Duration.seconds(10); // Total duration of the fade
+        final int steps = 100; // defines how smooth fading is
+        final Duration duration = Duration.seconds(10); // how long to fade between specified colours
 
         timeline = new Timeline();
 
@@ -141,18 +150,23 @@ public class Session {
         timeline.play();
     }
 
-    private static Color interpolateColor(Color start, Color end, double fraction) {
+    private static Color interpolateColor(Color start, Color end, double fraction) { // this means to get from one colour to another
         double red = start.getRed() + (end.getRed() - start.getRed()) * fraction;
         double green = start.getGreen() + (end.getGreen() - start.getGreen()) * fraction;
         double blue = start.getBlue() + (end.getBlue() - start.getBlue()) * fraction;
         return new Color(red, green, blue, 1.0);
     }
 
-    private static String toRgbString(Color color) {
+    private static String toRgbString(Color color) { // so the program can meaningfully use it
         return String.format("rgb(%d, %d, %d)",
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
                 (int) (color.getBlue() * 255));
+    }
+
+    public static void clearExerciseData(){
+        englishPhrases.clear();
+        italianPhrases.clear();
     }
 
     /** the following is used to load data centrally, instead of in each class, which gives back a list **/
@@ -199,11 +213,13 @@ public class Session {
     private static Pair<List<String>,List<String>> getEasiestPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            english.add(data.get(i));
-        }
-        for (int i = 4; i <= 6; i++) {
-            italian.add(data.get(i));
+        List<Integer> validIndices = Arrays.asList(1,2,3);
+        Collections.shuffle(validIndices); // Shuffle to randomize
+
+        for (int i = 0; i < 3; i++) {
+            int chosenInt = validIndices.get(i);
+            english.add(data.get(chosenInt));
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase
         }
         return new Pair<>(english,italian);
     }
@@ -226,11 +242,13 @@ public class Session {
     private static Pair<List<String>,List<String>> getMediumPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        for (int i = 7; i <= 9; i++) {
-            english.add(data.get(i));
-        }
-        for (int i = 10; i <= 12; i++) {
-            italian.add(data.get(i));
+        List<Integer> validIndices = Arrays.asList(1,2,3,7,8,9,13,14,15);
+        Collections.shuffle(validIndices); // Shuffle to randomize
+
+        for (int i = 0; i < 3; i++) {
+            int chosenInt = validIndices.get(i);
+            english.add(data.get(chosenInt));
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase
         }
         return new Pair<>(english,italian);
     }
@@ -239,7 +257,7 @@ public class Session {
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
 
-        List<Integer> validIndices = Arrays.asList(7,8,9,13,14,15);
+        List<Integer> validIndices = Arrays.asList(1,2,3,7,8,9,13,14,15);
         Collections.shuffle(validIndices); // Randomising using number picker can generate the same numbers twice
         // A solution for that was unwieldy so this instead simply adds the numbers for this and shuffles it
 
@@ -254,11 +272,13 @@ public class Session {
     private static Pair<List<String>,List<String>> getHardestPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        for (int i = 13; i <= 15; i++) {
-            english.add(data.get(i));
-        }
-        for (int i = 16; i <= 18; i++) {
-            italian.add(data.get(i));
+        List<Integer> validIndices = Arrays.asList(7,8,9,13,14,15);
+        Collections.shuffle(validIndices); // Shuffle to randomize
+
+        for (int i = 0; i < 3; i++) {
+            int chosenInt = validIndices.get(i);
+            english.add(data.get(chosenInt));
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase
         }
         return new Pair<>(english,italian);
     }
@@ -273,6 +293,7 @@ public class Session {
 
     /** returns data to be loaded in according to difficulty setting **/
     public static Pair<List<String>, List<String>> generateContentForExercise(List<String> data){
+        clearExerciseData();
         switch (difficultyPreference) {
             case 1: Pair<List<String>,List<String>> easiestPhrases = getEasiestPhrases(data);
                 englishPhrases.addAll(easiestPhrases.getKey());

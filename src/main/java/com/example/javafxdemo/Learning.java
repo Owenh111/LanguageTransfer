@@ -21,17 +21,6 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Learning {
-    /**
-     * The related FXML currently acts as a placeholder and by extension so does this.
-     * I'm thinking there should be a general layout for content which is dynamically updated at each stage.
-     * Maybe a couple different versions of it to keep things fresh and accommodate for changes.
-     * This will be shown between each exercise. Exercise content could be read in from a file(?)
-     *
-     * Similarly, I'm thinking each type of exercise should have its own "content" with a standard layout.
-     * Each FXML part can then be populated dynamically with the specific content that has just been learned.
-     * The type of exercise would be randomly chosen after each piece of teaching, maybe 2 or 3 in a row.
-     * Using my current layout this would presumably open in a new window each time - maybe not ideal.
-     */
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -43,7 +32,7 @@ public class Learning {
     @FXML
     private TextArea explanation, exceptions;
     @FXML
-    private Button continueToExercises;
+    private Button continueToExercises, updateSettings, saveAndQuit;
 
     public void initialize(){
         Session.resetUnusedExercises();
@@ -88,13 +77,43 @@ public class Learning {
         continueToExercises.setText("Continue to exercises");
     }
 
+    public void updateSettings(){
+        Session.decrementProgress(); // so that when progress is auto incremented again, it cancels out
+        Session.clearExerciseData(); // so that the old exercise data is not kept and mixed in with the new
+        Stage stage = (Stage) continueToExercises.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("Introduction.fxml")));
+            Parent root = loader.load(); // Usually these are combined but here they are separate so we can get the controller
+            // (The root, being a Parent, does not have this functionality)
+
+            // Get controller and jump to settings tab
+            Introduction introduction = loader.getController();
+            introduction.jumpToSettings();
+            introduction.loadDifficultyPreference();
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+
+            stage.setTitle("Welcome to LangTrans");
+            stage.setScene(newScene);
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     public void onNextButtonClick(){
         Random random = new Random();
         List<String> exercises = Session.getAllExercises();
         int index = random.nextInt(exercises.size());
         String nextExercise = exercises.get(index);
-        // Get the current stage
+
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
@@ -103,7 +122,6 @@ public class Learning {
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 
-            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
             Platform.runLater(() -> {
                 stage.setFullScreenExitHint("");

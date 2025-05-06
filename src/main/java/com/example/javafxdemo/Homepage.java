@@ -54,7 +54,6 @@ public class Homepage {
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
             stage.setTitle("Welcome to LangTrans");
-            stage.setTitle("Welcome to LangTrans");
             stage.setScene(newScene);
             Platform.runLater(() -> {
                 stage.setFullScreenExitHint("");

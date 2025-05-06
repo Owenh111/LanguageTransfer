@@ -17,21 +17,17 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Introduction {
+    @FXML
     public Button toTab2, toTab3, toTab4, toTab5;
     @FXML
     private TabPane tabPane;
-
     @FXML
     private Tab tab2, tab3, tab4, tab5;
-
     @FXML
     private Button beginButton;
-
     @FXML
     private ToggleGroup micToggleGroup;
-
     public String micPreference;
-
     @FXML
     private Slider difficultySlider;
 
@@ -50,6 +46,14 @@ public class Introduction {
             } else if (Objects.equals(buttonName, "toTab5")) {
                 tabPane.getSelectionModel().select(tab5);
             }
+    }
+
+    public void jumpToSettings() { // used when user chooses to update settings
+        Platform.runLater(() -> tabPane.getSelectionModel().select(tab4));
+    }
+
+    public void loadDifficultyPreference() {
+        difficultySlider.setValue(Session.getDifficultyPreference());
     }
 
     public void saveDifficultyPreference(){
@@ -74,7 +78,7 @@ public class Introduction {
     protected void onStartButtonClick() {
         saveDifficultyPreference();
         saveMicPreference();
-        Session.initializeCourse("Italian");
+        Session.initializeCourse("Italian"); // only executes once, see Session code
 
         // Get the current stage
         Stage stage = (Stage) beginButton.getScene().getWindow();

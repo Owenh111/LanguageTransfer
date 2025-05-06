@@ -106,6 +106,11 @@
     -fx-text-fill: white;
 }
 
+.slider .track {
+    -fx-background-color: #cccccc;
+    -fx-pref-height: 10px; /* thicker track */
+}
+
 /* AnchorPane or other layout containers */
 .anchor-pane {
     -fx-background-color: transparent;

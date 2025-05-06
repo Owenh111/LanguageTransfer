@@ -16,6 +16,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.sound.sampled.*;
@@ -44,7 +45,9 @@ public class Speaking {
     private boolean isRecording = false; // used to start and stop isRecording
     private boolean tutorialEnabled = false;
     private boolean lastExercise = false;
+    private boolean replay = false;
     private int timesContinuePressed = 0;
+    private MediaPlayer player;
 
     private List<Speaking.AudioItem> audioItems = new ArrayList<>();
     private File recording = new File("recording.wav"); // file defined, originally empty, where we put the audio
@@ -59,8 +62,6 @@ public class Speaking {
         decideExerciseContent();
         Session.startColorCycle(anchorPane);
     }
-
-    // todo: sometimes play prompt button seemingly needs to be pressed 2x
     private static class AudioItem {
         URL mediaURL;
         boolean bonusPhrase;
@@ -111,7 +112,10 @@ public class Speaking {
             }
         });
 
-        nextAudioButton.setOnAction(e -> nextAudio());
+        nextAudioButton.setOnAction(e -> {
+            nextAudio();
+            replay = false;
+        });
 
         continueButton.setOnAction(e -> onContinueButtonClick());
     }
@@ -131,10 +135,24 @@ public class Speaking {
     private void playPromptAudio() {
         if (!audioItems.isEmpty()) {
             URL audioUrl = audioItems.get(timesContinuePressed).mediaURL;
+
             try {
-                Media media = new Media(audioUrl.toString());
-                MediaPlayer player = new MediaPlayer(media);
-                player.play();
+                if (replay && player != null) {
+                    // Seek to start and replay
+                    player.seek(Duration.ZERO);
+                    player.play();
+                } else {
+                    // Stop and dispose previous player if any
+                    if (player != null) {
+                        player.stop();
+                        player.dispose();
+                    }
+
+                    Media media = new Media(audioUrl.toString());
+                    player = new MediaPlayer(media);
+                    player.play();
+                    replay = true;
+                }
             } catch (Exception e) {
                 System.err.println("Error playing prompt: " + e.getMessage());
             }
@@ -234,6 +252,7 @@ public class Speaking {
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
                 if (!AudioSystem.isLineSupported(info)) {
                     System.err.println("Microphone not supported.");
+                    continueButton.setVisible(true);
                     return;
                 }
 

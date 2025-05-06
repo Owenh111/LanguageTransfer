@@ -5,23 +5,25 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.Learning">
    <children>
-      <Label id="title" fx:id="title" layoutX="48.0" layoutY="44.0" prefHeight="67.0" prefWidth="746.0" style="-fx-font-size: 80px; -fx-alignment: center;" text="Title" />
-      <Label id="wordType" fx:id="wordType" layoutX="794.0" layoutY="62.0" prefHeight="61.0" prefWidth="344.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Word type" />
+      <Label fx:id="title" layoutX="48.0" layoutY="44.0" prefHeight="67.0" prefWidth="746.0" style="-fx-font-size: 80px; -fx-alignment: center;" text="Title" />
+      <Label fx:id="wordType" layoutX="794.0" layoutY="62.0" prefHeight="61.0" prefWidth="344.0" style="-fx-font-size: 30px; -fx-alignment: center;" text="Word type" />
 
-      <Label id="englishConcept" fx:id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="English concept" />
-      <Label id="englishExamplePhrase1" fx:id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase" />
-      <Label id="englishExamplePhrase2" fx:id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 2" />
-      <Label id="englishExamplePhrase3" fx:id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 3" />
+      <Label fx:id="englishConcept" layoutX="147.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="English concept" />
+      <Label fx:id="englishExamplePhrase1" layoutX="148.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase" />
+      <Label fx:id="englishExamplePhrase2" layoutX="148.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 2" />
+      <Label fx:id="englishExamplePhrase3" layoutX="148.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="English example phrase 3" />
 
-      <Label id="italianConcept" fx:id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="Italian concept" />
-      <Label id="italianExamplePhrase1" fx:id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase" />
-      <Label id="italianExamplePhrase2" fx:id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 2" />
-      <Label id="italianExamplePhrase3" fx:id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 3" />
+      <Label fx:id="italianConcept" layoutX="693.0" layoutY="134.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 50px; -fx-alignment: center;" text="Italian concept" />
+      <Label fx:id="italianExamplePhrase1" layoutX="694.0" layoutY="201.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase" />
+      <Label fx:id="italianExamplePhrase2" layoutX="694.0" layoutY="251.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 2" />
+      <Label fx:id="italianExamplePhrase3" layoutX="694.0" layoutY="301.0" prefHeight="67.0" prefWidth="546.0" style="-fx-font-size: 40px; -fx-alignment: center;" text="Italian example phrase 3" />
 
 
-      <TextArea id="explanation" fx:id="explanation" editable="false" focusTraversable="false" layoutX="151.0" layoutY="387.0" prefHeight="112.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
-      <TextArea id="exceptions" fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="507.0" prefHeight="88.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
-      <Button id="continueToExercises" fx:id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="19.0" prefWidth="262.0" text="Continue to exercise" />
+      <TextArea fx:id="explanation" editable="false" focusTraversable="false" layoutX="151.0" layoutY="387.0" prefHeight="112.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user an explanation of the above in a nicer format that a label might." wrapText="true" />
+      <TextArea fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="507.0" prefHeight="88.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
+      <Button fx:id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="19.0" prefWidth="262.0" text="Continue to exercise" />
+      <Button fx:id="updateSettings" layoutX="1014.0" layoutY="25.0" mnemonicParsing="false" onAction="#updateSettings" text="Update settings" />
+      <Button fx:id="saveAndQuit" layoutX="1182.0" layoutY="25.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="144.0" style="-fx-background-color: FF5C00" text="Save and quit" />
 
    </children>
 </AnchorPane>

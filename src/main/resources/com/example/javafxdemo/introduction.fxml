@@ -59,7 +59,7 @@
                 <!-- Tab 3 -->
                 <Tab fx:id="tab3" closable="false" text="Introductory Tab 3">
                     <content>
-                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="3/5">
                                 <font>
                                     <Font size="18.0" />
@@ -82,7 +82,7 @@
                 <!-- Tab 4 -->
                 <Tab fx:id="tab4" text="Introductory Tab 4">
                     <content>
-                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="4/5">
                                 <font>
                                     <Font size="18.0" />
@@ -90,7 +90,7 @@
                             </Label>
 
                             <Label maxWidth="600.0" text="You can adjust the difficulty of the questions using this slider. This changes the amount of familiar words you will see in text-based exercises." textAlignment="CENTER" wrapText="true" />
-                            <Label maxWidth="600.0" text="If you're not sure, stick with 'recommended'. You can always change this later by pressing ESCAPE." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="600.0" text="If you're not sure, stick with 'recommended'. You can always change this later using the buttons at the top right when you are taught new content." textAlignment="CENTER" wrapText="true" />
 
                             <VBox fx:id="sliderContainer" alignment="CENTER" spacing="10.0">
                                 <Slider fx:id="difficultySlider" blockIncrement="1" majorTickUnit="1" max="5" min="1" minorTickCount="0" prefHeight="24.0" prefWidth="800.0" showTickMarks="true" snapToTicks="true" value="3.0" />
@@ -118,13 +118,13 @@
                 <!-- Tab 5 -->
                 <Tab fx:id="tab5" text="Introductory Tab 5">
                     <content>
-                        <VBox alignment="CENTER"  spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <Label alignment="CENTER" text="5/5">
                                 <font>
                                     <Font size="18.0" />
                                 </font>
                             </Label>
-                            <Label maxWidth="600.0" text="There is a save and load feature, so remember to use this if you close the app." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="600.0" text="There is a save and load feature, so remember to use this if you close the app. It's the red button next to the 'Update settings' button." textAlignment="CENTER" wrapText="true" />
                             <Label maxWidth="600.0" text="There are also speaking exercises. If you don't have a microphone, tell us below and we'll skip them." textAlignment="CENTER" wrapText="true" />
                             <RadioButton fx:id="radioButtonYes" onAction="#enableContinue" text="I have a microphone and am happy to do speaking exercises">
                                 <toggleGroup>
