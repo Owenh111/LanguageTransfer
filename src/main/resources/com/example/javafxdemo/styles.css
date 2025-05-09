@@ -108,7 +108,7 @@
 
 .slider .track {
     -fx-background-color: #cccccc;
-    -fx-pref-height: 10px; /* thicker track */
+    -fx-pref-height: 30px; /* thicker track */
 }
 
 /* AnchorPane or other layout containers */

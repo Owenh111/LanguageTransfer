@@ -137,7 +137,7 @@ public class Anagram {
     }
 
     private void updateDisplay() {
-        instructionLabel.setText("Unscramble the phrase you see!");
+        instructionLabel.setText("Unscramble the Italian phrase you see!");
         anagramLabel.setText(items.get(currentIndex).scrambled);
         enableAccentMarkButtonsWhereNecessary(items.get(currentIndex).answer);
     }

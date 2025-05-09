@@ -20,7 +20,7 @@
 
    <TextField fx:id="userInput" layoutX="40.0" layoutY="495.0" prefHeight="83.0" prefWidth="614.0" promptText="Enter what you hear..." style="-fx-font-size: 50px; -fx-alignment: center;" />
 
-   <Button fx:id="checkButton" layoutX="40.0" layoutY="602.0" onAction="#onCheck" style="-fx-font-size: 35px;" text="Check" />
+   <Button fx:id="checkButton" layoutX="40.0" layoutY="602.0" onAction="#onCheck" style="-fx-font-size: 35px; -fx-background-color: #4CAF50" text="Check" />
 
    <Button fx:id="replayButton" layoutX="246.0" layoutY="608.0" onAction="#onReplay" style="-fx-font-size: 25px;" text="Replay" />
 

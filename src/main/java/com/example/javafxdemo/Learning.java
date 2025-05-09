@@ -4,6 +4,7 @@ import com.example.javafxdemo.Classes.Content;
 import com.example.javafxdemo.Classes.Course;
 import com.example.javafxdemo.Classes.Session;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -134,5 +135,10 @@ public class Learning {
             URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+nextExercise+".fxml");
             System.out.println("URL: " + url);
         }
+    }
+
+    public void saveAndQuit(ActionEvent event) {
+        Session.save();
+        System.exit(0); //quit
     }
 }

@@ -29,7 +29,7 @@
 
         <Label fx:id="correctAndNextLabel" layoutX="40.0" layoutY="480.0" style="-fx-font-size: 30px;" text="" wrapText="true" />
 
-      <Button fx:id="checkButton" layoutX="149.0" layoutY="379.0" mnemonicParsing="false" onAction="#onCheck" prefHeight="82.0" prefWidth="171.0" text="Check" />
+      <Button fx:id="checkButton" layoutX="149.0" layoutY="379.0" mnemonicParsing="false" onAction="#onCheck" style="-fx-background-color: #4CAF50" prefHeight="82.0" prefWidth="171.0" text="Check" />
       <Button fx:id="giveUpButton" layoutX="378.0" layoutY="379.0" mnemonicParsing="false" onAction="#onGiveUp" prefHeight="82.0" prefWidth="171.0" text="Give up" />
 
     </children>

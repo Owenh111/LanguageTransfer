@@ -18,7 +18,8 @@
 
     <Button fx:id="playPromptButton" layoutX="188.0" layoutY="202.0" prefHeight="76.0" prefWidth="320.0" style="-fx-font-size: 45px;" text="Play prompt"/>
 
-    <Button fx:id="nextAudioButton" layoutX="870.0" layoutY="497.0" prefHeight="63.0" prefWidth="246.0" style="-fx-font-size: 35px;" text="Next audio" disable="true"/>
+    <Button fx:id="nextAudioButton" layoutX="870.0" layoutY="497.0" prefHeight="63.0" prefWidth="246.0" style="-fx-font-size: 35px; -fx-background-color: #4CAF50;"
+            text="Next audio" disable="true"/>
 
     <Button fx:id="continueButton" layoutX="867.0" layoutY="528.0" prefHeight="135.0" prefWidth="246" style="-fx-font-size: 35px;" text="Continue" visible="false" />
     <Button fx:id="recordButton" layoutX="188.0" layoutY="340.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="141.0" style="-fx-background-color: #4CAF50" text="Record"/>

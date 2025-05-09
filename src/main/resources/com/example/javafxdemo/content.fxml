@@ -23,7 +23,7 @@
       <TextArea fx:id="exceptions" editable="false" focusTraversable="false" layoutX="151.0" layoutY="507.0" prefHeight="88.0" prefWidth="1087.0" text="This text box is not editable but instead shows the user any exceptions to the rule above they need to know at that time." wrapText="true" />
       <Button fx:id="continueToExercises" layoutX="1051.0" layoutY="606.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="19.0" prefWidth="262.0" text="Continue to exercise" />
       <Button fx:id="updateSettings" layoutX="1014.0" layoutY="25.0" mnemonicParsing="false" onAction="#updateSettings" text="Update settings" />
-      <Button fx:id="saveAndQuit" layoutX="1182.0" layoutY="25.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="144.0" style="-fx-background-color: FF5C00" text="Save and quit" />
+      <Button fx:id="saveAndQuit" layoutX="1182.0" layoutY="25.0" mnemonicParsing="false" onAction="#saveAndQuit" prefHeight="38.0" prefWidth="144.0" style="-fx-background-color: FF5C00" text="Save and quit" />
 
    </children>
 </AnchorPane>

@@ -8,10 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -20,9 +22,12 @@ public class Homepage {
     private AnchorPane anchorPane;
     @FXML
     private Label welcomeText;
+    @FXML
+    private Button resumeButton;
 
     public void initialize(){
         Session.startColorCycle(anchorPane);
+        enableResumeIfSaveDataExists();
     }
 
     public void setUpNewCourse(){
@@ -35,6 +40,20 @@ public class Homepage {
 
         learner.getCourse(); //get course - used here only for debugging. not sure why underlined when below isn't
         Session.getLearner(); //get learner (defers to Session) - used here only for debugging
+    }
+
+    public void enableResumeIfSaveDataExists(){
+        File saveFile = new File("SaveData.ser");
+        if (saveFile.exists()) {
+            resumeButton.setDisable(false);
+        } else {
+            resumeButton.setDisable(true);
+        }
+    }
+
+    public void loadInFile() {
+        Session.load();
+        onStartButtonClick();
     }
 
     @FXML

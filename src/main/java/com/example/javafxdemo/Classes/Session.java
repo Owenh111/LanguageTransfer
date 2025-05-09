@@ -7,8 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Session {
@@ -90,12 +89,16 @@ public class Session {
         return exercisesUnusedInThisSection;
     }
 
+    public static int difficultyPreference;
+    public static String micPref;
+
+    /* METHODS START HERE */
+
+
     /** when the next Learning.java is shown, all Exercises need to be showable again so this is called **/
     public static void resetUnusedExercises(){
         exercisesUnusedInThisSection = new ArrayList<>(allExercises);
     }
-
-    public static int difficultyPreference;
 
     /** the two methods below are called once at the start or can be called again in the ESC menu **/
     public static void setDifficultyPreference(int preference){
@@ -109,6 +112,7 @@ public class Session {
         if (Objects.equals(micPreference, "radioButtonNo")){
             allExercises.remove("Speaking");
         }
+        micPref = micPreference; // save micPreference to Session for use when saving
     }
 
     /** Initialise background color cycling for a given AnchorPane */
@@ -322,5 +326,42 @@ break;
     /** this exercise will not be called again until the unused improvableExercises are reset **/
     public static void removeUsedExerciseFromRandomSelection(String exercise) {
         exercisesUnusedInThisSection.remove(exercise);
+    }
+
+    public static void save() {
+        SaveData data = new SaveData(currentLearner, getDifficultyPreference(), micPref, improvableExercises);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SaveData.ser"))) {
+            out.writeObject(data);
+            out.close();
+            System.out.println("Session saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void load() {
+//        File saveFile = new File("SaveData.ser");
+//        if (!saveFile.exists()) { // this is already checked for
+//            System.out.println("No saved session to load.");
+//            return;
+//        }
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("SaveData.ser"))) {
+            SaveData data = (SaveData) in.readObject();
+
+            currentLearner = getLearner();
+
+            Session.setDifficultyPreference(data.getDifficultyPreference());
+
+            // Restore mic preference
+            micPref = data.getMicPreference();
+
+            // Restore improvable exercises
+            improvableExercises.addAll(data.getImprovableExercises());
+
+            System.out.println("Session loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
