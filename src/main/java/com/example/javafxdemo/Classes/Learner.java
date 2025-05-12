@@ -1,6 +1,8 @@
 package com.example.javafxdemo.Classes;
 
-public class Learner {
+import java.io.Serializable;
+
+public class Learner implements Serializable {
     private Course course; //to tie the learner to a specific course
     private int progress; //can load back in to where the user was when they close the program
 

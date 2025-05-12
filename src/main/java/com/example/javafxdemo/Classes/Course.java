@@ -4,12 +4,13 @@ import com.example.javafxdemo.Introduction;
 import com.example.javafxdemo.Learning;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Course {
+public class Course implements Serializable {
     private String courseName;
     private ArrayList<Exercise> exercises;
     private List<Content> contentList = new ArrayList<>();

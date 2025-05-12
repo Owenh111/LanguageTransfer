@@ -1,5 +1,6 @@
 package com.example.javafxdemo.Classes;
 
+import com.example.javafxdemo.Introduction;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +32,10 @@ public class Session {
 
     public static Course getCurrentCourse() {
         return currentCourse;
+    }
+
+    public static void setCurrentCourse(Course newCourse) {
+        currentCourse = newCourse;
     }
 
     public static void advanceProgress() { //i.e. change the section
@@ -340,23 +345,20 @@ break;
     }
 
     public static void load() {
-//        File saveFile = new File("SaveData.ser");
-//        if (!saveFile.exists()) { // this is already checked for
-//            System.out.println("No saved session to load.");
-//            return;
-//        }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("SaveData.ser"))) {
             SaveData data = (SaveData) in.readObject();
 
-            currentLearner = getLearner();
+            setLearner(data.getLearner());
+            setCurrentCourse(data.getLearner().getCourse());
 
-            Session.setDifficultyPreference(data.getDifficultyPreference());
+            setDifficultyPreference(data.getDifficultyPreference());
 
             // Restore mic preference
             micPref = data.getMicPreference();
 
             // Restore improvable exercises
+            improvableExercises.clear();
             improvableExercises.addAll(data.getImprovableExercises());
 
             System.out.println("Session loaded successfully.");

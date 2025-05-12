@@ -51,9 +51,30 @@ public class Homepage {
         }
     }
 
-    public void loadInFile() {
+    @FXML
+    public void onResumeButtonClick() {
         Session.load();
-        onStartButtonClick();
+
+        Stage stage = (Stage) welcomeText.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            /** NOTE: only works when Homepage.java is in this exact package
+             * if moving folder may need to change code in module-info.java manually **/
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+            stage.setTitle("LangTrans Italiano");
+            stage.setScene(newScene);
+            Platform.runLater(() -> {
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);       // forcing fullscreen
+                stage.centerOnScreen();
+            });
+        } catch (IOException e) {
+            System.out.println(getClass().getResource("content.fxml"));
+            e.printStackTrace();
+        }
     }
 
     @FXML
