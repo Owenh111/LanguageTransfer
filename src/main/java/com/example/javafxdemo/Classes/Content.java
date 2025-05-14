@@ -1,11 +1,12 @@
 package com.example.javafxdemo.Classes;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Content {
+public class Content implements Serializable {
     /**
      * this class Content exists to connect assessmentContent, exerciseContent and progress
      * exerciseContent will have many small pieces of content

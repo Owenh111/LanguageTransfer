@@ -1,6 +1,8 @@
 package com.example.javafxdemo.Classes;
 
-public class Exercise {
+import java.io.Serializable;
+
+public class Exercise implements Serializable {
     private String exerciseType; //to load the correct fxml template and exclude microphone tasks
 
     private Integer exerciseContent; //to dynamically create the exercise with content most recently learned

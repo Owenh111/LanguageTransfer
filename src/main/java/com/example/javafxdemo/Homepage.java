@@ -53,13 +53,15 @@ public class Homepage {
 
     @FXML
     public void onResumeButtonClick() {
+        welcomeText.setText("Loading");
         Session.load();
+        Course currentCourse = Session.getCurrentCourse();
+        currentCourse.loadContentFromFile("content.txt");
+        Session.decrementProgress(); // so that when progress is auto incremented again, it cancels out
 
         Stage stage = (Stage) welcomeText.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            /** NOTE: only works when Homepage.java is in this exact package
-             * if moving folder may need to change code in module-info.java manually **/
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("content.fxml")));
 
             // Set the new scene to the stage
@@ -79,9 +81,7 @@ public class Homepage {
 
     @FXML
     protected void onStartButtonClick() {
-
         welcomeText.setText("Loading");
-
         setUpNewCourse();
         // Get the current stage
         Stage stage = (Stage) welcomeText.getScene().getWindow();

@@ -23,6 +23,7 @@ public class Course implements Serializable {
     public List<Content> getContentList(){
         return contentList;
     }
+
     // Method to read content from the file and create Content objects
     public void loadContentFromFile(String filename) {
         InputStream inputStream = getClass().getResourceAsStream("/com/example/javafxdemo/content.txt");

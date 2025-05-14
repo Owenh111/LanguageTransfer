@@ -74,7 +74,7 @@ public class Session {
             "Speaking"
             ,"Translating"
             ));
-    private static List<String> exercisesUnusedInThisSection;
+    private static List<String> exerciseTypesUnusedInThisSection;
 
     /** call this when user starts or resumes a course */
     public static void setLearner(Learner learner) {
@@ -91,7 +91,7 @@ public class Session {
 
     /** get unused Exercises; called from any exercise as at least one exercise has already been shown **/
     public static List<String> getExercisesUnusedInSection(){
-        return exercisesUnusedInThisSection;
+        return exerciseTypesUnusedInThisSection;
     }
 
     public static int difficultyPreference;
@@ -102,7 +102,7 @@ public class Session {
 
     /** when the next Learning.java is shown, all Exercises need to be showable again so this is called **/
     public static void resetUnusedExercises(){
-        exercisesUnusedInThisSection = new ArrayList<>(allExercises);
+        exerciseTypesUnusedInThisSection = new ArrayList<>(allExercises);
     }
 
     /** the two methods below are called once at the start or can be called again in the ESC menu **/
@@ -118,6 +118,10 @@ public class Session {
             allExercises.remove("Speaking");
         }
         micPref = micPreference; // save micPreference to Session for use when saving
+    }
+
+    public static void excludeSpeakingExercisesForAssessment(){
+        allExercises.remove("Speaking");
     }
 
     /** Initialise background color cycling for a given AnchorPane */
@@ -330,7 +334,7 @@ break;
 
     /** this exercise will not be called again until the unused improvableExercises are reset **/
     public static void removeUsedExerciseFromRandomSelection(String exercise) {
-        exercisesUnusedInThisSection.remove(exercise);
+        exerciseTypesUnusedInThisSection.remove(exercise);
     }
 
     public static void save() {
