@@ -292,17 +292,8 @@ public class Listening {
 
     @FXML
     private void onContinueButtonClick(){
-        //since we have already used at least one exercise, we have to exclude any that have already been shown
-        List<String> exercises = Session.getExercisesUnusedInSection();
-        String next = "";
-        if (exercises.isEmpty()){
-            // if no more exercises to show then show next piece of content
-            next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
-        } else {
-            Random random = new Random();
-            int index = random.nextInt(exercises.size());
-            next = exercises.get(index);
-        }
+        // since we have already used at least one exercise, we have to exclude any that have already been shown
+        String next = getNext();
 
         Stage stage = (Stage) continueButton.getScene().getWindow();
         try {
@@ -325,5 +316,23 @@ public class Listening {
             URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml");
             System.out.println("URL: " + url);
         }
+    }
+
+    private String getNext() {
+        List<String> exercises = Session.getExercisesUnusedInSection();
+        String next = "";
+        if (exercises.isEmpty()){ // if no more exercises to show
+            if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
+                next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+            } else {
+                // if it is not time for the assessment then show next piece of content
+                next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+            }
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(exercises.size());
+            next = exercises.get(index);
+        }
+        return next;
     }
 }

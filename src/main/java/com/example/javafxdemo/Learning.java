@@ -118,8 +118,8 @@ public class Learning {
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Exercises/"+nextExercise+".fxml")));
-
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/javafxdemo/assessment_introduction.fxml")));
+            // TODO: 15/05/2025 revert the above when not testing 
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 

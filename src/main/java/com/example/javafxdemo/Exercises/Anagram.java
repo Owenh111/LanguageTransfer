@@ -212,33 +212,49 @@ public class Anagram {
     }
 
     @FXML
-    private void onContinueButtonClick() {
+    private void onContinueButtonClick(){
+        // since we have already used at least one exercise, we have to exclude any that have already been shown
+        String next = getNext();
+
+        Stage stage = (Stage) continueButton.getScene().getWindow();
+        try {
+            // Load the new FXML file (ie window)
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(next+".fxml")));
+
+            // Set the new scene to the stage
+            Scene newScene = new Scene(root);
+
+            stage.setScene(newScene);
+
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
+            stage.setResizable(true);
+            stage.setTitle("Langtrans Italiano");
+            stage.centerOnScreen();
+
+            Session.removeUsedExerciseFromRandomSelection(next);
+        } catch (IOException e) {
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml");
+            System.out.println("URL: " + url);
+        }
+    }
+
+    private String getNext() {
         List<String> exercises = Session.getExercisesUnusedInSection();
         String next = "";
-        if (exercises.isEmpty()) {
-            next = "/com/example/javafxdemo/content";
+        if (exercises.isEmpty()){ // if no more exercises to show
+            if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
+                next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+            } else {
+                // if it is not time for the assessment then show next piece of content
+                next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+            }
         } else {
             Random random = new Random();
             int index = random.nextInt(exercises.size());
             next = exercises.get(index);
         }
-
-        Stage stage = (Stage) continueButton.getScene().getWindow();
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(next + ".fxml")));
-            Scene newScene = new Scene(root);
-            stage.setTitle("Welcome to LangTrans");
-            stage.setScene(newScene);
-            Platform.runLater(() -> {
-                stage.setFullScreenExitHint("");
-                stage.setFullScreen(true);       // forcing fullscreen
-                stage.centerOnScreen();
-            });
-            Session.removeUsedExerciseFromRandomSelection(next);
-        } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/" + next + ".fxml");
-            System.out.println("URL: " + url);
-        }
+        return next;
     }
 }
 
