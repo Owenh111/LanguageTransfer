@@ -19,7 +19,7 @@
                                     <Font size="18.0" />
                                 </font>
                             </Label>
-                            <Label maxWidth="600.0" text="You have now reached the Assessment stage. This will show you the same exercises as earlier - except Speaking - in a random order. You cannot give up on any questions and answers are only revealed at the end. There is no time limit." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="600.0" text="You have now reached the Assessment stage. This will show you the same exercises as earlier - except Speaking - in a random order. This time, though, if you give up, you will not be shown the answer. There is no time limit." textAlignment="CENTER" wrapText="true" />
                             <ImageView fitHeight="120.0" fitWidth="225.0" preserveRatio="true">
                                 <image>
                                     <Image url="@../../../images/IntroImage_1.png" />
@@ -65,14 +65,14 @@
                                     <Font size="18.0" />
                                 </font>
                             </Label>
-                            <Label maxWidth="560.0" text="When you have finished, the program will reveal what score you got. The pass mark is two-thirds of answers being correct." textAlignment="CENTER" wrapText="true" />
-                            <Label maxWidth="560.0" text="If you fail, you will have the option of retaking the test or the entire section. If you pass, you will move on (for the demo, we will return to the homepage)." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="560.0" text="When you have finished, the program will reveal what score you got. The pass mark is 75% of answers being correct." textAlignment="CENTER" wrapText="true" />
+                            <Label maxWidth="560.0" text="If you fail, you will have the option of retaking the test and/or the entire section, depending on your mark. If you pass, you will move on (for the demo, we will return to the homepage)." textAlignment="CENTER" wrapText="true" />
                             <ImageView fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
                                 <image>
                                     <Image url="@../../../images/IntroImage_3.png" />
                                 </image>
                             </ImageView>
-                            <Button fx:id="continue" onAction="#beginTest" text="Start">
+                            <Button fx:id="beginButton" onAction="#beginTest" text="Start">
                                 <font><Font size="18.0" /></font>
                             </Button>
                         </VBox>

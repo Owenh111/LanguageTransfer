@@ -1,13 +1,20 @@
 package com.example.javafxdemo;
 
 import com.example.javafxdemo.Classes.Assessment;
+import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class AssessmentIntroduction {
@@ -33,6 +40,7 @@ public class AssessmentIntroduction {
         }
     }
 
+    @FXML
     public void beginTest(){
         Session.excludeSpeakingExercisesForAssessment();
         Session.resetUnusedExercises();
@@ -41,5 +49,30 @@ public class AssessmentIntroduction {
 
         Assessment assessment = new Assessment(Session.getGiveUps());
         assessment.initialize();
-    }
+
+        List<Exercise> assessmentExercises = assessment.getAssessmentExercises();
+        Stage stage = (Stage) beginButton.getScene().getWindow();
+        Exercise exercise = assessmentExercises.getFirst();
+            try {
+                Session.getLearner().setProgress(exercise.getExerciseContent());
+                String next = exercise.getType();
+                // Load the new FXML file (ie window)
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource
+                        ( "/com/example/javafxdemo/Exercises/"+next+".fxml")));
+
+                Session.incrementAssessmentIndex();
+                // Set the new scene to the stage
+                Scene newScene = new Scene(root);
+
+                stage.setScene(newScene);
+
+                stage.setMaximized(true);
+                stage.setFullScreen(true);
+                stage.setResizable(true);
+                stage.setTitle("Langtrans Italiano");
+                stage.centerOnScreen();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 }

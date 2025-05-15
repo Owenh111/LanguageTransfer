@@ -72,6 +72,13 @@ public class Translating {
         setUpLabels();
         enableAccentMarkButtonsIfNecessary();
 
+        if (Session.inAssessmentMode()) {
+            feedbackLabel1.setVisible(false);
+            feedbackLabel2.setVisible(false);
+            feedbackLabel3.setVisible(false);
+            // code to hide answers in the text fields are in each onGiveUp
+        }
+
         setListeners();
     }
 
@@ -291,6 +298,10 @@ public class Translating {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (Session.inAssessmentMode()){
+            answerField1.setText(" "); // reset so that answer is not revealed
+        }
     }
 
     public void onCheck2(ActionEvent event) {
@@ -342,6 +353,10 @@ public class Translating {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        if (Session.inAssessmentMode()){
+            answerField2.setText(" "); // reset so that answer is not revealed
         }
     }
 
@@ -395,6 +410,10 @@ public class Translating {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (Session.inAssessmentMode()){
+            answerField3.setText(" "); // reset so that answer is not revealed
+        }
     }
 
     @FXML
@@ -428,17 +447,29 @@ public class Translating {
     private String getNext() {
         List<String> exercises = Session.getExercisesUnusedInSection();
         String next = "";
-        if (exercises.isEmpty()){ // if no more exercises to show
-            if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
-                next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+        if (!Session.inAssessmentMode()) {
+            if (exercises.isEmpty()) { // if no more exercises to show
+                if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
+                    next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+                } else {
+                    // if it is not time for the assessment then show next piece of content
+                    next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+                }
             } else {
-                // if it is not time for the assessment then show next piece of content
-                next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+                Random random = new Random();
+                int index = random.nextInt(exercises.size());
+                next = exercises.get(index);
             }
         } else {
-            Random random = new Random();
-            int index = random.nextInt(exercises.size());
-            next = exercises.get(index);
+            if (!Session.assessmentComplete()){
+                List<Exercise> assessmentData = Session.getAssessmentData();
+                Exercise exerciseToLoad = assessmentData.get(Session.getAssessmentIndex());
+                next = exerciseToLoad.getType();
+                learner.setProgress(exerciseToLoad.getExerciseContent());
+                Session.incrementAssessmentIndex();
+            } else {
+                next = "/com/example/javafxdemo/assessment_result";
+            }
         }
         return next;
     }

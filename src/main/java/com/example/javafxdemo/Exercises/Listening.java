@@ -49,6 +49,10 @@ public class Listening {
         playCurrentAudio();
         setListeners();
 
+        if (Session.inAssessmentMode()) {
+            feedbackLabel.setVisible(false);
+        }
+
         Session.startColorCycle(anchorPane);
     }
 
@@ -321,17 +325,29 @@ public class Listening {
     private String getNext() {
         List<String> exercises = Session.getExercisesUnusedInSection();
         String next = "";
-        if (exercises.isEmpty()){ // if no more exercises to show
-            if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
-                next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+        if (!Session.inAssessmentMode()) {
+            if (exercises.isEmpty()) { // if no more exercises to show
+                if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
+                    next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
+                } else {
+                    // if it is not time for the assessment then show next piece of content
+                    next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+                }
             } else {
-                // if it is not time for the assessment then show next piece of content
-                next = "/com/example/javafxdemo/content"; // including full filepath as it is one subfolder up
+                Random random = new Random();
+                int index = random.nextInt(exercises.size());
+                next = exercises.get(index);
             }
         } else {
-            Random random = new Random();
-            int index = random.nextInt(exercises.size());
-            next = exercises.get(index);
+            if (!Session.assessmentComplete()){
+                List<Exercise> assessmentData = Session.getAssessmentData();
+                Exercise exerciseToLoad = assessmentData.get(Session.getAssessmentIndex());
+                next = exerciseToLoad.getType();
+                learner.setProgress(exerciseToLoad.getExerciseContent());
+                Session.incrementAssessmentIndex();
+            } else {
+                next = "/com/example/javafxdemo/assessment_result";
+            }
         }
         return next;
     }

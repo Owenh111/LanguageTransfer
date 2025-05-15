@@ -16,6 +16,7 @@ public class Session {
     private static Course currentCourse;
     private static List<Exercise> improvableExercises = new ArrayList<>();
     private static boolean courseInitialised = false;
+    private static List<Exercise> assessmentData;
 
     // to return
     static List<String> englishPhrases = new ArrayList<>();
@@ -54,6 +55,46 @@ public class Session {
 
     public static List<Exercise> getGiveUps(){
         return improvableExercises;
+    }
+
+    private static boolean assessmentMode = false;
+    private static int assessmentIndex = 0;
+    private static boolean assessmentComplete = false;
+
+    public static void enableAssessmentMode() {
+        assessmentMode = true;
+    }
+
+    public static void disableAssessmentMode() {
+        assessmentMode = false;
+    }
+
+    public static boolean inAssessmentMode() {
+        return assessmentMode;
+    }
+
+    public static void saveAssessment(List<Exercise> assessment) {
+        assessmentData = assessment;
+    }
+
+    public static List<Exercise> getAssessmentData() {
+        return assessmentData;
+    }
+
+    public static void incrementAssessmentIndex() {
+        assessmentIndex+=1;
+    }
+
+    public static int getAssessmentIndex() {
+        return assessmentIndex;
+    }
+
+    public static boolean assessmentComplete() {
+        if (assessmentIndex == 3){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static final Color[] colors = {
