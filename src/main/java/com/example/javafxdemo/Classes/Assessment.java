@@ -35,7 +35,6 @@ public class Assessment {
 
         while (!Session.getExercisesUnusedInSection().isEmpty()){
             List<String> unusedExercises = Session.getExercisesUnusedInSection();
-            // generating random exercises to fill out remainder using either line of content
                 Random random = new Random();
                 int index = random.nextInt(unusedExercises.size());
                 String exerciseType = unusedExercises.get(index);

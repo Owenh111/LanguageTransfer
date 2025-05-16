@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.AssessmentResult">
+<AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.AssessmentResult">
    <children>
-      <Button layoutX="788.0" layoutY="427.0" mnemonicParsing="false" text="Go to homepage" disable="true"/>
-      <Button layoutX="619.0" layoutY="427.0" mnemonicParsing="false" text="Redo section" />
-      <Button layoutX="422.0" layoutY="427.0" mnemonicParsing="false" text="Redo assessment" disable="true"/>
-      <Label layoutX="490.0" layoutY="124.0" style="-fx-font-size: 40px;" text="Result in a few words" />
-      <Label layoutX="490.0" layoutY="229.0" text="You scored X out of a possible Y." />
+      <Button fx:id="goToHomepageButton" onAction="#finish" layoutX="788.0" layoutY="427.0" mnemonicParsing="false" text="Go to homepage" />
+      <Button fx:id="redoSectionButton" onAction="#redoSection" disable="true" layoutX="619.0" layoutY="427.0" mnemonicParsing="false" text="Redo section" />
+      <Button fx:id="redoAssessmentButton" onAction="#redoAssessment" disable="true" layoutX="422.0" layoutY="427.0" mnemonicParsing="false" text="Redo assessment" />
+      <Label fx:id="outcome" layoutX="490.0" layoutY="124.0" style="-fx-font-size: 40px;" text="Result in a few words" />
+      <Label fx:id="score" layoutX="490.0" layoutY="229.0" text="You skipped X answers." />
       <Label layoutX="490.0" layoutY="308.0" text="Based on your score, here are your options:" />
-      <Label layoutX="447.0" layoutY="473.0" prefHeight="49.0" prefWidth="102.0" text="You need 50% to unlock this" wrapText="true" />
-      <Label layoutX="812.0" layoutY="479.0" prefHeight="38.0" prefWidth="102.0" text="You need 75% to unlock this" wrapText="true" />
+      <Label fx:id="redoAssessmentLocked" visible="false" layoutX="422.0" layoutY="474.0" prefHeight="49.0" prefWidth="152.0" text="Skip no more than 5 times to unlock this." wrapText="true" />
+      <Label fx:id="goToHomepageLocked" visible="false" layoutX="788.0" layoutY="480.0" prefHeight="38.0" prefWidth="151.0" text="Skip no more than 3 times to unlock this." wrapText="true" />
    </children>
 </AnchorPane>

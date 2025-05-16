@@ -56,12 +56,21 @@ public class Anagram {
         }
 
         private static String scrambleWord(String word) {
-            if (word.length() <= 2) return word;
+//            if (word.length() <= 2) {
+//                return word;
+//            }
             List<Character> chars = new ArrayList<>();
-            for (char c : word.toCharArray()) chars.add(c);
+            for (char c : word.toCharArray()) {
+                chars.add(c);
+            }
+
             Collections.shuffle(chars);
             StringBuilder sb = new StringBuilder();
-            for (char c : chars) sb.append(c);
+
+            for (char c : chars) {
+                sb.append(c);
+            }
+
             return sb.toString();
         }
     }
@@ -183,8 +192,14 @@ public class Anagram {
         nextItem();
 
         if (!giveUpAlreadyAdded) {
-            Session.addGiveUp(new Exercise("Anagram", learner.getProgress()));
-            giveUpAlreadyAdded = true;
+            if (!Session.inAssessmentMode()) {
+                Session.addGiveUp(new Exercise("Anagram", learner.getProgress()));
+                giveUpAlreadyAdded = true;
+            }
+        }
+
+        if (Session.inAssessmentMode()){
+            Session.addSkippedAnswer();
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.javafxdemo;
 import com.example.javafxdemo.Classes.Assessment;
 import com.example.javafxdemo.Classes.Exercise;
 import com.example.javafxdemo.Classes.Session;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,10 @@ public class AssessmentIntroduction {
         } else if (Objects.equals(buttonName, "toTab3")) {
             tabPane.getSelectionModel().select(tab3);
         }
+    }
+
+    public void jumpToSettings() { // used when user chooses to update settings
+        Platform.runLater(() -> tabPane.getSelectionModel().select(tab3));
     }
 
     @FXML

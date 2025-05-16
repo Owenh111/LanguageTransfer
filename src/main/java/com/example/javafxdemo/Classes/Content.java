@@ -7,13 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Content implements Serializable {
-    /**
-     * this class Content exists to connect assessmentContent, exerciseContent and progress
-     * exerciseContent will have many small pieces of content
-     * assessmentContent combines multiple pieces of exerciseContent to occur in a single assessment
-     * progress can be measured as a % of the total integer value of exerciseContent+assessmentContent
-     * getter and setter methods in the other classes can therefore defer to this
-     */
     private Integer contentNumber;
     private String wordType;
     private String englishConcept;

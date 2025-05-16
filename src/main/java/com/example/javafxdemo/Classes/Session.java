@@ -89,12 +89,27 @@ public class Session {
         return assessmentIndex;
     }
 
+    public static void resetAssessmentIndex() { assessmentIndex=0; }
+
     public static boolean assessmentComplete() {
         if (assessmentIndex == 3){
             return true;
         } else {
             return false;
         }
+    }
+
+    private static int skippedAnswers = 0;
+    public static void addSkippedAnswer() {
+        skippedAnswers += 1;
+    }
+
+    public static int getSkippedAnswers() {
+        return skippedAnswers;
+    }
+
+    public static void resetSkippedAnswers() {
+        skippedAnswers = 0;
     }
 
     private static final Color[] colors = {

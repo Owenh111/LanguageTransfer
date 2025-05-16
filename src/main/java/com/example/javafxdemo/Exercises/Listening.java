@@ -194,8 +194,14 @@ public class Listening {
         nextAudioOrNextExercise();
 
         if (!giveUpAlreadyAdded){
-            Session.addGiveUp(new Exercise("Listening",learner.getProgress()));
-            giveUpAlreadyAdded = true;
+            if (!Session.inAssessmentMode()) {
+                Session.addGiveUp(new Exercise("Listening", learner.getProgress()));
+                giveUpAlreadyAdded = true;
+            }
+        }
+
+        if (Session.inAssessmentMode()){
+            Session.addSkippedAnswer();
         }
     }
 

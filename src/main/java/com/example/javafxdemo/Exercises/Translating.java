@@ -292,8 +292,10 @@ public class Translating {
             checkIfContinueShouldEnable();
 
             if (!giveUpAlreadyAdded){
-                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
-                giveUpAlreadyAdded = true;
+                if (!Session.inAssessmentMode()) {
+                    Session.addGiveUp(new Exercise("Translating", learner.getProgress()));
+                    giveUpAlreadyAdded = true;
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -301,6 +303,7 @@ public class Translating {
 
         if (Session.inAssessmentMode()){
             answerField1.setText(" "); // reset so that answer is not revealed
+            Session.addSkippedAnswer();
         }
     }
 
@@ -348,8 +351,10 @@ public class Translating {
             checkIfContinueShouldEnable();
 
             if (!giveUpAlreadyAdded){
-                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
-                giveUpAlreadyAdded = true;
+                if (!Session.inAssessmentMode()) {
+                    Session.addGiveUp(new Exercise("Translating", learner.getProgress()));
+                    giveUpAlreadyAdded = true;
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -357,6 +362,7 @@ public class Translating {
 
         if (Session.inAssessmentMode()){
             answerField2.setText(" "); // reset so that answer is not revealed
+            Session.addSkippedAnswer();
         }
     }
 
@@ -404,8 +410,10 @@ public class Translating {
             checkIfContinueShouldEnable();
 
             if (!giveUpAlreadyAdded){
-                Session.addGiveUp(new Exercise("Translating",learner.getProgress()));
-                giveUpAlreadyAdded = true;
+                if (!Session.inAssessmentMode()) {
+                    Session.addGiveUp(new Exercise("Translating", learner.getProgress()));
+                    giveUpAlreadyAdded = true;
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -413,6 +421,7 @@ public class Translating {
 
         if (Session.inAssessmentMode()){
             answerField3.setText(" "); // reset so that answer is not revealed
+            Session.addSkippedAnswer();
         }
     }
 
