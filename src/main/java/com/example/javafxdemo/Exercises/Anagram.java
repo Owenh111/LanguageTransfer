@@ -20,24 +20,27 @@ import java.util.*;
 public class Anagram {
 
     @FXML private AnchorPane anchorPane;
-    @FXML private TextField userInput;
-    @FXML private Label instructionLabel, feedbackLabel, anagramLabel;
+    @FXML
+    TextField userInput;
+    @FXML private Label instructionLabel;
+    @FXML Label feedbackLabel;
+    @FXML private Label anagramLabel;
     @FXML private Button checkButton, giveUpButton, continueButton;
     @FXML private Button accentedAButton, accentedEButton, accentedIButton, accentedOButton, accentedUButton;
     @FXML private TextArea hint;
     @FXML private Button hintButton;
 
     private List<AnagramItem> items;
-    private int currentIndex = 0;
+    int currentIndex = 0;
     private int lastCaretPosition = 0;
     private String hintText;
     private boolean giveUpAlreadyAdded = false;
 
-    private int phrasesCompleted = 0;
+    int phrasesCompleted = 0;
 
     Learner learner = Session.getLearner();
 
-    private static class AnagramItem {
+    static class AnagramItem {
         String answer;
         String scrambled;
 
@@ -89,7 +92,7 @@ public class Anagram {
         Session.startColorCycle(anchorPane);
     }
 
-    private List<AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
+    public List<AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
         List<AnagramItem> items = new ArrayList<>();
 
         // Step 1: Load exercise data for the given section and save hint text
@@ -287,6 +290,11 @@ public class Anagram {
             }
         }
         return next;
+    }
+
+    /** for testing only **/
+    public void setItems(List<AnagramItem> newItems){
+        items = newItems;
     }
 }
 

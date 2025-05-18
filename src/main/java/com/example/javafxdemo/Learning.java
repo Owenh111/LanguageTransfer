@@ -113,13 +113,12 @@ public class Learning {
         Random random = new Random();
         List<String> exercises = Session.getAllExercises();
         int index = random.nextInt(exercises.size());
-        String nextExercise = exercises.get(index);
+        String next = exercises.get(index);
 
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/javafxdemo/assessment_introduction.fxml")));
-            // TODO: 15/05/2025 revert the above when not testing 
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml")));
             // Set the new scene to the stage
             Scene newScene = new Scene(root);
 
@@ -130,9 +129,9 @@ public class Learning {
                 stage.centerOnScreen();
             });
 
-            Session.removeUsedExerciseFromRandomSelection(nextExercise);
+            Session.removeUsedExerciseFromRandomSelection(next);
         } catch (IOException e) {
-            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+nextExercise+".fxml");
+            URL url = getClass().getResource("/com/example/javafxdemo/Exercises/"+next+".fxml");
             System.out.println("URL: " + url);
         }
     }

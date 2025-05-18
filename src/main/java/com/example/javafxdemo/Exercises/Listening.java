@@ -23,14 +23,17 @@ public class Listening {
 
     @FXML private AnchorPane anchorPane;
     @FXML private MediaView mediaView;
-    @FXML private TextField userInput;
-    @FXML private Label instructionLabel, feedbackLabel;
+    @FXML
+    TextField userInput;
+    @FXML private Label instructionLabel;
+    @FXML
+    Label feedbackLabel;
     @FXML private Button checkButton, replayButton, giveUpButton, continueButton;
     @FXML private Button accentedAButton, accentedEButton, accentedIButton, accentedOButton, accentedUButton;
     @FXML private TextArea hint;
     @FXML private Button hintButton;
 
-    private List<AudioItem> audioItems = new ArrayList<>();
+    List<AudioItem> audioItems = new ArrayList<>();
     private int currentIndex = 0;
     private MediaPlayer currentPlayer;
 
@@ -82,7 +85,7 @@ public class Listening {
         instructionLabel.setText(getInstructionForCurrentItem());
     }
 
-    private static class AudioItem {
+    static class AudioItem {
         String expectedAnswer;
         URL mediaURL;
         boolean bonusPhrase;

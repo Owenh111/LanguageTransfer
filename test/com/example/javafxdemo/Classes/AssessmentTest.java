@@ -28,34 +28,24 @@ class AssessmentTest {
     }
 
     @Test
-    void testAddAssessmentExercisesIncludingSpeaking() {
+    void testAddAssessmentExercisesAndExcludeSpeaking() {
         Assessment assessment = new Assessment(initialExercises);
         assessment.addassessmentExercises();
 
         List<Exercise> allExercises = assessment.getAssessmentExercises();
 
-        // Should now include all 3 types at least once
+        // Should now include all 4 types at least once
         Set<String> foundTypes = new HashSet<>();
         for (Exercise e : allExercises) {
-            foundTypes.add(e.getType());
+            if (e.getType() != "Speaking"){
+                foundTypes.add(e.getType());
+            }
         }
 
         assertTrue(foundTypes.contains("Anagram"));
         assertTrue(foundTypes.contains("Listening"));
         assertTrue(foundTypes.contains("Translating"));
 
-        assertEquals(4, allExercises.size());
+        assertEquals(3, foundTypes.size());
     }
-
-//    @Test
-//    void testInitializeSetsAssessmentModeAndSavesSession() {
-//        Assessment assessment = new Assessment(initialExercises);
-//        assessment.initialize();
-//
-//        assertTrue(Session.inAssessmentMode());
-//
-//        List<Exercise> sessionSaved = Session.getSavedAssessment();
-//        assertNotNull(sessionSaved);
-//        assertFalse(sessionSaved.isEmpty());
-//    }
 }

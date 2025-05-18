@@ -60,4 +60,8 @@ public class Course implements Serializable {
 
         scanner.close();
     }
+
+    public String toString() {
+        return "Course Name: " + courseName + ", Number of Exercises: " + exercises.size();
+    }
 }

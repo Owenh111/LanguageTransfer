@@ -1,9 +1,5 @@
-package com.example.javafxdemo.ClassesTest;
+package com.example.javafxdemo.Classes;
 
-import com.example.javafxdemo.Classes.Course;
-import com.example.javafxdemo.Classes.Exercise;
-import com.example.javafxdemo.Classes.Learner;
-import com.example.javafxdemo.Classes.SaveData;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
