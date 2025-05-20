@@ -20,14 +20,15 @@
          <Font size="30.0" />
       </font>
    </Label>
-    <Button fx:id="resumeButton" disable="true" prefHeight="44.0" prefWidth="154.0" text="Resume" onAction="#onResumeButtonClick">
+    <Button fx:id="resumeButton" disable="true" onAction="#onResumeButtonClick" prefHeight="44.0" prefWidth="154.0" text="Resume">
       <font>
          <Font size="20.0" />
       </font></Button>
-   <Button onAction="#onStartButtonClick" mnemonicParsing="false" prefHeight="44.0" prefWidth="154.0" text="Start">
+   <Button mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="44.0" prefWidth="154.0" text="Start">
       <font>
          <Font size="15.0" />
       </font></Button>
+   <Button mnemonicParsing="false" onAction="#onQuitButtonClick" style="-fx-background-color: FF5C00" prefHeight="38.0" prefWidth="155.0" text="Quit" />
 
     <Label fx:id="welcomeText" />
 </VBox>

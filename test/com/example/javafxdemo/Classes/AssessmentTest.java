@@ -13,17 +13,13 @@ class AssessmentTest {
 
     @BeforeEach
     void setUp() {
-        // Reset the Session before each test
-        // Session.clear(); // This method should reset all static variables if not already available
 
-        // Mock unused exercise types
+        // mocking unused exercise types
         Session.resetUnusedExercises();
         Session.enableAssessmentMode();
 
         initialExercises = new ArrayList<>();
-//        initialExercises.add(new Exercise("Anagram", 1)); // Used once already
-//
-//        // Exercise is now "used"
+//        initialExercises.add(new Exercise("Anagram", 1));
 //        Session.removeUsedExerciseFromRandomSelection("Anagram");
     }
 

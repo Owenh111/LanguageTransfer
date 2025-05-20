@@ -5,13 +5,13 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="662.0" prefWidth="1360.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxdemo.AssessmentResult">
    <children>
-      <Button fx:id="goToHomepageButton" onAction="#finish" layoutX="788.0" layoutY="427.0" mnemonicParsing="false" text="Go to homepage" />
-      <Button fx:id="redoSectionButton" onAction="#redoSection" disable="true" layoutX="619.0" layoutY="427.0" mnemonicParsing="false" text="Redo section" />
-      <Button fx:id="redoAssessmentButton" onAction="#redoAssessment" disable="true" layoutX="422.0" layoutY="427.0" mnemonicParsing="false" text="Redo assessment" />
+      <Button fx:id="goToHomepageButton" layoutX="788.0" layoutY="427.0" mnemonicParsing="false" onAction="#finish" text="Go to homepage" />
+      <Button fx:id="redoCourseButton" disable="true" layoutX="619.0" layoutY="427.0" mnemonicParsing="false" onAction="#redoCourse" text="Redo course" />
+      <Button fx:id="redoAssessmentButton" disable="true" layoutX="422.0" layoutY="427.0" mnemonicParsing="false" onAction="#redoAssessment" text="Redo assessment" />
       <Label fx:id="outcome" layoutX="490.0" layoutY="124.0" style="-fx-font-size: 40px;" text="Result in a few words" />
-      <Label fx:id="score" layoutX="490.0" layoutY="229.0" text="You skipped X answers." />
+      <Label fx:id="score" layoutX="490.0" layoutY="229.0" text="You skipped X times." />
       <Label layoutX="490.0" layoutY="308.0" text="Based on your score, here are your options:" />
-      <Label fx:id="redoAssessmentLocked" visible="false" layoutX="422.0" layoutY="474.0" prefHeight="49.0" prefWidth="152.0" text="Skip no more than 5 times to unlock this." wrapText="true" />
-      <Label fx:id="goToHomepageLocked" visible="false" layoutX="788.0" layoutY="480.0" prefHeight="38.0" prefWidth="151.0" text="Skip no more than 3 times to unlock this." wrapText="true" />
+      <Label fx:id="redoAssessmentLocked" layoutX="422.0" layoutY="474.0" prefHeight="49.0" prefWidth="152.0" text="Skip no more than 5 times to unlock this." visible="false" wrapText="true" />
+      <Label fx:id="goToHomepageLocked" layoutX="788.0" layoutY="480.0" prefHeight="38.0" prefWidth="151.0" text="Skip no more than 3 times to unlock this." visible="false" wrapText="true" />
    </children>
 </AnchorPane>

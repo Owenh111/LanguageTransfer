@@ -21,7 +21,7 @@ import java.util.Objects;
 public class AssessmentResult {
     @FXML private AnchorPane anchorPane;
     @FXML private Label outcome, score, redoAssessmentLocked, goToHomepageLocked;
-    @FXML private Button goToHomepageButton, redoSectionButton, redoAssessmentButton;
+    @FXML private Button goToHomepageButton, redoCourseButton, redoAssessmentButton;
 
     public void initialize(){
         int skippedAnswers = Session.getSkippedAnswers();
@@ -51,21 +51,21 @@ public class AssessmentResult {
                 goToHomepageLocked.setVisible(true);
                 goToHomepageButton.setDisable(true);
                 redoAssessmentButton.setDisable(false);
-                redoSectionButton.setDisable(false);
+                redoCourseButton.setDisable(false);
                 break;
             default:
                 outcome.setText("You have not passed.");
                 goToHomepageLocked.setVisible(true);
                 redoAssessmentLocked.setVisible(true);
                 goToHomepageButton.setDisable(true);
-                redoSectionButton.setDisable(false);
+                redoCourseButton.setDisable(false);
                 break;
         }
         score.setText("You skipped " + Session.getSkippedAnswers() + " times.");
     }
 
     public void redoAssessment(){
-        Stage stage = (Stage) redoSectionButton.getScene().getWindow();
+        Stage stage = (Stage) redoCourseButton.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("assessment_introduction.fxml")));
@@ -91,9 +91,9 @@ public class AssessmentResult {
         }
     }
 
-    public void redoSection(){
+    public void redoCourse(){
         Session.decrementProgress(); // since there are only two sections, we don't need to set manually or reset
-        Stage stage = (Stage) redoSectionButton.getScene().getWindow();
+        Stage stage = (Stage) redoCourseButton.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("content.fxml")));
@@ -122,7 +122,7 @@ public class AssessmentResult {
             // and since the course has finished there is no point overwriting. So, we delete it
         }
 
-        Stage stage = (Stage) redoSectionButton.getScene().getWindow();
+        Stage stage = (Stage) redoCourseButton.getScene().getWindow();
         try {
             // Load the new FXML file (ie window)
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("homepage.fxml")));

@@ -4,6 +4,7 @@ import com.example.javafxdemo.Classes.Course;
 import com.example.javafxdemo.Classes.Learner;
 import com.example.javafxdemo.Classes.Session;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -103,5 +104,9 @@ public class Homepage {
         } catch (IOException e) {
             System.out.println(getClass().getResource("introduction.fxml"));
         }
+    }
+
+    public void onQuitButtonClick(ActionEvent event) {
+        System.exit(0); //quit
     }
 }
