@@ -49,8 +49,6 @@ public class AssessmentIntroduction {
     public void beginTest(){
         Session.excludeSpeakingExercisesForAssessment();
         Session.resetUnusedExercises();
-        // TODO: 14/05/2025 remember to add the speaking back after if the following:
-        // the user replays the whole section AND their micPreference is radioButtonYes
 
         Assessment assessment = new Assessment(Session.getGiveUps());
         assessment.initialize();

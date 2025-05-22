@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SaveData implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L; // best practice to define explicitly
+    // defining above also gives advantage of explicitly declaring that it is a Long
     private Learner learner;
     private int difficultyPreference;
     private String micPreference;

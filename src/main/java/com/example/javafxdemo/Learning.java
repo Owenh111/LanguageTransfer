@@ -22,6 +22,10 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Learning {
+    /**
+     * I reserved Content.java for the structure of each piece of content read in but this mean that a discrepancy arose
+     * between the name of Learning.java and the Content.fxml file it relates to.
+     */
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -36,18 +40,19 @@ public class Learning {
     private Button continueToExercises, updateSettings, saveAndQuit;
 
     public void initialize(){
-        Session.resetUnusedExercises();
+        Session.resetUnusedExercises(); // ensure all exercises are in play
 
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane); // make the background loop round colour scheme
+        // this continues (is called) in every class until the end
 
-        // Advance learner's progress each time Learning is shown
+        // advance learner's progress each time Learning is shown
         Session.advanceProgress();
 
         Course course = Session.getCurrentCourse();
-        List<Content> contentList = course.getContentList();
+        List<Content> contentList = course.getContentList(); // everything from the file
 
         int progressIndex = Session.getLearner().getProgress();
-        parseContentAtIndex(progressIndex, contentList);
+        parseContentAtIndex(progressIndex, contentList); // get the relevant content
     }
 
     public void parseContentAtIndex(Integer index, List<Content> contentList) {
@@ -62,6 +67,7 @@ public class Learning {
     }
     public void populateContent(Content content){
         title.setText(content.getEnglishConcept() + " --> " + content.getItalianConcept());
+        // e.g. Italian --> Italiano
         wordType.setText("for " + content.getWordType());
 
         englishConcept.setText(content.getEnglishConcept());
@@ -111,9 +117,9 @@ public class Learning {
     @FXML
     public void onNextButtonClick(){
         Random random = new Random();
-        List<String> exercises = Session.getAllExercises();
-        int index = random.nextInt(exercises.size());
-        String next = exercises.get(index);
+        List<String> exercises = Session.getAllExercises(); // this will not get Speaking if it has been excluded
+        int index = random.nextInt(exercises.size()); // get a random index from the exercises
+        String next = exercises.get(index); // get the exercise that corresponds to this index
 
         Stage stage = (Stage) continueToExercises.getScene().getWindow();
         try {

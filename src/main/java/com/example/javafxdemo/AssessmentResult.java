@@ -29,11 +29,11 @@ public class AssessmentResult {
         Session.resetSkippedAnswers();
         Session.resetUnusedExercises();
         Session.resetAssessmentIndex();
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane);
     }
 
     public void setupUI(int skippedAnswers){
-        switch (skippedAnswers) {
+        switch (skippedAnswers) { // easiest way to do this is a switch and case statements due to the number of options
             case 0:
                 outcome.setText("Flawless!");
                 break;
@@ -94,6 +94,8 @@ public class AssessmentResult {
     public void redoCourse(){
         Session.decrementProgress(); // since there are only two sections, we don't need to set manually or reset
         Stage stage = (Stage) redoCourseButton.getScene().getWindow();
+        Session.disableAssessmentMode(); // speaking exercises remain disabled even if they were enabled before
+        // this happens by default but is also handy since they do not matter for the test
         try {
             // Load the new FXML file (ie window)
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("content.fxml")));
@@ -121,6 +123,8 @@ public class AssessmentResult {
             file.delete(); // now all progress is complete save data will be out of date
             // and since the course has finished there is no point overwriting. So, we delete it
         }
+
+        Session.disableAssessmentMode();
 
         Stage stage = (Stage) redoCourseButton.getScene().getWindow();
         try {

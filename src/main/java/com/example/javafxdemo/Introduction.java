@@ -34,7 +34,7 @@ public class Introduction {
     @FXML
     public void goToNextTab(ActionEvent event) {
         // Get the source of the action event (button clicked)
-        Button sourceButton = (Button) event.getSource();
+        Button sourceButton = (Button) event.getSource(); // quite similar to the way we can get Stage
         String buttonName = sourceButton.getId();
             // Check which button was clicked and show the next tab accordingly
             if (Objects.equals(buttonName, "toTab2")) {
@@ -70,6 +70,7 @@ public class Introduction {
 
     public String getMicPreference() {
         RadioButton selectedRadioButton = (RadioButton) micToggleGroup.getSelectedToggle();
+        // the micToggleGroup can only have, as an intrinsic quality, one button being selected
         micPreference = selectedRadioButton.getId();
         return micPreference;
     }
@@ -99,14 +100,14 @@ public class Introduction {
         }
     }
 
-    public Scene getTestScene() {
+    public Scene getTestScene() { // this is used for IntroductionTest
         TabPane tabPane = new TabPane();
 
         Tab tab1 = new Tab("Tab 1");
         Tab tab2 = new Tab("Tab 2");
-        tabPane.getTabs().addAll(tab1, tab2);
+        tabPane.getTabs().addAll(tab1, tab2); // tabPane only needs 2 events for the purposes of the demo
 
-        // Initially select tab1
+        // Initially select tab1, otherwise it will not select anything by itself
         tabPane.getSelectionModel().select(tab1);
 
         // Return a scene containing the TabPane

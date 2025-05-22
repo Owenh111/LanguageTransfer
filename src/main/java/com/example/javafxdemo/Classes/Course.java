@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Course implements Serializable {
+public class Course implements Serializable { // implements Serializable so it can be written when saving
     private String courseName;
     private ArrayList<Exercise> exercises;
     private List<Content> contentList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Course implements Serializable {
             String line = scanner.nextLine();
             String[] fields = line.split("`");
 
-            // Ensure the line has the correct number of fields (12 because of wordType)
+            // Ensure the line has the correct number of fields (13)
             if (fields.length == 13) {
                 // Create a new Content object from the fields
                 Content content = new Content(
@@ -61,7 +61,7 @@ public class Course implements Serializable {
         scanner.close();
     }
 
-    public String toString() {
+    public String toString() { // used in Testing as well as good practice
         return "Course Name: " + courseName + ", Number of Exercises: " + exercises.size();
     }
 }

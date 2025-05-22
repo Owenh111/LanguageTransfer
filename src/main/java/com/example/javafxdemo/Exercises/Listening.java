@@ -44,9 +44,9 @@ public class Listening {
     private Boolean giveUpAlreadyAdded = false;
 
     public void initialize() {
-        //Map<Integer, Set<String>> knownAnswers = loadKnownAnswers(learner.getProgress(), "/com/example/javafxdemo/content.txt");
         decideExerciseContent();
         audioItems.sort(Comparator.comparing(a -> a.bonusPhrase)); // moves unseen item to last
+        // if at a lower difficulty setting this will do nothing so it is safe not to check for that
 
         setupUI();
         playCurrentAudio();
@@ -56,7 +56,7 @@ public class Listening {
             feedbackLabel.setVisible(false);
         }
 
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane);
     }
 
     public void setListeners() {
@@ -127,7 +127,7 @@ public class Listening {
     }
 
     private String getInstructionForCurrentItem() {
-        return audioItems.get(currentIndex).bonusPhrase
+        return audioItems.get(currentIndex).bonusPhrase // below represented as ternary operator structure
                 ? "Type what you hear as closely as possible: \n\n Go for it - no worries if you get it wrong!"
                 : "Type the phrase you heard: \n\n There is a replay button if you need it! \n\n You can pass the question after one failed attempt.";
     }

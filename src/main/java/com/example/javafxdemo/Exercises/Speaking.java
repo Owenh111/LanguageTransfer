@@ -60,7 +60,7 @@ public class Speaking {
         checkTutorialNeeded(learner.getProgress());
         setListeners();
         decideExerciseContent();
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane);
     }
     private static class AudioItem {
         URL mediaURL;
@@ -76,7 +76,7 @@ public class Speaking {
         playPromptButton.setOnAction(e -> {
             playPromptAudio();
             recordButton.setDisable(false);
-            if (tutorialEnabled) {
+            if (tutorialEnabled) { // as the structure of this exercise is unique, it has a tutorial
                 instructionLabel2.setVisible(true);
                 recordButton.setVisible(true);
                 stopButton.setVisible(true);
@@ -137,12 +137,12 @@ public class Speaking {
             URL audioUrl = audioItems.get(timesContinuePressed).mediaURL;
 
             try {
-                if (replay && player != null) {
-                    // Seek to start and replay
+                if (replay && player != null) { //
+                    // seek to start and replay; this is the best way of replaying content
                     player.seek(Duration.ZERO);
                     player.play();
                 } else {
-                    // Stop and dispose previous player if any
+                    // stop and dispose previous player, this means we can instantiate another with a new URL attached
                     if (player != null) {
                         player.stop();
                         player.dispose();
@@ -207,16 +207,16 @@ public class Speaking {
                     String phrase = fileName.replace(".m4a", "").trim();
 
                     if (italianPhrases.contains(phrase)) {
-                        // Case 1: Phrase is in generated content so always add, bonusPhrase = false
+                        // Case 1: phrase is in generated content so always add, bonusPhrase = false
                         URL fileUrl = getClass().getResource("/audio/" + section + "/" + fileName);
                         audioItems.add(new Speaking.AudioItem(fileUrl, false));
                     } else {
                         if (difficulty < 4) {
-                            // Case 2: Easy mode, skip bonus phrase
+                            // Case 2: easy mode, skip bonus phrase
                             continue;
                         }
 
-                        // Case 3: Hard mode, check for corresponding .txt file to verify bonus phrase then add that
+                        // Case 3: hard mode, check for corresponding .txt file to verify bonus phrase then add that
                         String textFilePath = "/audio/" + section + "/" + phrase + ".txt";
                         try (InputStream inputStream = getClass().getResourceAsStream(textFilePath);
                              BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
@@ -237,7 +237,7 @@ public class Speaking {
 
     private void playAudio(String filename) {
         try {
-            Media media = new Media(new File(filename).toURI().toString());
+            Media media = new Media(new File(filename).toURI().toString()); // you can play audio simply by feeding it a url
             MediaPlayer player = new MediaPlayer(media);
             player.play();
         } catch (Exception e) {
@@ -249,28 +249,31 @@ public class Speaking {
         new Thread(() -> {
             try {
                 AudioFormat format = new AudioFormat(16000.0f, 16, 1, true, true);
-                DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-                if (!AudioSystem.isLineSupported(info)) {
+                // audio format settings are standardised
+                DataLine.Info info = new DataLine.Info(TargetDataLine.class, format); // an interface for audio objects
+                if (!AudioSystem.isLineSupported(info)) { // if the audio system does not recognise a microphone or it is unusable
                     System.err.println("Microphone not supported.");
                     continueButton.setVisible(true);
                     return;
                 }
 
                 microphone = (TargetDataLine) AudioSystem.getLine(info);
-                microphone.open(format);
-                microphone.start();
+                microphone.open(format); // audio data can now be recorded
+                microphone.start(); // begin recording audio data
                 outputStream = new ByteArrayOutputStream();
                 isRecording = true;
                 byte[] buffer = new byte[1024];
                 while (isRecording) {
-                    int count = microphone.read(buffer, 0, buffer.length);
-                    outputStream.write(buffer, 0, count);
+                    int count = microphone.read(buffer, 0, buffer.length); // standardised code
+                    outputStream.write(buffer, 0, count); // to byte array so that mic data is readable
                 }
 
-                byte[] audioData = outputStream.toByteArray();
-                ByteArrayInputStream bais = new ByteArrayInputStream(audioData);
+                byte[] audioData = outputStream.toByteArray(); // 1. extract the raw audio data
+                ByteArrayInputStream bais = new ByteArrayInputStream(audioData); // 2. because line below requires input stream
                 AudioInputStream ais = new AudioInputStream(bais, format, audioData.length / format.getFrameSize());
-                AudioSystem.write(ais, AudioFileFormat.Type.WAVE, recording);
+                // 3. (above) convert to another input stream, you have to do this after converting to bytearrayinputstream
+                // because you cannot go directly from byte[] to ais
+                AudioSystem.write(ais, AudioFileFormat.Type.WAVE, recording); // 4. finally, write to an actual audio file for playback
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -289,7 +292,7 @@ public class Speaking {
     private void nextAudio(){
         timesContinuePressed += 1;
         resetUI();
-        if (timesContinuePressed >= (audioItems.size() - 1)){
+        if (timesContinuePressed >= (audioItems.size() - 1)){ // if nothing more after this exercise
             nextAudioButton.setVisible(false);
             continueButton.setVisible(true);
             continueButton.setDisable(true);

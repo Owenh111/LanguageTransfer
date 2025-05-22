@@ -1,6 +1,5 @@
 package com.example.javafxdemo.Classes;
 
-import com.example.javafxdemo.Introduction;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +30,10 @@ public class Session {
         }
     }
 
+    public static void setCourseInitialised(){ // this is needed if resume is clicked
+        courseInitialised = true; // so that if the user changes their settings it does not reset progress
+    }
+
     public static Course getCurrentCourse() {
         return currentCourse;
     }
@@ -59,7 +62,6 @@ public class Session {
 
     private static boolean assessmentMode = false;
     private static int assessmentIndex = 0;
-    private static boolean assessmentComplete = false;
 
     public static void enableAssessmentMode() {
         assessmentMode = true;
@@ -112,6 +114,14 @@ public class Session {
         skippedAnswers = 0;
     }
 
+    /**
+     the colours below are used for the coloured background
+     i chose them manually as they represent a number of pastel colours which look pleasant
+     they also do not clash with the darker tones of the background
+
+     they are ordered in a way which is where the most similar colours are next to each other
+     as the code works across the list sequentially to get between each colour
+     **/
     private static final Color[] colors = {
             Color.valueOf("97ECF1"),
             Color.valueOf("DFFDFF"),
@@ -153,19 +163,17 @@ public class Session {
     public static int difficultyPreference;
     public static String micPref;
 
-    /* METHODS START HERE */
+    /** METHODS START HERE **/
 
-
-    /** when the next Learning.java is shown, all Exercises need to be showable again so this is called **/
+    // when the next Learning.java is shown, all Exercises need to be showable again so this is called
     public static void resetUnusedExercises(){
         exerciseTypesUnusedInThisSection = new ArrayList<>(allExercises);
     }
 
-    /** the two methods below are called once at the start or can be called again in the ESC menu **/
+    // the method below is called once at the start or can be called again in the ESC menu
     public static void setDifficultyPreference(int preference){
         difficultyPreference = preference;
     }
-
     public static int getDifficultyPreference(){
         return difficultyPreference;
     }
@@ -180,8 +188,19 @@ public class Session {
         allExercises.remove("Speaking");
     }
 
-    /** Initialise background color cycling for a given AnchorPane */
-    public static void startColorCycle(AnchorPane anchorPane) {
+    /** Initialise background color cycling for a given AnchorPane
+     * The 4 methods below are all part of the same process and are always called one after the other
+     * They are commented individually but their overall function is as follows
+     * 1: startColorCycle: is called from other classes, and stops any previous cycles to prevent overlap (if you don't it flashes)
+     * 2: fadeToNextColor: gets two colours from the list above and shows 100 colours between them to create a fade effect
+     * 3:interpolateColor: find the exact Color needed to show at that moment in fadeToNextColor
+     * 4: toRgbString: this way the program can actually use the colour using FXML, using a hex code
+     *
+     * Note: Except for "startColourCycle" and comments I used the american spelling color
+     * This is easier than continually switching between the two when coding as e.g. defining a "Colour" won't work
+     * @param anchorPane
+     */
+    public static void startColourCycle(AnchorPane anchorPane) {
         currentAnchorPane = anchorPane;
         if (timeline != null) {
             timeline.stop();
@@ -189,24 +208,36 @@ public class Session {
         fadeToNextColor();
     }
 
+    /**        below we get the startColor, colorIndex. colorIndex is not actually reset between calls
+     *         this means that every 10 seconds, i.e. every time a colour in colorIndex is "passed through",
+     *         the next time that startColourCycle is called it will "go back to" a different colour
+     *         this is visible sometimes but makes the process feel smoother
+     *         one could try and save the exact interpolatedColor and start from there,
+     *         but that would involve manipulating the list of Colors itself and I thought that could cause
+     *         more issues because it would be hard-ish to code and the colour would need to be removed after too
+     */
     private static void fadeToNextColor() {
         Color startColor = colors[colorIndex];
-        Color endColor = colors[(colorIndex + 1) % colors.length];
+        Color endColor = colors[(colorIndex + 1) % colors.length]; // the end wraps to the first colour if at the end of the list
 
+        /**
+         * you can do (steps / duration) to see how many different interpolated colours are shown per second
+         * in this case it is 10. You could lower the number of steps but to compensate you would need fewer seconds
+         * the below is a good balance between the two otherwise the fading can be either too quick or unnoticeable
+         * also, each KeyFrame added degrades performance (and going higher than screen refresh rate, for example, is pointless)
+         */
         final int steps = 100; // defines how smooth fading is
         final Duration duration = Duration.seconds(10); // how long to fade between specified colours
 
-        timeline = new Timeline();
+        timeline = new Timeline(); // this handles the animation
 
         for (int i = 0; i <= steps; i++) {
-            double fraction = (double) i / steps;
+            double fraction = (double) i / steps; // double suffices because the fractions are only ever hundredths
             Color interpolatedColor = interpolateColor(startColor, endColor, fraction);
-            timeline.getKeyFrames().add(new KeyFrame(
-                    duration.divide(steps).multiply(i),
+            timeline.getKeyFrames().add(new KeyFrame( // defines a new KeyFrame, which is what Timelines are composed of
+                    duration.divide(steps).multiply(i), // this line looks complex but is just finding where in the sequence to add it
                     event -> {
-                        if (currentAnchorPane != null) {
                             currentAnchorPane.setStyle("-fx-background-color: " + toRgbString(interpolatedColor));
-                        }
                     }
             ));
         }
@@ -223,7 +254,7 @@ public class Session {
         double red = start.getRed() + (end.getRed() - start.getRed()) * fraction;
         double green = start.getGreen() + (end.getGreen() - start.getGreen()) * fraction;
         double blue = start.getBlue() + (end.getBlue() - start.getBlue()) * fraction;
-        return new Color(red, green, blue, 1.0);
+        return new Color(red, green, blue, 1.0); // 1.0 is the opacity
     }
 
     private static String toRgbString(Color color) { // so the program can meaningfully use it
@@ -267,12 +298,6 @@ public class Session {
         return data;
     }
 
-    /** the following two methods can be called in other classes and get specific data that has been read from a section of the file **/
-
-    public static int getSectionNumber(List<String> data){
-        return Integer.parseInt(data.getFirst().trim());
-    }
-
     public static String getHint(List<String> data){
         return data.getLast();
     }
@@ -282,13 +307,13 @@ public class Session {
     private static Pair<List<String>,List<String>> getEasiestPhrases(List<String> data){
         List<String> english = new ArrayList<>();
         List<String> italian = new ArrayList<>();
-        List<Integer> validIndices = Arrays.asList(1,2,3);
+        List<Integer> validIndices = Arrays.asList(1,2,3); // can be returned as list as we don't need to change the size
         Collections.shuffle(validIndices); // Shuffle to randomize
 
         for (int i = 0; i < 3; i++) {
             int chosenInt = validIndices.get(i);
             english.add(data.get(chosenInt));
-            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase
+            italian.add(data.get(chosenInt + 3)); // Corresponding Italian phrase is always 3 indices "higher"
         }
         return new Pair<>(english,italian);
     }
@@ -354,7 +379,7 @@ public class Session {
 
     public static List<String> getEnglishPhrases(){
         return englishPhrases;
-    }
+    } // added for completeness but never used
 
     public static List<String> getItalianPhrases(){
         return italianPhrases;
@@ -395,7 +420,7 @@ break;
 
     public static void save() {
         SaveData data = new SaveData(currentLearner, getDifficultyPreference(), micPref, improvableExercises);
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SaveData.ser"))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SaveData.ser"))) { // creates a new file
             out.writeObject(data);
             out.close();
             System.out.println("Session saved successfully.");
@@ -407,17 +432,16 @@ break;
     public static void load() {
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("SaveData.ser"))) {
-            SaveData data = (SaveData) in.readObject();
+            SaveData data = (SaveData) in.readObject(); // here we read stuff in...
 
+            // ...but below we also need to reset all our variables, because saving only ever happens when quitting
             setLearner(data.getLearner());
             setCurrentCourse(data.getLearner().getCourse());
 
             setDifficultyPreference(data.getDifficultyPreference());
 
-            // Restore mic preference
             micPref = data.getMicPreference();
 
-            // Restore improvable exercises
             improvableExercises.clear();
             improvableExercises.addAll(data.getImprovableExercises());
 

@@ -12,7 +12,7 @@ public class Learner implements Serializable {
     }
     public void resetCourse(){
         setProgress(0); // as initialize in Learning increments every time it is called anyway
-        // this may mean progress needs to be de-incremented when implementing resume/save+load
+        // so progress needs to be de-incremented when implementing resume/save+load
     }
 
     public Course getCourse() {

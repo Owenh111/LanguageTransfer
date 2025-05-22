@@ -32,7 +32,7 @@ public class Anagram {
 
     private List<AnagramItem> items;
     int currentIndex = 0;
-    private int lastCaretPosition = 0;
+    private int lastCaretPosition = 0; // caret is another term for the cursor that you see when entering text
     private String hintText;
     private boolean giveUpAlreadyAdded = false;
 
@@ -40,41 +40,48 @@ public class Anagram {
 
     Learner learner = Session.getLearner();
 
-    static class AnagramItem {
-        String answer;
-        String scrambled;
+    static class AnagramItem { // for this exercise we have an AnagramItem, which is static for easier referencing
+        String answer; // the unscrambled answer
+        String scrambled; // the scrambled version of the answer
 
         AnagramItem(String answer) {
             this.answer = answer;
             this.scrambled = scramblePhrase(answer);
         }
 
-        private static String scramblePhrase(String phrase) {
-            String[] words = phrase.split(" ");
-            StringBuilder scrambled = new StringBuilder();
-            for (String word : words) {
-                scrambled.append(scrambleWord(word)).append(" ");
+        /**
+         * it is technically possible that scrambling the phrase returns the same phrase as the correct one
+         * this could be changed reasonably easily by just redoing it if the two strings match
+         * all the static stuff needs to go at the top otherwise no code that comes before that can call it
+         * @param phrase
+         * @return
+         */
+        private static String scramblePhrase(String phrase) { // this puts all the scrambled words in the right order
+            String[] words = phrase.split(" "); // keep all words separate so that words are scrambled individually
+            StringBuilder scrambled = new StringBuilder(); // i.e. a mutable version of a String
+            for (String word : words) { // for each word in the phrase, which has now been split and had spaces removed
+                scrambled.append(scrambleWord(word)).append(" "); // after scrambling add the spaces back in
             }
-            return scrambled.toString().trim();
+            if (phrase.contentEquals(scrambled)){
+
+            }
+            return scrambled.toString().trim(); // return the whole phrase, all stitched together
         }
 
         private static String scrambleWord(String word) {
-//            if (word.length() <= 2) {
-//                return word;
-//            }
             List<Character> chars = new ArrayList<>();
             for (char c : word.toCharArray()) {
-                chars.add(c);
+                chars.add(c); // turns the word into an array of chars, e.g. "hello" goes to 'h','e','l','l','o'
             }
 
-            Collections.shuffle(chars);
-            StringBuilder sb = new StringBuilder();
+            Collections.shuffle(chars); // inbuilt static method that pseudorandomly randomises the order of the array
+            StringBuilder sb = new StringBuilder(); // another mutable StringBuilder, like we made earlier
 
             for (char c : chars) {
-                sb.append(c);
+                sb.append(c); // add each char onto the end to create a new string
             }
 
-            return sb.toString();
+            return sb.toString(); // make the immutable StringBuilder into an actual String
         }
     }
 
@@ -86,10 +93,10 @@ public class Anagram {
         setListeners();
 
         if (Session.inAssessmentMode()) {
-            feedbackLabel.setVisible(false);
+            feedbackLabel.setVisible(false); // we exclude feedback for assessments
         }
 
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane);
     }
 
     public List<AnagramItem> loadAndGenerateItemsForSection(int sectionToLoad) {
@@ -108,7 +115,6 @@ public class Anagram {
         answers.addAll(generatedContent.getValue()); // Italian Phrases
 
         // Step 4: Generate AnagramItems
-
         for (String italianPhrase : answers) {
             items.add(new AnagramItem(italianPhrase));
         }
@@ -124,9 +130,10 @@ public class Anagram {
     }
 
     private void setListeners() {
+        // although the listeners below have obs and oldVal which are not called, they are required as parameters anyway
         userInput.focusedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
-                lastCaretPosition = userInput.getCaretPosition();
+                lastCaretPosition = userInput.getCaretPosition(); // return cursor to where it was in text field
             }
         });
 
@@ -147,6 +154,7 @@ public class Anagram {
         String currentText = userInput.getText();
         int caretPositionToReturnTo = lastCaretPosition;
         String newText = currentText.substring(0, lastCaretPosition) + character + currentText.substring(lastCaretPosition);
+        // i.e. find where the cursor is and insert the character between what was before and after
         userInput.setText(newText);
         userInput.requestFocus();
         userInput.positionCaret(caretPositionToReturnTo + character.length());
@@ -265,7 +273,7 @@ public class Anagram {
     private String getNext() {
         List<String> exercises = Session.getExercisesUnusedInSection();
         String next = "";
-        if (!Session.inAssessmentMode()) {
+        if (!Session.inAssessmentMode()) { // if we are in learning mode
             if (exercises.isEmpty()) { // if no more exercises to show
                 if (learner.getProgress() == 2) { //and it is time for the assessment (hardcoded here but still adaptable in future)
                     next = "/com/example/javafxdemo/assessment_introduction"; // show the assessment intro
@@ -278,14 +286,14 @@ public class Anagram {
                 int index = random.nextInt(exercises.size());
                 next = exercises.get(index);
             }
-        } else {
-            if (!Session.assessmentComplete()){
+        } else { // if we are in assessment mode
+            if (!Session.assessmentComplete()){ // if we still need to load more stuff for the assessment
                 List<Exercise> assessmentData = Session.getAssessmentData();
-                Exercise exerciseToLoad = assessmentData.get(Session.getAssessmentIndex());
+                Exercise exerciseToLoad = assessmentData.get(Session.getAssessmentIndex()); // tracks no. of exercises
                 next = exerciseToLoad.getType();
-                learner.setProgress(exerciseToLoad.getExerciseContent());
-                Session.incrementAssessmentIndex();
-            } else {
+                learner.setProgress(exerciseToLoad.getExerciseContent()); // set progress to equal what is shown on screen
+                Session.incrementAssessmentIndex(); // increment to show we have loaded another exercise
+            } else { // if the assessment is done
                 next = "/com/example/javafxdemo/assessment_result";
             }
         }

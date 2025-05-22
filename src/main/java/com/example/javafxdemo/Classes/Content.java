@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Content implements Serializable {
+public class Content implements Serializable { // implements Serializable so it can be written when saving
     private Integer contentNumber;
     private String wordType;
     private String englishConcept;
@@ -39,42 +39,27 @@ public class Content implements Serializable {
         this.hint = hint;
     }
 
+    // below is a list of getters, but there are no setters as we do not need to set the content in the file
+
     public Integer getContentNumber() { return contentNumber; }
-    public void setContentNumber(Integer contentNumber) { this.contentNumber = contentNumber; }
 
     public String getWordType() { return wordType; }
-    public void setWordType(String wordType) { this.wordType = wordType; }
 
     public String getEnglishConcept() { return englishConcept; }
-    public void setEnglishConcept(String englishConcept) { this.englishConcept = englishConcept; }
 
     public String getItalianConcept() { return italianConcept; }
-    public void setItalianConcept(String italianConcept) { this.italianConcept = italianConcept; }
 
     public String getEnglishExamplePhrase() { return englishExamplePhrase; }
-    public void setEnglishExamplePhrase(String englishExamplePhrase) { this.englishExamplePhrase = englishExamplePhrase; }
-
     public String getEnglishExamplePhrase2() { return englishExamplePhrase2; }
-    public void setEnglishExamplePhrase2(String englishExamplePhrase2) { this.englishExamplePhrase2 = englishExamplePhrase2; }
-
     public String getEnglishExamplePhrase3() { return englishExamplePhrase3; }
-    public void setEnglishExamplePhrase3(String englishExamplePhrase3) { this.englishExamplePhrase3 = englishExamplePhrase3; }
-
     public String getItalianExamplePhrase() { return italianExamplePhrase; }
-    public void setItalianExamplePhrase(String italianExamplePhrase) { this.italianExamplePhrase = italianExamplePhrase; }
-
     public String getItalianExamplePhrase2() { return italianExamplePhrase2; }
-    public void setItalianExamplePhrase2(String italianExamplePhrase2) { this.italianExamplePhrase2 = italianExamplePhrase2; }
-
     public String getItalianExamplePhrase3() { return italianExamplePhrase3; }
-    public void setItalianExamplePhrase3(String italianExamplePhrase3) { this.italianExamplePhrase3 = italianExamplePhrase3; }
-
     public String getExplanation() { return explanation; }
-    public void setExplanation(String explanation) { this.explanation = explanation; }
-
     public String getExceptions() { return exceptions; }
-    public void setExceptions(String exceptions) { this.exceptions = exceptions; }
 
-    public String getHint() { return hint; }
-    public void setHint(String hint) { this.hint = hint; }
+    // getHint is not set as it does not need to be shown when showing content and so went unused
+    // it is saved in Session and gotten from there instead when needed in subsequent classes
+    // the reason Session does not need it from here is because it is always the last thing on any line
+    // so we can just use getLast()
 }

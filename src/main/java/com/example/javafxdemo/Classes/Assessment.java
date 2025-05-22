@@ -10,6 +10,10 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Assessment {
+    /**
+     * because most of the design of the Assessment consists the Exercises which already exist,
+     * this class can remain relatively empty, except for what it needs when first instantiated
+     */
     private List<Exercise> assessmentExercises;
 
     public void initialize(){

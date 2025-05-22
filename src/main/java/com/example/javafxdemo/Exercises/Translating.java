@@ -67,7 +67,7 @@ public class Translating {
     List<String> labels = new ArrayList<>();
 
     public void initialize() throws IOException {
-        Session.startColorCycle(anchorPane);
+        Session.startColourCycle(anchorPane);
         loadAndGenerateItemsForSection(sectionToLoad);
         setUpLabels();
         enableAccentMarkButtonsIfNecessary();
@@ -82,7 +82,7 @@ public class Translating {
         setListeners();
     }
 
-    public void setListeners(){
+    public void setListeners(){ // because there are 3 of many UI element, a lot more code is duplicated in this class
         answerField1.focusedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 lastFocusedField = answerField1;
@@ -125,28 +125,6 @@ public class Translating {
         accentedIButton.setOnAction(e -> insertAtCaret("ì"));
         accentedOButton.setOnAction(e -> insertAtCaret("ò"));
         accentedUButton.setOnAction(e -> insertAtCaret("ù"));
-    }
-
-    public void readInData(){
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream("/com/example/javafxdemo/content.txt"))))) {
-            String line;
-            String[] parts;
-            while ((line = reader.readLine()) != null) {
-                parts = line.split("`");
-                if (parts.length == 13) {
-                    int section = Integer.parseInt(parts[0].trim());
-                    if (section == sectionToLoad) {
-                        answers.add(parts[4].trim());
-                        answers.add(parts[5].trim());
-                        answers.add(parts[6].trim());
-                        hintText = parts[12];
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void loadAndGenerateItemsForSection(int sectionToLoad) {
@@ -229,7 +207,7 @@ public class Translating {
 
     public Pair<Character, String> checkAnswer(String userAnswer, Integer answerIndex) throws IOException {
         String trueAnswer = answers.get(answerIndex);
-        userAnswer = userAnswer.replace("it's", "it is");
+        userAnswer = userAnswer.replace("it's", "it is"); // error trapping
         if (Objects.equals(trueAnswer.trim().toLowerCase(), userAnswer.trim().toLowerCase())) {
             return new Pair<>('y', trueAnswer);
         } else {
@@ -250,6 +228,7 @@ public class Translating {
     public void onCheck1(ActionEvent event) {
         String answerFieldContent = answerField1.getText();
         Pair<Character, String> result = new Pair<>('?', "");
+        //Pair is the best way to return the 2 elements of different classes that we need
 
         if (!answerFieldContent.isEmpty()){
             try {
@@ -271,7 +250,7 @@ public class Translating {
             feedbackLabel1.setText("❌ Incorrect");
             feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: red;");
         } else {
-            feedbackLabel1.setText("❗ Nothing to check!");
+            feedbackLabel1.setText("❗ Nothing to check!"); // unlike other exercises in this one it checks for an empty textfield
             feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
         }
     }
@@ -286,7 +265,7 @@ public class Translating {
             answerField1.setEditable(false);
             checkButton1.setDisable(true);
             giveUpButton1.setDisable(true);
-            feedbackLabel1.setText("\uD83D\uDEAB Question skipped");
+            feedbackLabel1.setText("\uD83D\uDEAB Question skipped"); // the orange code represents an emoji
             feedbackLabel1.setStyle("-fx-font-size: 40px; -fx-text-fill: orange;");
             answer1Correct = true;
             checkIfContinueShouldEnable();
